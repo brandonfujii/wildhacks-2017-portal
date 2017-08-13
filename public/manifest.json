@@ -1,10 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "WildHacks Portal",
+  "name": "WildHacks 2017 Portal Application",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "favicon.png",
+      "sizes": "128x128",
       "type": "image/png"
     }
   ],
