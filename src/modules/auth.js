@@ -11,12 +11,9 @@ export const LOGIN_REQUESTED = 'auth/LOGIN_REQUESTED';
 export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 
-// Error messages
-const DEFAULT_ERROR_MESSAGE = 'Oops, Something went wrong! Try again later.'
-
 // State & Reducers
 const initialState = {
-    loggedIn: false,
+    isLoggedIn: false,
     isRequestingAuth: false,
     user: null,
     token: null,
@@ -74,22 +71,15 @@ export const register = (email, password) => {
     return async (dispatch) => {
         dispatch({ type: REGISTRATION_REQUESTED });
 
-        try {
-            const response = await registerUser(email, password);
-            if (response && response.success) {
-                dispatch({ type: REGISTRATION_SUCCESS });
-                dispatch(login(email, password));
-            } else {
-                dispatch({ 
-                    type: REGISTRATION_FAILURE,
-                    error: response.message,
-                });
-            }
+        const response = await registerUser(email, password);
 
-        } catch(err) {
+        if (response && response.success) {
+            dispatch({ type: REGISTRATION_SUCCESS });
+            dispatch(login(email, password));
+        } else {
             dispatch({ 
                 type: REGISTRATION_FAILURE,
-                error: DEFAULT_ERROR_MESSAGE,
+                error: response.message,
             });
         }
     };
@@ -99,20 +89,20 @@ export const login = (email, password) => {
     return async (dispatch) => {
         dispatch({ type: LOGIN_REQUESTED });
 
-        try {
-            const response = await loginUser(email, password);
+        const response = await loginUser(email, password);
 
-            if (response && response.user && response.user.token) {
-                dispatch({
-                    type: LOGIN_SUCCESS,
-                    user: response.user,
-                    token: response.user.token
-                });
-            } else {
-                dispatch({ type: LOGIN_FAILURE });
-            }
+        if (response && response.user && response.user.token) {
+            const {
+                token,
+                ...user
+            } = response.user
 
-        } catch(err) {
+            dispatch({
+                type: LOGIN_SUCCESS,
+                user,
+                token: token.value
+            });
+        } else {
             dispatch({ type: LOGIN_FAILURE });
         }
     }

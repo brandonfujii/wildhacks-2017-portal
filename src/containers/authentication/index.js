@@ -8,7 +8,7 @@ import {
     login,
 } from 'modules/auth';
 
-const Home = props => (
+const Authentication = props => (
     <div className="app-view--authentication">
         <AuthenticationBox
             {...props} />
@@ -29,4 +29,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Home);
+)(Authentication);

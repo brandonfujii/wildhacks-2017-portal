@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import { autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import rootReducer from './modules';
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 
 const composedEnhancers = compose(
     applyMiddleware(...middleware),
+    autoRehydrate(),
     ...enhancers,
 );
 

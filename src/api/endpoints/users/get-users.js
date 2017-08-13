@@ -1,11 +1,14 @@
 import Pupper from 'api/pupper';
 
-const getUsers = (page = 1, limit = 10) => {
-    return Pupper.get('/users/all', {
+const getUsers = (token, page = 1, limit = 10) => {
+    return Pupper.get('/user/all', {
         queryParams: {
             page,
             limit,
         },
+        headers: {
+            'X-Access-Token': `Bearer ${token}`,
+        }
     });
 };
 

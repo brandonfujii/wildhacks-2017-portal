@@ -21,6 +21,12 @@ const handleResponse = response => {
     return response.json();
 };
 
+const handleError = err => {
+    if (process.env.NODE_ENV === 'development') {
+        console.error(err);
+    }
+};
+
 /**
  * Pupper is a wrapper for the isomorphic-fetch function
  */
@@ -28,18 +34,21 @@ class Pupper {
     constructor(hostname) {
         this.hostname = hostname ? hostname : process.env.REACT_APP_BACKEND_HOST_NAME;
         this.defaultHeaders = {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
     }
 
     request(method, route, options = {}) {
         const path = `${this.hostname}${route}`;
+        const headers = {
+            ...this.defaultHeaders,
+            ...options.headers,
+        };
+
         const opts = Object.assign(options, {
             method,
-            headers: {
-                ...this.defaultHeaders,
-                ...options.headers,
-            },
+            headers: new Headers(headers),
             body: method !== 'GET' ? JSON.stringify(options.body) : null,
         });
 
@@ -47,19 +56,19 @@ class Pupper {
     }
 
     get(route, options = {}) {
-        return this.request('GET', route, options).then(handleResponse);
+        return this.request('GET', route, options).then(handleResponse).catch(handleError);
     }
 
     post(route, options = {}) {
-        return this.request('POST', route, options).then(handleResponse);
+        return this.request('POST', route, options).then(handleResponse).catch(handleError);
     }
 
     put(route, options = {}) {
-        return this.request('PUT', route, options).then(handleResponse);
+        return this.request('PUT', route, options).then(handleResponse).catch(handleError);
     }
 
     delete(route, options = {}) {
-        return this.request('DELETE', route, options).then(handleResponse);
+        return this.request('DELETE', route, options).then(handleResponse).catch(handleError);
     }
 }
 
