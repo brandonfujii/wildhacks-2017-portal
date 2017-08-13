@@ -1,36 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Pupper from './api/pupper';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+import store, { history } from './store';
+import App from './containers/app';
 
-Pupper
-    .get('/ping', {
-        headers: {
-            'X-Access-Gatekey': 'blah',
-        },
-        body: {
-            someshit: 'idk',
-        }
-    })
-    .then(data => {
-        console.log(data);
-    });
+const $target = document.getElementById('root');
 
-
-const testRegister = () => {
-    Pupper
-        .post('/auth/register', {
-            body: {
-                email: 'test@email.com',
-                password: 'testpass',
-            },
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(err => {
-            console.error(err);
-        });
-};
-
-render(<div>Hello World</div>,
-    document.getElementById('root'));
+render(
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <div>
+                <App />
+            </div>
+        </ConnectedRouter>
+    </Provider>,
+    $target,
+);

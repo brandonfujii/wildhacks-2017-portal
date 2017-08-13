@@ -1,4 +1,3 @@
-
 const appendQueryParams = (path, queryParams) => {
     const e = encodeURIComponent;
     const paramStr = Object.keys(queryParams)
@@ -16,12 +15,15 @@ const getUrl = (path, queryParams) => {
 
 const handleResponse = response => {
     if (!response.ok) {
-        throw new Error(`HTTP Request failed with error ${response.status}`);
+        return response.json().then(err => err);
     }
 
     return response.json();
 };
 
+/**
+ * Pupper is a wrapper for the isomorphic-fetch function
+ */
 class Pupper {
     constructor(hostname) {
         this.hostname = hostname ? hostname : process.env.REACT_APP_BACKEND_HOST_NAME;
