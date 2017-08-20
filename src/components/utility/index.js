@@ -1,3 +1,3 @@
-import TextInput from './text-input';
+import FormInput from './form-input';
 
-export { TextInput };
+export { FormInput };

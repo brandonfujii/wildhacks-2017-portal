@@ -1,6 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 const Home = props => (
     <div>
@@ -8,14 +6,4 @@ const Home = props => (
     </div>
 );
 
-const mapStateToProps = state => ({
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-
-}, dispatch);
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Home);
+export default Home;

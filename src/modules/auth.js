@@ -10,6 +10,7 @@ export const REGISTRATION_FAILURE = 'auth/REGISTRATION_FAILURE';
 export const LOGIN_REQUESTED = 'auth/LOGIN_REQUESTED';
 export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
+export const LOGOUT = 'auth/LOGOUT';
 
 // State & Reducers
 const initialState = {
@@ -61,6 +62,15 @@ export default (state = initialState, action) => {
                 user: null,
                 token: null,
             };
+        case LOGOUT:
+            return {
+                ...state,
+                isRequestingAuth: false,
+                isLoggedIn: false,
+                user: null,
+                token: null,
+                error: null,
+            };
         default:
             return state;
     }
@@ -68,7 +78,7 @@ export default (state = initialState, action) => {
 
 // Actions
 export const register = (email, password) => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch({ type: REGISTRATION_REQUESTED });
 
         const response = await registerUser(email, password);
@@ -86,7 +96,7 @@ export const register = (email, password) => {
 }
 
 export const login = (email, password) => {
-    return async (dispatch) => {
+    return async dispatch => {
         dispatch({ type: LOGIN_REQUESTED });
 
         const response = await loginUser(email, password);
@@ -95,7 +105,7 @@ export const login = (email, password) => {
             const {
                 token,
                 ...user
-            } = response.user
+            } = response.user;
 
             dispatch({
                 type: LOGIN_SUCCESS,
@@ -105,5 +115,11 @@ export const login = (email, password) => {
         } else {
             dispatch({ type: LOGIN_FAILURE });
         }
+    }
+};
+
+export const logout = () => {
+    return dispatch => {
+        dispatch({ type: LOGOUT });
     }
 };

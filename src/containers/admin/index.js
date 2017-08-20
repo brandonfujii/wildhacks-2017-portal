@@ -16,6 +16,9 @@ const mapStateToProps = state => ({
     fetchingUsers: state.user.fetchingUsers,
     users: state.user.instances,
     page: state.user.page,
+    pageSize: state.user.pageSize,
+    totalPages: state.user.totalPages,
+    totalUsers: state.user.totalUsers,
     auth: state.auth,
 });
 

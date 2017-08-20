@@ -47,8 +47,8 @@ AppProvider.propTypes = {
 };
 
 render(
-    <AppProvider store={store}>  
-         <div><App /></div>
+    <AppProvider store={store}>
+         <App />
     </AppProvider>,
     $target,
 );
