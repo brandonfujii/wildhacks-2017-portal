@@ -10,11 +10,11 @@ import {
 } from 'modules/auth';
 
 const Authentication = props => {
-    const { authType } = props.location.state;
+    const { pathname } = props.location;
 
     return <div className="app-view--authentication">
-        { authType === 'register' && <Registration register={props.register} /> }
-        { authType === 'login' && <Login login={props.login} /> }
+        { pathname === '/register' && <Registration register={props.register} /> }
+        { pathname === '/login' && <Login login={props.login} /> }
     </div>
 };
 
