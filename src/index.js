@@ -26,7 +26,7 @@ class AppProvider extends Component {
             this.setState({ rehydrated: true });
         });
 
-        checkServer();
+        if (process.env.NODE_ENV === 'development') checkServer();
     }
 
     render() {
