@@ -6,11 +6,11 @@ const Text = ({
     className,
     children,
     font=FONTS.SECONDARY,
-    color=COLORS.OFF_WHITE,
+    color=COLORS.WHITE,
     fontSize=FONT_SIZES.MEDIUM,
     textAlign="left",
     antiAlias=true,
-    lineHeight="1.2"
+    lineHeight="1.5"
 }) => {
     const Text = styled.p`
         font-family: ${ font };

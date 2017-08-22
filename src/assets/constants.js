@@ -18,7 +18,8 @@ const COLORS = {
     NEAR_BLACK: "#010020",
     DARK_NAVY: "#171938",
     OFF_WHITE: "#E7E4D3",
-    DARK_GREY: "#424242"
+    DARK_GREY: "#424242",
+    WHITE: "#F1F1F1"
 };
 
 export { COLORS, FONTS, FONT_SIZES };
