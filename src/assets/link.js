@@ -1,27 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
-import { COLORS } from './constants';
+import { Link } from 'react-router-dom';
 
-const Link = ({ className, children, text="", href="#" }) => {
-    const Link = ({ className, children, href="#" }) => (
+const CustomLink = ({ 
+    className,
+    children,
+    to,
+    text="",
+    href="#",
+    antialias=true,
+    onClick
+}) => {
+    const classes = `f5 karla link underline 
+        ${ antialias ? 'antialias ' : ''}
+        ${ className }
+    `;
+
+    return ( to?
+        <Link 
+            to={ to } 
+            className={ classes }
+        >
+            { children }
+        </Link>
+        :
         <a 
-            className={ className }
+            className={ classes }
             href={ href }
+            onClick={ onClick }
         >
             { children }
         </a>
     );
-
-    const StyledLink = styled(Link)`
-        color: ${ COLORS.OFF_WHITE };
-    `;
-
-    return <StyledLink 
-        className={ className }
-        children={ children }
-        text={ text }
-        href={ href }
-    />
 };
 
-export default Link;
+export default CustomLink;

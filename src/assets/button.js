@@ -1,37 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
-import { COLORS, FONTS, FONT_SIZES } from './constants';
+import { COLORS } from './constants';
+import { Link } from 'react-router-dom'
 
-const Button = ({ className, text="", backgroundColor=COLORS.DARK_GREY }) => {
-    const CustomButton = styled.button`
-        background: none;
-        border: 0;
-        padding: 12px;
-        min-width: 120px;
-        border-radius: 4px;
-        background-color: ${ backgroundColor };
-        color: ${ COLORS.OFF_WHITE };
-        font-family: ${ FONTS.SECONDARY };
-        font-size: ${ FONT_SIZES.MEDIUM };
-        margin: 8px;
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        &::-moz-focus-inner {
-            border: 0;
-            padding: 0;
-        };
+const Button = ({ 
+    className, 
+    children, 
+    to,
+    href="#",
+    backgroundColor="bg-wh-black", 
+    antialias=true,
+    onClick
+}) => {
+    const classes = `button-reset f5 karla link dim br2 ph4 pv2 dib white 
+        ${ antialias ? 'antialias ' : ''}
+        ${ backgroundColor }
+        ${ className }
     `;
 
-    return (
-        <CustomButton 
-            type="button"
-            className={ className }
-        >
-            { text }
-        </CustomButton>
+    return ( to ?
+            <Link 
+                to={ to } 
+                className={ classes }
+            >
+                { children }
+            </Link>
+            :
+            <a 
+                className={ classes }
+                href={ href }
+                onClick={ onClick }
+            >
+                { children }
+            </a>
     );
 };
 
