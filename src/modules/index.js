@@ -4,7 +4,7 @@ import auth from './auth';
 import user from './user';
 
 export default combineReducers({
-  router: routerReducer,
-  auth,
-  user,
+    router: routerReducer,
+    auth,
+    user,
 });

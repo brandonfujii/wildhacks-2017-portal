@@ -130,14 +130,4 @@ const Home = props => (
     </div>
 );
 
-const mapStateToProps = state => ({
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-
-}, dispatch);
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Home);
+export default Home;

@@ -2,13 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import AdminDashboard from 'components/admin-dashboard';
 import { getUserPage } from 'modules/user';
 
 const Admin = props => (
     <div className="app-view--admin-dashboard">
        <h1>Admin</h1>
-       <AdminDashboard {...props} />
     </div>
 );
 
@@ -16,6 +14,9 @@ const mapStateToProps = state => ({
     fetchingUsers: state.user.fetchingUsers,
     users: state.user.instances,
     page: state.user.page,
+    pageSize: state.user.pageSize,
+    totalPages: state.user.totalPages,
+    totalUsers: state.user.totalUsers,
     auth: state.auth,
 });
 

@@ -23,6 +23,7 @@ export default (state = initialState, action) => {
                 fetchingUsers: false,
                 page: action.page,
                 instances: action.users,
+
             };
         case FETCH_USERS_FAILURE:
             return {
@@ -46,6 +47,9 @@ export const getUserPage = (token, pageNumber = 1, limit = 10) => {
             dispatch({
                 type: FETCH_USERS_SUCCESS,
                 page: response.page,
+                pageSize: response.pageSize,
+                totalPages: response.totalPages,
+                totalUsers: response.totalUsers,
                 users: response.users,
             });
         } else {

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
+import checkServer from './check-server';
 
 import App from './containers/app';
 
@@ -24,6 +25,8 @@ class AppProvider extends Component {
         persistStore(this.props.store, options, () => {
             this.setState({ rehydrated: true });
         });
+
+        if (process.env.NODE_ENV === 'development') checkServer();
     }
 
     render() {
@@ -47,8 +50,8 @@ AppProvider.propTypes = {
 };
 
 render(
-    <AppProvider store={store}>  
-         <div><App /></div>
+    <AppProvider store={store}>
+         <App />
     </AppProvider>,
     $target,
 );
