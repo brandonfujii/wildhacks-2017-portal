@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TextInput } from 'components/utility';
-import Button from '../../assets/button';
-import Link from '../../assets/link';
+import { TextInput, Link, Button } from 'components/utility';
 
 class AuthenticationBox extends Component {
     constructor(props) {
@@ -52,7 +50,7 @@ class AuthenticationBox extends Component {
                     value={this.state.auth_email}
                     placeholder="Email"
                     onChange={e => this.onFormInputChange('email', e.target.value)} />
-                <TextInput 
+                <TextInput
                     className="auth-password mv2"
                     type="password"
                     placeholder="Password"

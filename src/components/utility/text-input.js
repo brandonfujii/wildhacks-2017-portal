@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({ className, value="", type, placeholder="", onChange }) => (
+const TextInput = ({ className, value="", type="text", placeholder="", onChange }) => (
     <div className={`text-input w-100 ${className || ''}`}>
         <input
             className={`${className}

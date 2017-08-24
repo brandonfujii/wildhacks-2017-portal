@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { FormInput } from 'components/utility';
+import { TextInput, Link, Button } from 'components/utility';
 import { isValidEmail, isValidPassword } from '../utils';
 
 class LoginPage extends Component {
@@ -101,28 +101,46 @@ class LoginPage extends Component {
             password: passwordError,
         } = this.state.errors;
 
+        const { email, password } = this.state.form;
+
         return(
-            <div className={`authentication registration`}>
-                <form onSubmit={this.onSubmitForm.bind(this)}>
-                    <FormInput
-                        className="form-email"
-                        placeholder="your@email.edu"
-                        highlight={emailError.highlight}
-                        value={this.state.form.email}
-                        onChange={e => this.onFormInputChange('email', e.target.value)}
-                        memo={emailError.message ? emailError.message : null} />
-                    <FormInput
-                        className="form-password"
-                        placeholder="Password"
-                        password
-                        highlight={passwordError.highlight}
-                        value={this.state.form.password}
-                        onChange={e => this.onFormInputChange('password', e.target.value)}
-                        memo={passwordError.message ? passwordError.message : null} />
-                    <input
-                        type="submit"
-                        value="Submit" />
-                </form>
+            <div className={`authentication-box ${this.props.loginType || ''} measure center ph4 pt6`}>
+                <h1 className="karla white f2">
+                    Log in
+                </h1>
+                <TextInput
+                    className="auth-email mt4"
+                    value={ email }
+                    placeholder="your@email.edu"
+                    onChange={e => this.onFormInputChange('email', e.target.value)} />
+                <TextInput 
+                    className="auth-password mv2"
+                    type="password"
+                    placeholder="Password"
+                    value={ password }
+                    onChange={e => this.onFormInputChange('password', e.target.value)} />
+                <Button
+                    backgroundColor="bg-wh-pink"
+                    onClick={ this.onSubmitForm }
+                    className="mb4">
+                    Submit
+                </Button>
+                <div className="mb2">
+                    <Link
+                        to="/register"
+                        className="white"
+                    >
+                        Sign up
+                    </Link>
+                </div>
+                <div>
+                    <Link
+                        to="/forgot"
+                        className="white"
+                    >
+                        Forgot your password?
+                    </Link>
+                </div>
             </div>
         );
     }

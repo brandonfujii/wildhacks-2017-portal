@@ -1,5 +1,4 @@
 import React from 'react';
-import { COLORS } from './constants';
 import { Link } from 'react-router-dom'
 
 const Button = ({ 

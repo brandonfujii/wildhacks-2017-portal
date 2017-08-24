@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {
     withRouter,
@@ -24,19 +23,10 @@ const App = (props) => (
         </header>
 
         <main>
-            <Route exact path="/"
-                   render={routeProps => (
-                       props.isLoggedIn
-                           ? (React.createElement(Home, props))
-                           : <Redirect to={{
-                           pathname: "/login",
-                           state: {
-                               from: routeProps.location,
-                           }}} />
-                   )} />
-            <Route exact path="/register" component={Authentication} />
-            <Route exact path="/login" component={Authentication} />
-            <Route exact path="/logout" component={Logout}/>
+            <Route exact path="/" component={ Home } />
+            <Route exact path="/register" component={ Authentication } />
+            <Route exact path="/login" component={ Authentication } />
+            <Route exact path="/logout" component={ Logout }/>
         </main>
     </div>
 );

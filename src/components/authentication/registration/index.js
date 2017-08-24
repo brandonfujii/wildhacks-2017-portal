@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { FormInput } from 'components/utility';
+import { FormInput, Link, Button } from 'components/utility';
 import { isValidEmail, isValidPassword } from '../utils';
 
 class RegistrationPage extends Component {
@@ -97,7 +97,7 @@ class RegistrationPage extends Component {
     }
 
 
-    onSubmitForm(e) {
+    onSubmitForm = (e) => {
         e.preventDefault();
 
         const form = _.pick(this.state.form, this.REQUIRED_FORM_FIELDS);
@@ -116,36 +116,58 @@ class RegistrationPage extends Component {
             confirmPassword: confirmPasswordError,
         } = this.state.errors;
 
+        const { email, password, confirmPassword } = this.state.form;
+
         return(
-            <div className={`authentication registration`}>
-                <form onSubmit={this.onSubmitForm.bind(this)}>
-                    <FormInput
-                        className="form-email"
-                        placeholder="your@email.edu"
-                        highlight={emailError.highlight}
-                        value={this.state.form.email}
-                        onChange={e => this.onFormInputChange('email', e.target.value)}
-                        memo={emailError.message ? emailError.message : null} />
-                    <FormInput
-                        className="form-password"
-                        placeholder="Password"
-                        password
-                        highlight={passwordError.highlight}
-                        value={this.state.form.password}
-                        onChange={e => this.onFormInputChange('password', e.target.value)}
-                        memo={passwordError.message ? passwordError.message : null} />
-                    <FormInput
-                        className="form-confirm-password"
-                        placeholder="Confirm password"
-                        password
-                        highlight={confirmPasswordError.highlight}
-                        value={this.state.form.confirmPassword}
-                        onChange={e => this.onFormInputChange('confirmPassword', e.target.value)}
-                        memo={confirmPasswordError.message ? confirmPasswordError.message : null} />
-                    <input 
-                        type="submit" 
-                        value="Submit" />
-                </form>
+            <div className={`authentication-box ${this.props.loginType || ''} measure center ph4 pt6`}>
+                <h1 className="karla white f2">
+                    Sign up
+                </h1>
+                <FormInput
+                    className="form-email mt4"
+                    placeholder="your@email.edu"
+                    highlight={emailError.highlight}
+                    value={ email }
+                    onChange={e => this.onFormInputChange('email', e.target.value)}
+                    memo={emailError.message ? emailError.message : null} />
+                <FormInput
+                    className="form-password mt2"
+                    placeholder="Password"
+                    type="password"
+                    highlight={passwordError.highlight}
+                    value={ password }
+                    onChange={e => this.onFormInputChange('password', e.target.value)}
+                    memo={passwordError.message ? passwordError.message : null} />
+                <FormInput
+                    className="form-confirm-password mv2"
+                    placeholder="Confirm password"
+                    type="password"
+                    highlight={ confirmPasswordError.highlight }
+                    value={ confirmPassword }
+                    onChange={e => this.onFormInputChange('confirmPassword', e.target.value)}
+                    memo={confirmPasswordError.message ? confirmPasswordError.message : null} />
+                <Button
+                    backgroundColor="bg-wh-pink"
+                    onClick={ this.onSubmitForm }
+                    className="mb4">
+                    Submit
+                </Button>
+                <div className="mb2">
+                    <Link
+                        to="/login"
+                        className="white"
+                    >
+                        Log in
+                    </Link>
+                </div>
+                <div>
+                    <Link
+                        to="/forgot"
+                        className="white"
+                    >
+                        Forgot your password?
+                    </Link>
+                </div>
             </div>
         );
     }
