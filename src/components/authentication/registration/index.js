@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { FormInput, Link, Button } from 'components/utility';
+import { FormInput, FlashError, Link, Button } from 'components/utility';
 import { isValidEmail, isValidPassword } from '../utils';
 
 class RegistrationPage extends Component {
@@ -75,10 +75,10 @@ class RegistrationPage extends Component {
         if (!isValidPassword(password)) {
             flags.password = {
                 highlight: true,
-                message: 'Must provide a valid password',
+                message: 'Must provide a valid 8-character password',
             }
         } else {
-            if (password === confirmPassword) {
+            if (password !== confirmPassword) {
                 flags.confirmPassword = {
                     highlight: true,
                     message: 'Passwords must match',
@@ -119,10 +119,11 @@ class RegistrationPage extends Component {
         const { email, password, confirmPassword } = this.state.form;
 
         return(
-            <div className={`authentication-box ${this.props.loginType || ''} measure center ph4 pt6`}>
-                <h1 className="karla white f2">
+            <div className={`authentication-box measure center ph4 pt6`}>
+                <h1 className="karla white f2 mb4">
                     Sign up
                 </h1>
+                <FlashError message={this.props.error} />
                 <FormInput
                     className="form-email mt4"
                     placeholder="your@email.edu"

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { TextInput, Link, Button } from 'components/utility';
+import { FormInput, FlashError, Link, Button } from 'components/utility';
 import { isValidEmail, isValidPassword } from '../utils';
 
 class LoginPage extends Component {
@@ -65,10 +65,12 @@ class LoginPage extends Component {
             };
         }
 
+        console.log(isValidPassword(password));
         if (!isValidPassword(password)) {
+            console.log(password);
             flags.password = {
                 highlight: true,
-                message: 'Must provide a valid password',
+                message: 'Must provide a valid 8-character password',
             }
         }
 
@@ -104,24 +106,29 @@ class LoginPage extends Component {
         const { email, password } = this.state.form;
 
         return(
-            <div className={`authentication-box ${this.props.loginType || ''} measure center ph4 pt6`}>
-                <h1 className="karla white f2">
+            <div className={`authentication-box measure center ph4 pt6`}>
+                <h1 className="karla white f2 mb4">
                     Log in
                 </h1>
-                <TextInput
+                <FlashError message={this.props.error} />
+                <FormInput
                     className="auth-email mt4"
                     value={ email }
+                    highlight={emailError.highlight}
                     placeholder="your@email.edu"
-                    onChange={e => this.onFormInputChange('email', e.target.value)} />
-                <TextInput 
+                    onChange={e => this.onFormInputChange('email', e.target.value)}
+                    memo={emailError.message ? emailError.message : null} />
+                <FormInput
                     className="auth-password mv2"
                     type="password"
+                    highlight={passwordError.highlight}
                     placeholder="Password"
                     value={ password }
-                    onChange={e => this.onFormInputChange('password', e.target.value)} />
+                    onChange={e => this.onFormInputChange('password', e.target.value)}
+                    memo={passwordError.message ? passwordError.message : null} />
                 <Button
                     backgroundColor="bg-wh-pink"
-                    onClick={ this.onSubmitForm }
+                    onClick={ this.onSubmitForm.bind(this) }
                     className="mb4">
                     Submit
                 </Button>
@@ -148,6 +155,7 @@ class LoginPage extends Component {
 
 LoginPage.propTypes = {
     login: PropTypes.func.isRequired,
+    error: PropTypes.string,
 };
 
 export default LoginPage;
