@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import {
     registerUser,
     loginUser,
@@ -95,7 +96,7 @@ export const register = (email, password) => {
             });
         }
     };
-}
+};
 
 export const login = (email, password) => {
     return async dispatch => {
@@ -113,6 +114,8 @@ export const login = (email, password) => {
                 user,
                 token: token.value
             });
+
+            dispatch(push('/'));
         } else {
             dispatch({
                 type: LOGIN_FAILURE,
