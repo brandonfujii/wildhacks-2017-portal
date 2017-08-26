@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
+import { createBlacklistFilter } from 'redux-persist-transform-filter';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
 import checkServer from './check-server';
@@ -18,8 +19,15 @@ class AppProvider extends Component {
     }
 
     componentWillMount() {
+        const blacklistFilter = createBlacklistFilter(
+            'auth',
+            ['error'],
+        );
         const options = {
             whitelist: ['auth'],
+            transforms: [
+                blacklistFilter,
+            ],
         };
 
         persistStore(this.props.store, options, () => {

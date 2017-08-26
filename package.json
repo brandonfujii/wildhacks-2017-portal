@@ -17,11 +17,12 @@
     "react-scripts": "1.0.10",
     "redux": "^3.7.2",
     "redux-persist": "4.8.3",
+    "redux-persist-transform-filter": "0.0.15",
     "redux-thunk": "^2.2.0",
     "styled-components": "^2.1.2"
   },
   "scripts": {
-    "start": "parallelshell \"watch 'npm run build:minify' ./src/css/\" \"react-scripts start\"",
+    "start": "NODE_PATH='src/' parallelshell \"watch 'npm run build:minify' ./src/css/\" \"react-scripts start\"",
     "build": "npm run build:css && npm run build:minify && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

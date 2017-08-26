@@ -53,6 +53,7 @@ export default (state = initialState, action) => {
                 isLoggedIn: true,
                 user: action.user,
                 token: action.token,
+                error: null,
             };
         case LOGIN_FAILURE:
             return {
@@ -61,6 +62,7 @@ export default (state = initialState, action) => {
                 isLoggedIn: false,
                 user: null,
                 token: null,
+                error: action.error
             };
         case LOGOUT:
             return {
@@ -100,7 +102,6 @@ export const login = (email, password) => {
         dispatch({ type: LOGIN_REQUESTED });
 
         const response = await loginUser(email, password);
-
         if (response && response.user && response.user.token) {
             const {
                 token,
@@ -113,7 +114,10 @@ export const login = (email, password) => {
                 token: token.value
             });
         } else {
-            dispatch({ type: LOGIN_FAILURE });
+            dispatch({
+                type: LOGIN_FAILURE,
+                error: 'Login failed! Incorrect email or password',
+            });
         }
     }
 };

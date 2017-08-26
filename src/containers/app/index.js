@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import {
     withRouter,
     Route,
-    Link,
-    Redirect } from 'react-router-dom';
+    Link } from 'react-router-dom';
 
 import Home from 'containers/home'
 import Authentication from 'containers/authentication';
