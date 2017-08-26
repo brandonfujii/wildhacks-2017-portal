@@ -33,7 +33,6 @@
   "devDependencies": {
     "http": "0.0.0",
     "parallelshell": "^3.0.1",
-    "tachyons": "^4.8.1",
     "tachyons-cli": "^1.0.11",
     "watch": "^1.0.2"
   }
