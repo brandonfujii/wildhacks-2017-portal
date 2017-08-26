@@ -6,11 +6,11 @@ const { COLORS } = CONSTANTS;
 
 const Home = props => (
     <div className="w-100">
-        <div className="min-vh-90 mw7 center ph3-ns pv5">
+        <div className="min-vh-90 mw7 center ph3-ns pv6 pv5-ns">
             <div className="cf">
                 <p className="gt-pressura white antialias tc f3">LET'S GET LOST</p>
                 <Wordmark 
-                    className="mw5 mw9-ns center"
+                    className="mw5 mw6-ns mw9-l center"
                     stroke={ COLORS.BROWN }
                 />
                 <div className="mb4">
@@ -39,66 +39,66 @@ const Home = props => (
                 <div className="fl w-100 w-third-ns pa2 pt0 bg-white-100">
                     <p className="karla f3 tc white antialias">Friday, November 3</p>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">5:00pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Sign in begins</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">5:00pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Sign in begins</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">5-7:00pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Career fair</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">5-7:00pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Career fair</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">7-8:00pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Dinner</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">7-8:00pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Dinner</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">8:30-9:45pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Opening ceremony</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">8:30-9:45pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Opening ceremony</div>
                     </div>
                 </div>
                 <div className="fl w-100 w-third-ns pa2 pt0 bg-white-100">
                     <p className="karla f3 tc white antialias">Saturday, November 4</p>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">8-9:30am</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Breakfast</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">8-9:30am</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Breakfast</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">9:45am-12:00pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Tech/Lightning talks</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">9:45am-12:00pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Tech/Lightning talks</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">12-1:30pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Lunch</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">12-1:30pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Lunch</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">1:30-2:30pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Tech/Lightning talks</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">1:30-2:30pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Tech/Lightning talks</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">3-5:00pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Artica Studio activities/Therapy dogs</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">3-5:00pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Artica Studio activities/Therapy dogs</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">7-8:30pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Dinner</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">7-8:30pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Dinner</div>
                     </div>
                 </div>
                 <div className="fl w-100 w-third-ns pa2 pt0 bg-white-100">
                     <p className="karla f3 tc white antialias">Sunday, November 5</p>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">10:00am</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Hacking ends</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">10:00am</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Hacking ends</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">10:30-11:30am</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Brunch</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">10:30-11:30am</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Brunch</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">11:30am-1:30pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Judging</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">11:30am-1:30pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Judging</div>
                     </div>
                     <div className="cf pb2">
-                        <div className="karla white antialias fl w-50 tr pr4-ns pr2">1:30-2:30pm</div>
-                        <div className="karla white antialias fl w-50 tl pl4-ns pl2">Closing ceremony</div>
+                        <div className="karla white antialias fl w-50 tr pr3-ns pr2">1:30-2:30pm</div>
+                        <div className="karla white antialias fl w-50 tl pl3-ns pl2">Closing ceremony</div>
                     </div>
                 </div>
             </div>
