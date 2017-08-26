@@ -65,9 +65,7 @@ class LoginPage extends Component {
             };
         }
 
-        console.log(isValidPassword(password));
         if (!isValidPassword(password)) {
-            console.log(password);
             flags.password = {
                 highlight: true,
                 message: 'Must provide a valid 8-character password',

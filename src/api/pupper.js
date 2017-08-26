@@ -1,3 +1,5 @@
+import FormData from 'form-data'
+
 const appendQueryParams = (path, queryParams) => {
     const e = encodeURIComponent;
     const paramStr = Object.keys(queryParams)
@@ -32,11 +34,22 @@ const handleError = err => {
  */
 class Pupper {
     constructor(hostname) {
-        this.hostname = hostname ? hostname : process.env.REACT_APP_BACKEND_HOST_NAME;
+        this.hostname = hostname || process.env.REACT_APP_BACKEND_HOST_NAME;
         this.defaultHeaders = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         };
+    }
+
+    sign(options = {}, token) {
+        if (!token) return options;
+
+        const headers = Object.assign(options.headers || {} , {
+            'X-Access-Token': `Bearer ${token}`,
+        });
+
+        options.headers = headers;
+        return options;
     }
 
     request(method, route, options = {}) {
@@ -72,4 +85,32 @@ class Pupper {
     }
 }
 
+/**
+ * FormDataDoggo is a pupper extension that handles form data payloads
+ */
+class FormDataDoggo extends Pupper {
+    appendFormFields(fields = {}) {
+        let form = new FormData();
+
+        for (let key in fields) {
+            form.append(key, fields[key]);
+        }
+
+        return form;
+    }
+
+    request(method, route, options = {}) {
+        const path = `${this.hostname}${route}`;
+
+        const opts = {
+            method,
+            headers: options.headers,
+            body: this.appendFormFields(options.body),
+        };
+
+        return fetch(path, opts);
+    }
+}
+
+export const Doggo = new FormDataDoggo();
 export default new Pupper();
