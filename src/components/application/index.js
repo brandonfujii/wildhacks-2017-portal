@@ -62,8 +62,8 @@ class Application extends Component {
             },
             personalWebsite: {
                 validate: {
-                    fn: validation.isNumber,
-                    message: 'Must be a valid string',
+                    fn: validation.isWebsite,
+                    message: 'Must be a valid website',
                 },
             },
             githubUsername: {
@@ -205,7 +205,7 @@ class Application extends Component {
                 if (!_.isEmpty(flags)) {
                     this.setState({
                        errors: {
-                           ...this.DEFAULT_ERRORS,
+                           ...this.state.errors,
                            ...flags,
                        },
                     });
