@@ -83,7 +83,7 @@ class LoginPage extends Component {
     }
 
 
-    onSubmitForm(e) {
+    onSubmitForm = (e) => {
         e.preventDefault();
 
         const form = _.pick(this.state.form, this.REQUIRED_FORM_FIELDS);
@@ -109,27 +109,33 @@ class LoginPage extends Component {
                     Log in
                 </h1>
                 <FlashError message={this.props.error} />
-                <FormInput
-                    className="auth-email mt4"
-                    value={ email }
-                    highlight={emailError.highlight}
-                    placeholder="your@email.edu"
-                    onChange={e => this.onFormInputChange('email', e.target.value)}
-                    memo={emailError.message ? emailError.message : null} />
-                <FormInput
-                    className="auth-password mv2"
-                    type="password"
-                    highlight={passwordError.highlight}
-                    placeholder="Password"
-                    value={ password }
-                    onChange={e => this.onFormInputChange('password', e.target.value)}
-                    memo={passwordError.message ? passwordError.message : null} />
-                <Button
-                    backgroundColor="bg-wh-pink"
-                    onClick={ this.onSubmitForm.bind(this) }
-                    className="mb4">
-                    Submit
-                </Button>
+                <form 
+                    onSubmit={ this.onSubmitForm }
+                >
+                    <FormInput
+                        className="auth-email mt4"
+                        value={ email }
+                        highlight={emailError.highlight}
+                        placeholder="your@email.edu"
+                        onChange={e => this.onFormInputChange('email', e.target.value)}
+                        memo={emailError.message ? emailError.message : null} />
+                    <FormInput
+                        className="auth-password mv2"
+                        type="password"
+                        highlight={passwordError.highlight}
+                        placeholder="Password"
+                        value={ password }
+                        onChange={e => this.onFormInputChange('password', e.target.value)}
+                        memo={passwordError.message ? passwordError.message : null} />
+                    <Button
+                        backgroundColor="bg-wh-pink"
+                        onClick={ this.onSubmitForm }
+                        className="mb4"
+                        type="submit"
+                    >
+                        Submit
+                    </Button>
+                </form>
                 <div className="mb2">
                     <Link
                         to="/register"

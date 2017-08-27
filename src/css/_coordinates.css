@@ -58,6 +58,13 @@
   left: 0;
 }
 
+.absolute--overfill {
+  top: -25%;
+  right: -25%;
+  bottom: -25%;
+  left: -25%;
+}
+
 @media (--breakpoint-not-small) {
   .top-0-ns     { top:   0; }
   .left-0-ns    { left:  0; }
