@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import ApplicationPage from 'components/application';
-import { updateApp } from 'modules/application';
+import { updateApp, getApp } from 'modules/application';
 
 const Application = props => {
     return <div className="app-view--application">
@@ -19,6 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     updateApp,
+    getApp,
 }, dispatch);
 
 export default connect(

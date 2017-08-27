@@ -10,6 +10,7 @@ const checkTokenAsync = (fn, ...args) => {
         dispatch({ type: VERIFYING_TOKEN });
 
         const state = getState();
+        console.log(state);
         if (state.auth.token) {
             dispatch({ type: TOKEN_EXISTS });
             const response = await fn(state.auth.token, ...args);
