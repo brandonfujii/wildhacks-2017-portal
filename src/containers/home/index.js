@@ -14,9 +14,13 @@ export default class Home extends Component {
     render() {
         return (
             <div className="home relative w-100 overflow-hidden">
-                <div className="absolute absolute--fill z-1" ref={ e => this.homeElement = e }></div>
-                <div className="min-vh-90 mw7 center ph3-ns pt5 relative z-2">
-                    <Star />
+                <div className="absolute absolute--overfill z-1" ref={ e => this.homeElement = e }>
+                    <div className="absolute absolute--overfill z-2 transition-transform to-middle"></div>
+                    <div className="absolute absolute--overfill z-3 transition-transform to-middle"></div>
+                    <div className="absolute absolute--overfill z-4 transition-transform to-middle"></div>
+                    <div className="absolute absolute--overfill z-5 transition-transform to-middle"></div>
+                </div>
+                <div className="min-vh-90 mw7 center ph3-ns pt5 relative z-max">
                     <div className="cf">
                         <p className="karla b wh-off-white antialias tc f4 f3-ns">LET’S GET LOST</p>
                         <Wordmark 
@@ -40,10 +44,10 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="center mv7 ph3-ns flex items-center justify-center relative z-2">
+                <div className="center mv7 ph3-ns flex items-center justify-center relative z-max">
                     <p className="f5 f4-ns karla white antialias lh-copy mw6 ph4">WildHacks is Northwestern University’s annual hackathon, and 2017 marks the fourth year for our hackathon! For 36 hours, passionate students of all backgrounds gather to collaborate and challenge themselves to build a project from start to finish. WildHacks is an invaluable opportunity to interact with companies and fellow hackers, gain coding experience, and win awesome prizes! This November, we invite you to join us and explore the wild world of hacking!</p>
                 </div>
-                <div className="mw8-ns mw6 mv7 center relative z-2">
+                <div className="mw8-ns mw6 mv7 center relative z-max">
                     <h2 className="karla b white antialias tc f2 f1-ns">SCHEDULE</h2>
                     <div className="cf">
                         <div className="fl w-100 w-third-ns pa1 pt0 bg-white-100">
@@ -113,7 +117,7 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="mw8 mv7 center relative z-2">
+                <div className="mw8 mv7 center relative z-max">
                     <h2 className="karla b white antialias tc f2 f1-ns">F.A.Q.</h2>
                     <div className="cf ph3 ph5-ns">
                         <div className="fl w-100 w-third-ns pa3">
@@ -150,7 +154,7 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <footer className="pv6 relative z-2">
+                <footer className="pv6 relative z-max">
                     <p className="karla white f5 tc antialias">MLH Code of Conduct</p>
                     <p className="karla white f5 tc antialias">As an MLH sanctioned event, WildHacks adheres to and enforces the <a className="link wh-sand underline antialias" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct.</a></p>
                 </footer>

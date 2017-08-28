@@ -96,7 +96,6 @@ class RegistrationPage extends Component {
         return _.isEmpty(flags);
     }
 
-
     onSubmitForm = (e) => {
         e.preventDefault();
 

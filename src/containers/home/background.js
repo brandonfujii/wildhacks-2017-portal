@@ -1,5 +1,4 @@
-import React from 'react';
-import Star from 'components/assets/star';
+import _throttle from 'lodash/throttle';
 
 const DENSITY = 40; // number of stars per 1000 sq pixels
 
@@ -22,7 +21,6 @@ function makeStar(width, height) {
     star.style.left = `${randomPos(width)}px`;
 
     let g = document.createElementNS(xmlns, 'g');
-    // g.setAttributeNS(null, 'transform', `translate(${randomPos(width)}, ${randomPos(height)})`);
 
     let use = document.createElementNS(xmlns, 'use');
     use.setAttributeNS(xlinkns, "xlink:href", "#path0_fill");
@@ -47,13 +45,28 @@ function makeStar(width, height) {
 export default function drawBackground(backgroundElement) {
     const { width, height } = backgroundElement.getBoundingClientRect();
     const numStars = DENSITY * (width * height) / (1000 ** 2);
-    let fragment = document.createDocumentFragment();
+    let fragments = [];
+    let numFragments = 4;
+
+    for (let i = 0; i < numFragments; i++) {
+        fragments.push(document.createDocumentFragment());
+    }
     
     for (let i = 0; i < numStars; i++) {
-        fragment.appendChild(makeStar(width, height));
+        fragments[i%numFragments].appendChild(makeStar(width, height));
     }
 
-    console.log(numStars);
+    for (let i = 0; i < numFragments; i++) {
+        let starContainer = backgroundElement.querySelector(`.z-${i+2}`);
+        starContainer.appendChild(fragments[i]);
+    }
 
-    backgroundElement.appendChild(fragment);
+    document.addEventListener('mousemove', _throttle(function(e) {
+        for (let i = 0; i < numFragments; i++) {
+            let starContainer = backgroundElement.querySelector(`.z-${i+2}`);
+            let translateX = (e.clientX + window.innerWidth) * (i+1)/10;
+            let translateY = (e.clientY + window.innerHeight) * (i+1)/10;
+            starContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
+        }
+    }, 15));
 }
