@@ -7,6 +7,7 @@ import { getUserById, getUserByEmail, getUser } from './endpoints/users/get-sing
 import getUsers from './endpoints/users/get-users';
 
 import updateApplication from './endpoints/applications/update-application';
+import getApplication from './endpoints/applications/get-application';
 
 // Ping
 import getPing from './endpoints/get-ping';
@@ -15,6 +16,7 @@ import getPing from './endpoints/get-ping';
 export {
     registerUser,
     loginUser,
+    getApplication,
     updateApplication,
     getUserById,
     getUserByEmail,
