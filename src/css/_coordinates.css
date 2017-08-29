@@ -59,10 +59,10 @@
 }
 
 .absolute--overfill {
-  top: -50%;
-  right: -50%;
-  bottom: -50%;
-  left: -50%;
+  top: -10%;
+  right: -10%;
+  bottom: -10%;
+  left: -10%;
 }
 
 @media (--breakpoint-not-small) {

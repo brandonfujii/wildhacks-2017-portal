@@ -64,8 +64,8 @@ export default function drawBackground(backgroundElement) {
     document.addEventListener('mousemove', _throttle(function(e) {
         for (let i = 0; i < numFragments; i++) {
             let starContainer = backgroundElement.querySelector(`.z-${i+2}`);
-            let translateX = (e.clientX + window.innerWidth) * (i+1)/10;
-            let translateY = (e.clientY + window.innerHeight) * (i+1)/10;
+            let translateX = (e.clientX - window.innerWidth/2) * (i+1)/200;
+            let translateY = (e.clientY - window.innerHeight/2) * (i+1)/200;
             starContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
     }, 15));
