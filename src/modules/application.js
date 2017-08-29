@@ -1,5 +1,6 @@
 import { push } from 'react-router-redux';
-import checkTokenAsync from './token-helper';
+import isOk from './helpers/response-helper';
+import checkTokenAsync from './helpers/token-helper';
 import { getApplication, updateApplication } from 'api';
 
 export const FETCHING_APP = 'app/FETCHING_APP';
@@ -58,7 +59,7 @@ export const getApp = () => {
             checkTokenAsync(getApplication)
         );
 
-        if (response.meta && response.meta.statusCode === 200) {
+        if (isOk(response)) {
             dispatch({
                 type: FETCH_APP_SUCCESS,
                 app: response.application,
@@ -80,7 +81,7 @@ export const updateApp = (fields = {}) => {
             checkTokenAsync(updateApplication, fields)
         );
 
-        if (response.application) {
+        if (isOk(response)) {
             dispatch({
                 type: UPDATE_SUCCESS,
                 app: response.application,

@@ -1,4 +1,6 @@
+import pick from 'lodash/pick';
 import { push } from 'react-router-redux';
+import isOk from './helpers/response-helper';
 import {
     registerUser,
     loginUser,
@@ -47,12 +49,16 @@ export default (state = initialState, action) => {
                 isRequestingAuth: true,
                 error: null,
             };
-        case LOGIN_SUCCESS: 
+        case LOGIN_SUCCESS:
+            const user = pick(action.user, [
+                'id', 'email', 'privilege', 'type', 'isVerified', 'createdAt', 'updatedAt',
+            ]);
+
             return {
                 ...state,
                 isRequestingAuth: false,
                 isLoggedIn: true,
-                user: action.user,
+                user,
                 token: action.token,
                 error: null,
             };
@@ -86,7 +92,7 @@ export const register = (email, password) => {
 
         const response = await registerUser(email, password);
 
-        if (response && response.success) {
+        if (isOk(response)) {
             dispatch({ type: REGISTRATION_SUCCESS });
             dispatch(login(email, password));
         } else {
@@ -103,7 +109,8 @@ export const login = (email, password) => {
         dispatch({ type: LOGIN_REQUESTED });
 
         const response = await loginUser(email, password);
-        if (response && response.user && response.user.token) {
+        
+        if (isOk(response)) {
             const {
                 token,
                 ...user
