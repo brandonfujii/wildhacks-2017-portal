@@ -76,6 +76,7 @@
 .wh-gold { color: var(--wh-gold); }
 .wh-sand { color: var(--wh-sand); }
 .wh-pink { color: var(--wh-pink); }
+.wh-off-white { color: var(--wh-off-white); }
 
 .bg-black-90 {         background-color: var(--black-90); }
 .bg-black-80 {         background-color: var(--black-80); }
@@ -146,3 +147,4 @@
 .bg-wh-gold { background-color: var(--wh-gold); }
 .bg-wh-sand { background-color: var(--wh-sand); }
 .bg-wh-pink { background-color: var(--wh-pink); }
+.bg-wh-off-white { background-color: var(--wh-off-white); }

@@ -8,9 +8,10 @@ const Button = ({
     href="#",
     backgroundColor="bg-wh-black", 
     antialias=true,
-    onClick
+    onClick,
+    type=""
 }) => {
-    const classes = `button-reset f5 karla link dim br2 ph4 pv2 dib white 
+    const classes = `button-reset f5 karla link dim br2 ph4 pv2 dib white b--none pointer
         ${ antialias ? 'antialias ' : ''}
         ${ backgroundColor }
         ${ className }
@@ -24,13 +25,14 @@ const Button = ({
                 { children }
             </Link>
             :
-            <a 
+            <button 
                 className={ classes }
                 href={ href }
                 onClick={ onClick }
+                type={ type || "button" }
             >
                 { children }
-            </a>
+            </button>
     );
 };
 
