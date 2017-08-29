@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import validation from './validation';
@@ -142,49 +142,36 @@ class Application extends Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        // shallow check
-        if (nextProps.app !== this.props.app) {
-            console.log("yes", nextProps.app);
-        }
-    }
-
     validateField(validation, value) {
         let highlight = false, message = null;
 
-        if (validation.required) {
-            if (!value) {
-                highlight = true;
-                message = 'This field is required';
-                return {
-                    highlight,
-                    message,
-                };
-            }
+        if (validation.required && !value) {
+            highlight = true;
+            message = 'This field is required';
+            return {
+                highlight,
+                message,
+            };
         }
 
-        if (validation.validate) {
-            if (!validation.validate.fn.call(this, value)) {
-                highlight = true;
-                message = validation.validate.message;
+        if (validation.validate && !validation.validate.fn.call(this, value)) {
+            highlight = true;
+            message = validation.validate.message;
 
-                return {
-                    highlight,
-                    message,
-                };
-            }
+            return {
+                highlight,
+                message,
+            };
         }
 
-        if (validation.enum) {
-            if (!validation.enum.includes(value)) {
-                highlight = true;
-                message = `Must be an acceptable value`;
+        if (validation.enum && !validation.enum.includes(value)) {
+            highlight = true;
+            message = `Must be an acceptable value`;
 
-                return {
-                    highlight,
-                    message,
-                };
-            }
+            return {
+                highlight,
+                message,
+            };
         }
 
         return {
@@ -196,33 +183,31 @@ class Application extends Component {
     onFormInputChange(key, value) {
         let flags = {};
 
-        if (this.state.app.hasOwnProperty(key)) {
-            if (this.VALIDATIONS.hasOwnProperty(key)) {
-                const validation = this.VALIDATIONS[key];
+        if (this.state.app.hasOwnProperty(key) && this.VALIDATIONS.hasOwnProperty(key)) {
+            const validation = this.VALIDATIONS[key];
 
-                flags[key] = this.validateField(validation, value);
+            flags[key] = this.validateField(validation, value);
 
-                if (!_.isEmpty(flags)) {
-                    this.setState({
-                       errors: {
-                           ...this.state.errors,
-                           ...flags,
-                       },
-                    });
-                }
-
-                let updatedState = {
-                    app: { ...this.state.app },
-                };
-
-                updatedState['app'][key] = value;
-                this.setState(updatedState);
+            if (!isEmpty(flags)) {
+                this.setState({
+                   errors: {
+                       ...this.state.errors,
+                       ...flags,
+                   },
+                });
             }
+
+            let updatedState = {
+                app: { ...this.state.app },
+            };
+
+            updatedState['app'][key] = value;
+            this.setState(updatedState);
         }
     }
 
 
-    onSubmitApp(e) {
+    onSubmitApp = e => {
         e.preventDefault();
     }
 
@@ -347,7 +332,7 @@ class Application extends Component {
                       onChange={e => this.onFormInputChange('resume', e.target.files[0])} />
                   <Button
                       backgroundColor="bg-wh-pink"
-                      onClick={ this.onSubmitApp.bind(this) }
+                      onClick={ this.onSubmitApp }
                       className="mb4">
                       Submit
                   </Button>

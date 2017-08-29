@@ -1,11 +1,11 @@
-import _ from 'lodash';
+import isNaN from 'lodash/isNaN';
 
 const isString = value => {
   return typeof value === 'string';
 };
 
 const isNumber = value => {
-  return !_.isNaN(parseInt(value, 10));
+  return !isNaN(parseInt(value, 10));
 };
 
 const isWebsite = value => {
