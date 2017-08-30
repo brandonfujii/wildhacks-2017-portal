@@ -10,3 +10,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.transition-left {
+  transition: transform 0.5s linear;
+}
+
+.to-middle {
+  transform-origin: 50% 50%;
+}
