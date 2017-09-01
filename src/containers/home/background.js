@@ -1,4 +1,5 @@
 import _throttle from 'lodash/throttle';
+import _debounce from 'lodash/debounce';
 
 const DENSITY = 40; // number of stars per 1000 sq pixels
 
@@ -42,11 +43,8 @@ function makeStar(width, height) {
     return star;
 }
 
-export default function drawBackground(backgroundElement) {
-    const { width, height } = backgroundElement.getBoundingClientRect();
-    const numStars = DENSITY * (width * height) / (1000 ** 2);
+function makeStars(numStars, numFragments, backgroundElement, width, height) {
     let fragments = [];
-    let numFragments = 4;
 
     for (let i = 0; i < numFragments; i++) {
         fragments.push(document.createDocumentFragment());
@@ -60,6 +58,14 @@ export default function drawBackground(backgroundElement) {
         let starContainer = backgroundElement.querySelector(`.z-${i+2}`);
         starContainer.appendChild(fragments[i]);
     }
+}
+
+export default function drawBackground(backgroundElement) {
+    const { width, height } = backgroundElement.getBoundingClientRect();
+    let numStars = DENSITY * (width * height) / (1000 ** 2);
+    const numFragments = 4;
+
+    makeStars(numStars, numFragments, backgroundElement, width, height);
 
     document.addEventListener('mousemove', _throttle(function(e) {
         for (let i = 0; i < numFragments; i++) {
@@ -69,4 +75,15 @@ export default function drawBackground(backgroundElement) {
             starContainer.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
     }, 15));
+
+    window.addEventListener('resize', _debounce(function() {
+        const { width, height } = backgroundElement.getBoundingClientRect();
+        for (let i = 0; i < numFragments; i++) {
+            let starContainer = backgroundElement.querySelector(`.z-${i+2}`);
+            starContainer.innerHTML = '';
+        }
+
+        const numStars = DENSITY * (width * height) / (1000 ** 2);
+        makeStars(numStars, numFragments, backgroundElement, width, height);
+    }, 500));
 }
