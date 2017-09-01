@@ -20,7 +20,7 @@ export default class Home extends Component {
                     <div className="absolute absolute--overfill z-4 transition-transform"></div>
                     <div className="absolute absolute--overfill z-5 transition-transform"></div>
                 </div>
-                <div className="min-vh-90 mw7 center ph3-ns pt5 relative z-9999">
+                <div className="min-vh-90 mw7 center ph3-ns pt5 relative z-9999 hide-header">
                     <div className="cf">
                         <p className="karla b wh-off-white antialias tc f4 f3-ns">LET’S GET LOST</p>
                         <Wordmark 
