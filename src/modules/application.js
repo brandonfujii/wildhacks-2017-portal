@@ -83,7 +83,6 @@ export const updateApp = (fields = {}) => {
         );
 
         if (isOk(response)) {
-            console.log(response.result.application);
             dispatch({
                 type: UPDATE_SUCCESS,
                 app: response.result.application,

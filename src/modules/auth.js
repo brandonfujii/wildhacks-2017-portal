@@ -1,9 +1,11 @@
 import pick from 'lodash/pick';
 import { push } from 'react-router-redux';
 import isOk from './helpers/response-helper';
+import checkTokenAsync from './helpers/token-helper';
 import {
     registerUser,
     loginUser,
+    verifyToken,
 } from 'api';
  
 // Constants
@@ -14,6 +16,9 @@ export const LOGIN_REQUESTED = 'auth/LOGIN_REQUESTED';
 export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 export const LOGOUT = 'auth/LOGOUT';
+export const VERIFYING_USER = 'auth/VERIFYING_USER';
+export const VERIFICATION_SUCCESS = 'auth/VERIFICATION_SUCCESS';
+export const VERIFICATION_FAILURE = 'auth/VERIFICATION_FAILURE';
 
 // State & Reducers
 const initialState = {
@@ -21,6 +26,7 @@ const initialState = {
     isRequestingAuth: false,
     user: null,
     token: null,
+    success: null,
     error: null,
 };
 
@@ -71,6 +77,22 @@ export default (state = initialState, action) => {
                 token: null,
                 error: action.error
             };
+        case VERIFICATION_SUCCESS:
+            return {
+                ...state,
+                user: state.user ? {
+                    ...user,
+                    isVerified: true,
+                } : null,
+                success: 'Nice! You\'ve successfully verified your account.',
+                error: null,
+            };
+        case VERIFICATION_FAILURE:
+            return {
+                ...state,
+                success: null,
+                error: 'Yikes...Looks like we couldn\'t verify your account.'
+            }
         case LOGOUT:
             return {
                 ...state,
@@ -78,6 +100,7 @@ export default (state = initialState, action) => {
                 isLoggedIn: false,
                 user: null,
                 token: null,
+                success: null,
                 error: null,
             };
         default:
@@ -127,6 +150,26 @@ export const login = (email, password) => {
             dispatch({
                 type: LOGIN_FAILURE,
                 error: 'Login failed! Incorrect email or password',
+            });
+        }
+    }
+};
+
+export const verifyUser = (verificationToken = "") => {
+    return async dispatch => {
+        dispatch({ type: VERIFYING_USER });
+
+        const response = await dispatch(
+            checkTokenAsync(verifyToken, verificationToken)
+        );
+        console.log(response);
+        if (isOk(response)) {
+            dispatch({
+                type: VERIFICATION_SUCCESS,
+            });
+        } else {
+            dispatch({
+                type: VERIFICATION_FAILURE,
             });
         }
     }

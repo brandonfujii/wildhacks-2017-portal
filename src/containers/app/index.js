@@ -5,6 +5,7 @@ import { withRouter, Route, Link } from 'react-router-dom';
 import { Button } from 'components/utility'
 import Home from 'containers/home'
 import Authentication from 'containers/authentication';
+import Verify from 'containers/verify';
 import Application from 'containers/application';
 import Logout from 'containers/logout';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
@@ -46,6 +47,7 @@ class App extends Component {
                     <Route exact path="/app" component={ Application } />
                     <Route exact path="/register" component={ Authentication } />
                     <Route exact path="/login" component={ Authentication } />
+                    <Route exact path="/verify/:token" component={Verify} />
                     <Route exact path="/logout" component={ Logout }/>
                 </main>
             </div>
