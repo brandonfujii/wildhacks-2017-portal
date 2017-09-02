@@ -1,8 +1,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { verifyUser } from 'modules/auth';
-import VerificationPage from "../../components/verify/index";
+import { verifyUser, resendVerificationEmail } from 'modules/auth';
+import VerificationPage from "components/verify";
 
 const Verify = props => {
     const { token } = props.match.params;
@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     verifyUser,
+    resendVerificationEmail,
 }, dispatch);
 
 export default connect(

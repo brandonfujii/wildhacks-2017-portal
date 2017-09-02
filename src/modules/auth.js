@@ -6,6 +6,7 @@ import {
     registerUser,
     loginUser,
     verifyToken,
+    resendVerification,
 } from 'api';
  
 // Constants
@@ -19,6 +20,9 @@ export const LOGOUT = 'auth/LOGOUT';
 export const VERIFYING_USER = 'auth/VERIFYING_USER';
 export const VERIFICATION_SUCCESS = 'auth/VERIFICATION_SUCCESS';
 export const VERIFICATION_FAILURE = 'auth/VERIFICATION_FAILURE';
+export const RESENDING_VERIFICATION_EMAIL = 'auth/RESENDING_VERIFICATION_EMAIL';
+export const VERIFICATION_EMAIL_SENT = 'auth/VERIFICATION_EMAIL_SENT';
+export const VERIFICATION_EMAIL_FAILED = 'auth/VERIFICATION_EMAIL_FAILED';
 
 // State & Reducers
 const initialState = {
@@ -92,7 +96,7 @@ export default (state = initialState, action) => {
                 ...state,
                 success: null,
                 error: 'Yikes...Looks like we couldn\'t verify your account.'
-            }
+            };
         case LOGOUT:
             return {
                 ...state,
@@ -162,7 +166,7 @@ export const verifyUser = (verificationToken = "") => {
         const response = await dispatch(
             checkTokenAsync(verifyToken, verificationToken)
         );
-        console.log(response);
+
         if (isOk(response)) {
             dispatch({
                 type: VERIFICATION_SUCCESS,
@@ -170,6 +174,26 @@ export const verifyUser = (verificationToken = "") => {
         } else {
             dispatch({
                 type: VERIFICATION_FAILURE,
+            });
+        }
+    }
+};
+
+export const resendVerificationEmail = () => {
+    return async dispatch => {
+        dispatch({ type: RESENDING_VERIFICATION_EMAIL });
+
+        const response = await dispatch(
+            checkTokenAsync(resendVerification)
+        );
+
+        if (isOk(response)) {
+            dispatch({
+               type: VERIFICATION_EMAIL_SENT,
+            });
+        } else {
+            dispatch({
+               type: VERIFICATION_EMAIL_FAILED,
             });
         }
     }
