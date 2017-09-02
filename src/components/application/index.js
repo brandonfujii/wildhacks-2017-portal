@@ -1,11 +1,16 @@
 import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import snakeCase from 'lodash/snakeCase';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import validation from './validation';
 import { FormInput, FormSelect, Button } from 'components/utility';
 
 import colleges from './data/colleges.json';
-import gradYears from './data/grad-years.json';
+import gradYears from './data/grad-years.json'
+import collegeOptions from './data/college-options.json';
+import gradYearOptions from './data/grad-year-options.json';
 
 class Application extends Component {
     constructor(props) {
@@ -130,15 +135,16 @@ class Application extends Component {
                 lastName: '',
                 age: '',
                 ethnicity: '',
-                school: null,
+                school: '',
                 major: '',
-                gradYear: null,
+                gradYear: '',
                 numPrevHackathons: '',
                 personalWebsite: '',
                 githubUsername: '',
                 resume: null,
             },
             errors: this.DEFAULT_ERRORS,
+            message: null,
         };
     }
 
@@ -165,7 +171,7 @@ class Application extends Component {
         const app = Object.assign({} , {
             firstName,
             lastName,
-            age,
+            age: age.toString(),
             ethnicity,
             school,
             major,
@@ -177,26 +183,8 @@ class Application extends Component {
 
         if (app && app !== this.state.app) {
             this.setState({
-                app: {
-                    firstName,
-                    lastName,
-                    age,
-                    ethnicity,
-                    school: school ? {
-                        value: school,
-                        label: school,
-                    } : null,
-                    major,
-                    gradYear: gradYear ? {
-                        value: gradYear,
-                        label: gradYear,
-                    } : null,
-                    numPrevHackathons,
-                    personalWebsite,
-                    githubUsername,
-                },
+                app,
             });
-
         }
     }
 
@@ -264,14 +252,53 @@ class Application extends Component {
         }
     }
 
+    isAppValid() {
+        return isEqual(this.state.errors, this.DEFAULT_ERRORS);
+    }
+
+    isAppCompleted() {
+        for (let field in this.state.app) {
+            if (!this.state.app[field]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    isAppReady() {
+        return this.isAppValid() && this.isAppCompleted();
+    }
+
+    getCompletedAppFields() {
+        let app = this.state.app;
+
+        Object.keys(app).forEach(key => {
+            const formKey = snakeCase(key);
+            app[key] = parseInt(app[key], 10) || app[key];
+
+            if (app[key]) {
+                console.log(key, app[key]);
+                if (key === formKey) return;
+                Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
+            }
+
+            delete app[key];
+        });
+
+        return app;
+    }
 
     onSubmitApp = e => {
         e.preventDefault();
+
+        if (this.isAppValid()) {
+            const options = this.getCompletedAppFields();
+            this.props.updateApp(options);
+        }
     }
 
     render() {
-
-        console.log(this.state.app);
         const {
             firstName: firstNameError,
             lastName: lastNameError,
@@ -286,7 +313,7 @@ class Application extends Component {
         } = this.state.errors;
 
         return (
-          <div className="app-form">
+          <div className="app-form pt4">
               <form>
                   <FormInput
                       className="app-first-name"
@@ -306,12 +333,16 @@ class Application extends Component {
                   />
                   <FormSelect
                       className="app-school"
-                      value={ this.state.app.school }
+                      value={
+                          this.state.app.school
+                          ? { label: this.state.app.school, value: this.state.app.school }
+                          : null
+                      }
                       placeholder="School"
                       highlight={schoolError.highlight}
                       memo={schoolError.message ? schoolError.message : null}
-                      onChange={value => this.onFormInputChange('school', value)}
-                      options={colleges}
+                      onChange={option => this.onFormInputChange('school', option.value)}
+                      options={collegeOptions}
                   />
                   <FormInput
                       className="app-major"
@@ -323,12 +354,16 @@ class Application extends Component {
                   />
                   <FormSelect
                       className="app-grad-year"
-                      value={ this.state.app.gradYear }
+                      value={
+                          this.state.app.gradYear
+                          ? { label: this.state.app.gradYear, value: this.state.app.gradYear }
+                          : null
+                      }
                       placeholder="Expected Graduation Year"
                       highlight={gradYearError.highlight}
                       memo={gradYearError.message ? gradYearError.message : null}
-                      onChange={value => this.onFormInputChange('gradYear', value)}
-                      options={gradYears}
+                      onChange={option => this.onFormInputChange('gradYear', option.value)}
+                      options={gradYearOptions}
                   />
                   <FormInput
                       className="app-age"
@@ -380,7 +415,7 @@ class Application extends Component {
                       backgroundColor="bg-wh-pink"
                       onClick={ this.onSubmitApp }
                       className="mb4">
-                      Submit
+                      { this.isAppReady() ? "Submit" : "Save" }
                   </Button>
               </form>
           </div>

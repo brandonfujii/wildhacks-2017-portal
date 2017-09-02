@@ -38,6 +38,7 @@ export default (state = initialState, action) => {
         case UPDATE_SUCCESS:
             return {
                 ...state,
+                app: action.app,
                 isRequestingUpdate: false,
             };
         case UPDATE_FAILURE:
@@ -82,9 +83,10 @@ export const updateApp = (fields = {}) => {
         );
 
         if (isOk(response)) {
+            console.log(response.result.application);
             dispatch({
                 type: UPDATE_SUCCESS,
-                app: response.application,
+                app: response.result.application,
             });
 
         } else {
