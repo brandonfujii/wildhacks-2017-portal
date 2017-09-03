@@ -166,6 +166,7 @@ class Application extends Component {
             numPrevHackathons,
             personalWebsite,
             githubUsername,
+            resume,
         } = nextProps.app;
 
         const app = Object.assign({} , {
@@ -179,6 +180,7 @@ class Application extends Component {
             numPrevHackathons,
             personalWebsite,
             githubUsername,
+            resume,
         });
 
         if (app && app !== this.state.app) {
@@ -278,7 +280,6 @@ class Application extends Component {
             app[key] = parseInt(app[key], 10) || app[key];
 
             if (app[key]) {
-                console.log(key, app[key]);
                 if (key === formKey) return;
                 Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
             }
