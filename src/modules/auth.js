@@ -7,6 +7,8 @@ import {
     loginUser,
     verifyToken,
     resendVerification,
+    resetPassword,
+    sendRecoveryEmail,
 } from 'api';
  
 // Constants
@@ -23,6 +25,12 @@ export const VERIFICATION_FAILURE = 'auth/VERIFICATION_FAILURE';
 export const RESENDING_VERIFICATION_EMAIL = 'auth/RESENDING_VERIFICATION_EMAIL';
 export const VERIFICATION_EMAIL_SENT = 'auth/VERIFICATION_EMAIL_SENT';
 export const VERIFICATION_EMAIL_FAILED = 'auth/VERIFICATION_EMAIL_FAILED';
+export const SENDING_RECOVERY_EMAIL = 'auth/SENDING_RECOVERY_EMAIL';
+export const RECOVERY_EMAIL_SENT = 'auth/RECOVERY_EMAIL_SENT';
+export const RECOVERY_EMAIL_FAILED = 'auth/RECOVERY_EMAIL_FAILED';
+export const RESETTING_PASSWORD = 'auth/RESETTING_PASSWORD';
+export const RESET_PASSWORD_SUCCESS = 'auth/RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'auth/RESET_PASSWORD_FAILURE';
 
 // State & Reducers
 const initialState = {
@@ -168,13 +176,9 @@ export const verifyUser = (verificationToken = "") => {
         );
 
         if (isOk(response)) {
-            dispatch({
-                type: VERIFICATION_SUCCESS,
-            });
+            dispatch({ type: VERIFICATION_SUCCESS });
         } else {
-            dispatch({
-                type: VERIFICATION_FAILURE,
-            });
+            dispatch({ type: VERIFICATION_FAILURE });
         }
     }
 };
@@ -188,15 +192,40 @@ export const resendVerificationEmail = () => {
         );
 
         if (isOk(response)) {
-            dispatch({
-               type: VERIFICATION_EMAIL_SENT,
-            });
+            dispatch({ type: VERIFICATION_EMAIL_SENT });
         } else {
-            dispatch({
-               type: VERIFICATION_EMAIL_FAILED,
-            });
+            dispatch({ type: VERIFICATION_EMAIL_FAILED });
         }
     }
+};
+
+export const sendResetPasswordEmail = (email) => {
+    return async dispatch => {
+        dispatch({ type: SENDING_RECOVERY_EMAIL });
+
+        const response = await sendRecoveryEmail(email);
+
+        if (isOk(response)) {
+            dispatch({ type: RECOVERY_EMAIL_SENT });
+        } else {
+            dispatch({ type: RECOVERY_EMAIL_FAILED });
+        }
+    };
+};
+
+export const resetUserPassword = (recoveryToken = "", password = "") => {
+    return async dispatch => {
+        dispatch({ type: RESETTING_PASSWORD });
+        const response = await resetPassword(recoveryToken, password);
+
+        if (isOk(response)) {
+            dispatch({ type: RESET_PASSWORD_SUCCESS });
+            dispatch(logout());
+            dispatch(push('/login'));
+        } else {
+            dispatch({ type: RESET_PASSWORD_FAILURE });
+        }
+    };
 };
 
 export const logout = () => {

@@ -4,6 +4,7 @@ import TextInput from './text-input';
 import Link from './link';
 import Button from './button';
 import FlashError from './flash-error';
+import isEmail from './is-email';
 import { CONSTANTS } from './constants';
 
-export { FormInput, FormSelect, TextInput, Link, Button, FlashError, CONSTANTS };
+export { FormInput, FormSelect, TextInput, Link, Button, FlashError, isEmail, CONSTANTS };
