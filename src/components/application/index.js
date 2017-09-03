@@ -148,12 +148,6 @@ class Application extends Component {
         };
     }
 
-
-
-    componentWillMount() {
-        this.props.getApp();
-    }
-
     componentWillReceiveProps(nextProps) {
         const {
             firstName,
