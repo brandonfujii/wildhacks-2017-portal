@@ -6,6 +6,7 @@ import { Button } from 'components/utility'
 import Home from 'containers/home'
 import Authentication from 'containers/authentication';
 import Verify from 'containers/verify';
+import ResetPassword from 'containers/reset-password';
 import Application from 'containers/application';
 import Logout from 'containers/logout';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
@@ -48,6 +49,8 @@ class App extends Component {
                     <Route exact path="/register" component={ Authentication } />
                     <Route exact path="/login" component={ Authentication } />
                     <Route exact path="/verify/:token" component={Verify} />
+                    <Route exact path="/forgot" component={ResetPassword} />
+                    <Route exact path="/forgot/:token" component={ResetPassword} />
                     <Route exact path="/logout" component={ Logout }/>
                 </main>
             </div>

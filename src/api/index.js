@@ -2,6 +2,10 @@
 import registerUser from './endpoints/auth/register-user';
 import loginUser from './endpoints/auth/login-user';
 
+// Account Recovery
+import resetPassword from './endpoints/auth/reset-password';
+import sendRecoveryEmail from './endpoints/auth/send-recovery-email';
+
 // Account Verification
 import verifyToken from './endpoints/verify/verify-token';
 import resendVerification from './endpoints/verify/resend-verification';
@@ -20,6 +24,8 @@ import getPing from './endpoints/get-ping';
 export {
     registerUser,
     loginUser,
+    resetPassword,
+    sendRecoveryEmail,
     verifyToken,
     resendVerification,
     getApplication,
