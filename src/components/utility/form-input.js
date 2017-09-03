@@ -10,7 +10,7 @@ const FormInput = ({ className, value="", type="text", placeholder="", onChange,
             `}
             type={ type }
             placeholder={ placeholder }
-            value={ value }
+            value={ value || '' }
             onChange={ onChange } />
         { memo && 
             <div className="memo karla wh-pink f6 antialias mt1">{ memo }</div>

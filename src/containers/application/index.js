@@ -6,7 +6,7 @@ import ApplicationPage from 'components/application';
 import { updateApp, getApp } from 'modules/application';
 
 const Application = props => {
-    return <div className="app-view--application">
+    return <div className="app-view--application pt4">
         <ApplicationPage {...props} />
     </div>;
 };
