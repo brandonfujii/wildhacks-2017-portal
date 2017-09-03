@@ -2,6 +2,10 @@
 import registerUser from './endpoints/auth/register-user';
 import loginUser from './endpoints/auth/login-user';
 
+// Account Verification
+import verifyToken from './endpoints/verify/verify-token';
+import resendVerification from './endpoints/verify/resend-verification';
+
 // Users
 import { getUserById, getUserByEmail, getUser } from './endpoints/users/get-single-user';
 import getUsers from './endpoints/users/get-users';
@@ -16,6 +20,8 @@ import getPing from './endpoints/get-ping';
 export {
     registerUser,
     loginUser,
+    verifyToken,
+    resendVerification,
     getApplication,
     updateApplication,
     getUserById,

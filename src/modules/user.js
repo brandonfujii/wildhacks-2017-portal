@@ -1,6 +1,4 @@
-import {
-    getUsers
-} from 'api';
+import { getUsers } from 'api';
 
 // Constants
 export const FETCHING_USERS = 'user/FETCHING_USERS';
@@ -30,7 +28,7 @@ export default (state = initialState, action) => {
                 fetchingUsers: false,
                 page: -1,
                 instances: [],
-            }
+            };
         default:
             return state;
     }
