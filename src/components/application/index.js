@@ -254,7 +254,7 @@ class Application extends Component {
 
     isAppCompleted() {
         for (let field in this.state.app) {
-            if (!this.state.app[field]) {
+            if (!this.state.app[field] && this.VALIDATIONS[field].required) {
                 return false;
             }
         }
@@ -308,112 +308,159 @@ class Application extends Component {
         } = this.state.errors;
 
         return (
-          <div className="app-form pt4">
-              <form>
-                  <FormInput
-                      className="app-first-name"
-                      value={ this.state.app.firstName }
-                      placeholder="First name"
-                      highlight={firstNameError.highlight}
-                      memo={firstNameError.message ? firstNameError.message : null}
-                      onChange={e => this.onFormInputChange('firstName', e.target.value)}
-                  />
-                  <FormInput
-                      className="app-last-name"
-                      value={ this.state.app.lastName }
-                      placeholder="Last name"
-                      highlight={lastNameError.highlight}
-                      memo={lastNameError.message ? lastNameError.message : null}
-                      onChange={e => this.onFormInputChange('lastName', e.target.value)}
-                  />
-                  <FormSelect
-                      className="app-school"
-                      value={
-                          this.state.app.school
-                          ? { label: this.state.app.school, value: this.state.app.school }
-                          : null
-                      }
-                      placeholder="School"
-                      highlight={schoolError.highlight}
-                      memo={schoolError.message ? schoolError.message : null}
-                      onChange={option => this.onFormInputChange('school', option.value)}
-                      options={collegeOptions}
-                  />
-                  <FormInput
-                      className="app-major"
-                      value={ this.state.app.major }
-                      placeholder="Major"
-                      highlight={majorError.highlight}
-                      memo={majorError.message ? majorError.message : null}
-                      onChange={e => this.onFormInputChange('major', e.target.value)}
-                  />
-                  <FormSelect
-                      className="app-grad-year"
-                      value={
-                          this.state.app.gradYear
-                          ? { label: this.state.app.gradYear, value: this.state.app.gradYear }
-                          : null
-                      }
-                      placeholder="Expected Graduation Year"
-                      highlight={gradYearError.highlight}
-                      memo={gradYearError.message ? gradYearError.message : null}
-                      onChange={option => this.onFormInputChange('gradYear', option.value)}
-                      options={gradYearOptions}
-                  />
-                  <FormInput
-                      className="app-age"
-                      value={ this.state.app.age }
-                      placeholder="Age"
-                      highlight={ageError.highlight}
-                      memo={ageError.message ? ageError.message : null}
-                      onChange={e => this.onFormInputChange('age', e.target.value)}
-                  />
-                  <FormInput
-                      className="app-ethnicity"
-                      value={ this.state.app.ethnicity }
-                      placeholder="Ethnicity"
-                      highlight={ethnicityError.highlight}
-                      memo={ethnicityError.message ? ethnicityError.message : null}
-                      onChange={e => this.onFormInputChange('ethnicity', e.target.value)}
-                  />
-                  <FormInput
-                      className="app-num-prev-hackathons"
-                      value={ this.state.app.numPrevHackathons }
-                      placeholder="Number of previous hackathons"
-                      highlight={numPrevHackathonsError.highlight}
-                      memo={numPrevHackathonsError.message ? numPrevHackathonsError.message : null}
-                      onChange={e => this.onFormInputChange('numPrevHackathons', e.target.value)}
-                  />
-                  <FormInput
-                      className="app-personal-website"
-                      value={ this.state.app.personalWebsite }
-                      placeholder="https://"
-                      highlight={personalWebsiteError.highlight}
-                      memo={personalWebsiteError.message ? personalWebsiteError.message : null}
-                      onChange={e => this.onFormInputChange('personalWebsite', e.target.value)}
-                  />
-                  <FormInput
-                      className="app-github-username"
-                      value={ this.state.app.githubUsername }
-                      placeholder="Github username"
-                      highlight={githubUsernameError.highlight}
-                      memo={githubUsernameError.message ? githubUsernameError.message : null}
-                      onChange={e => this.onFormInputChange('githubUsername', e.target.value)}
-                  />
-                  <input
-                      className="app-resume"
-                      name="resume"
-                      type="file"
-                      accept=".pdf,.docx,.doc"
-                      onChange={e => this.onFormInputChange('resume', e.target.files[0])} />
-                  <Button
-                      backgroundColor="bg-wh-pink"
-                      onClick={ this.onSubmitApp }
-                      className="mb4">
-                      { this.isAppReady() ? "Submit" : "Save" }
-                  </Button>
-              </form>
-          </div>
+            <div className="app-form pa4 mw7 center">
+                <p className="karla wh-off-white antialias f1 b">Application</p>
+                <form>
+                    <div className="flex mv4">
+                        <div className="flex-auto w-50 mr3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">First Name*</label>
+                            <FormInput
+                                className="app-first-name"
+                                value={ this.state.app.firstName }
+                                highlight={firstNameError.highlight}
+                                memo={firstNameError.message ? firstNameError.message : null}
+                                onChange={e => this.onFormInputChange('firstName', e.target.value)}
+                            />
+                        </div>
+                        <div className="flex-auto w-50 ml3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Last Name*</label>
+                            <FormInput
+                                className="app-last-name"
+                                value={ this.state.app.lastName }
+                                highlight={lastNameError.highlight}
+                                memo={lastNameError.message ? lastNameError.message : null}
+                                onChange={e => this.onFormInputChange('lastName', e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex mv4">
+                        <div className="flex-auto w-50 mr3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">School*</label>
+                            <FormSelect
+                                className="app-school"
+                                value={
+                                    this.state.app.school
+                                    ? { label: this.state.app.school, value: this.state.app.school }
+                                    : null
+                                }
+                                highlight={schoolError.highlight}
+                                memo={schoolError.message ? schoolError.message : null}
+                                onChange={option => this.onFormInputChange('school', option.value)}
+                                options={collegeOptions}
+                            />
+                        </div>
+                        <div className="flex-auto w-50 ml3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Major*</label>
+                            <FormInput
+                                className="app-major"
+                                value={ this.state.app.major }
+                                highlight={majorError.highlight}
+                                memo={majorError.message ? majorError.message : null}
+                                onChange={e => this.onFormInputChange('major', e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex mb4">
+                        <div className="flex-auto w-50 mr3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Graduation Year*</label>
+                            <FormSelect
+                                className="app-grad-year"
+                                value={
+                                    this.state.app.gradYear
+                                    ? { label: this.state.app.gradYear, value: this.state.app.gradYear }
+                                    : null
+                                }
+                                highlight={gradYearError.highlight}
+                                memo={gradYearError.message ? gradYearError.message : null}
+                                onChange={option => this.onFormInputChange('gradYear', option.value)}
+                                options={gradYearOptions}
+                            />
+                        </div>
+                        <div className="flex-auto w-50 ml3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Age*</label>
+                            <FormInput
+                                className="app-age"
+                                value={ this.state.app.age }
+                                highlight={ageError.highlight}
+                                memo={ageError.message ? ageError.message : null}
+                                onChange={e => this.onFormInputChange('age', e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex mb4">
+                        <div className="flex-auto w-50 mr3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Number of Previous Hackathons Attended</label>
+                            <FormInput
+                                className="app-num-prev-hackathons"
+                                value={ this.state.app.numPrevHackathons }
+                                highlight={numPrevHackathonsError.highlight}
+                                memo={numPrevHackathonsError.message ? numPrevHackathonsError.message : null}
+                                onChange={e => this.onFormInputChange('numPrevHackathons', e.target.value)}
+                            />
+                        </div>
+                        <div className="flex-auto w-50 ml3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Ethnicity</label>
+                            <FormInput
+                                className="app-ethnicity"
+                                value={ this.state.app.ethnicity }
+                                highlight={ethnicityError.highlight}
+                                memo={ethnicityError.message ? ethnicityError.message : null}
+                                onChange={e => this.onFormInputChange('ethnicity', e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex mb4">
+                        <div className="flex-auto w-50 mr3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Personal Website</label>
+                            <FormInput
+                                className="app-personal-website"
+                                value={ this.state.app.personalWebsite }
+                                highlight={personalWebsiteError.highlight}
+                                memo={personalWebsiteError.message ? personalWebsiteError.message : null}
+                                onChange={e => this.onFormInputChange('personalWebsite', e.target.value)}
+                            />
+                        </div>
+                        <div className="flex-auto w-50 ml3">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Github Username</label>
+                            <FormInput
+                                className="app-github-username"
+                                value={ this.state.app.githubUsername }
+                                highlight={githubUsernameError.highlight}
+                                memo={githubUsernameError.message ? githubUsernameError.message : null}
+                                onChange={e => this.onFormInputChange('githubUsername', e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex justify-center">
+                        <label
+                            className={`button-reset f5 karla link dim br2 ph4 pv2 dib wh-off-white antialias b--none pointer
+                                ${ this.state.app.resume ? ' bg-wh-navy' : ' bg-wh-pink'}
+                            `}
+                            htmlFor="resume"
+                        >
+                            { this.state.app.resume && this.state.app.resume.name ? this.state.app.resume.name : 'Upload Resume' }
+                        </label>
+                        <input
+                            className="app-resume w-01 h-01 o-0 overflow-hidden absolute z-neg1"
+                            id="resume"
+                            name="resume"
+                            type="file"
+                            accept=".pdf,.docx,.doc"
+                            onChange={e => this.onFormInputChange('resume', e.target.files[0])} />
+                    </div>
+                    <div className={`flex justify-end
+                        ${this.isAppReady() ? '' : ' pe-none o-50'}
+                    `}>
+                        <Button
+                            className="mb4"
+                            backgroundColor="bg-wh-pink"
+                            onClick={ this.onSubmitApp }
+                        >
+                            Submit
+                        </Button>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

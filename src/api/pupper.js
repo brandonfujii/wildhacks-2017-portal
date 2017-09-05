@@ -1,4 +1,6 @@
-import FormData from 'form-data'
+import FormData from 'form-data';
+
+import { CONFIG } from 'config';
 
 const appendQueryParams = (path, queryParams) => {
     const e = encodeURIComponent;
@@ -24,7 +26,7 @@ const handleResponse = response => {
 };
 
 const handleError = err => {
-    if (process.env.NODE_ENV === 'development') {
+    if (CONFIG.NODE_ENV === 'development') {
         console.error(err);
     }
 };
@@ -34,7 +36,7 @@ const handleError = err => {
  */
 class Pupper {
     constructor(hostname) {
-        this.hostname = hostname || process.env.REACT_APP_BACKEND_HOST_NAME;
+        this.hostname = hostname || CONFIG.REACT_APP_BACKEND_HOST_NAME;
         this.defaultHeaders = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

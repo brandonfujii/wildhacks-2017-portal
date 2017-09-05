@@ -4,7 +4,10 @@ import 'react-select/dist/react-select.css';
 import PropTypes from 'prop-types';
 
 const FormSelect = ({ className, options = [], value, onChange, placeholder="", highlight, memo=""}) => (
-    <div className={`${className || ''} ${highlight ? 'highlighted' : ''}`}>
+    <div className={`karla
+        ${className || ''}
+        ${highlight ? 'highlighted' : ''}`}
+    >
         <Select
             value={ value }
             options={ options }

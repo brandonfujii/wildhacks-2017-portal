@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FormInput = ({ className, value="", type="text", placeholder="", onChange, highlight, memo="" }) => (
-    <div className={`text-input w-100 ${className || ''}`}>
+    <div className={`text-input ${className || ''}`}>
         <input
-            className={`${className}
-                karla pa2 input-reset br2 ba w-100
+            className={`karla pa2 input-reset br2 ba w-100
                 ${highlight ? 'highlighted' : ''}
             `}
             type={ type }

@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { createBlacklistFilter } from 'redux-persist-transform-filter';
 import { ConnectedRouter } from 'react-router-redux';
+
 import store, { history } from './store';
 import checkServer from './check-server';
-
 import App from './containers/app';
 
 const $target = document.getElementById('root');
