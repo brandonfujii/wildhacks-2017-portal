@@ -22,13 +22,13 @@ class App extends Component {
         return (
             <div>
                 <header
-                    className={`mw9 pt4 center right-0 fixed animated o-0
-                        ${ location.pathname === '/' ? ' z-max' : ''}
+                    className={`mw9 pt4 center right-0 fixed
+                        ${ location.pathname === '/' ? ' z-max animated o-0' : ''}
                     `}
                     ref={ e => this.appElement = e }
                 >
                     <div className="flex pr4-ns">
-                        { isLoggedIn &&
+                        { isLoggedIn && location.pathname !== '/app' &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/app">My Application</Button>
                         }
                         { isLoggedIn &&
