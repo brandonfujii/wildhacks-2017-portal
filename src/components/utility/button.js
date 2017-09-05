@@ -5,7 +5,6 @@ const Button = ({
     className, 
     children, 
     to,
-    href="#",
     backgroundColor="bg-wh-black", 
     antialias=true,
     onClick,
@@ -27,7 +26,6 @@ const Button = ({
             :
             <button 
                 className={ classes }
-                href={ href }
                 onClick={ onClick }
                 type={ type || "button" }
             >

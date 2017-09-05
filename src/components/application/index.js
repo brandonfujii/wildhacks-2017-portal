@@ -16,6 +16,9 @@ class Application extends Component {
     constructor(props) {
         super(props);
 
+        const { getApp } = props;
+        getApp();
+
         this.VALIDATIONS = {
             firstName: {
                 required: true,
@@ -149,6 +152,11 @@ class Application extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('nextProps', nextProps)
+        if (!nextProps.app) {
+            return;
+        }
+
         const {
             firstName,
             lastName,
@@ -160,10 +168,10 @@ class Application extends Component {
             numPrevHackathons,
             personalWebsite,
             githubUsername,
-            resume,
+            resumeId,
         } = nextProps.app;
 
-        const app = Object.assign({} , {
+        const app = Object.assign({}, {
             firstName,
             lastName,
             age: age.toString(),
@@ -174,7 +182,7 @@ class Application extends Component {
             numPrevHackathons,
             personalWebsite,
             githubUsername,
-            resume,
+            resumeId,
         });
 
         if (app && app !== this.state.app) {
@@ -311,8 +319,8 @@ class Application extends Component {
             <div className="app-form pa4 mw7 center">
                 <p className="karla wh-off-white antialias f1 b">Application</p>
                 <form>
-                    <div className="flex mv4">
-                        <div className="flex-auto w-50 mr3">
+                    <div className="cf mb2">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">First Name*</label>
                             <FormInput
                                 className="app-first-name"
@@ -322,7 +330,7 @@ class Application extends Component {
                                 onChange={e => this.onFormInputChange('firstName', e.target.value)}
                             />
                         </div>
-                        <div className="flex-auto w-50 ml3">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Last Name*</label>
                             <FormInput
                                 className="app-last-name"
@@ -333,8 +341,8 @@ class Application extends Component {
                             />
                         </div>
                     </div>
-                    <div className="flex mv4">
-                        <div className="flex-auto w-50 mr3">
+                    <div className="cf mb2">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">School*</label>
                             <FormSelect
                                 className="app-school"
@@ -349,7 +357,7 @@ class Application extends Component {
                                 options={collegeOptions}
                             />
                         </div>
-                        <div className="flex-auto w-50 ml3">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Major*</label>
                             <FormInput
                                 className="app-major"
@@ -360,8 +368,8 @@ class Application extends Component {
                             />
                         </div>
                     </div>
-                    <div className="flex mb4">
-                        <div className="flex-auto w-50 mr3">
+                    <div className="cf mb2">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Graduation Year*</label>
                             <FormSelect
                                 className="app-grad-year"
@@ -376,7 +384,7 @@ class Application extends Component {
                                 options={gradYearOptions}
                             />
                         </div>
-                        <div className="flex-auto w-50 ml3">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Age*</label>
                             <FormInput
                                 className="app-age"
@@ -387,8 +395,8 @@ class Application extends Component {
                             />
                         </div>
                     </div>
-                    <div className="flex mb4">
-                        <div className="flex-auto w-50 mr3">
+                    <div className="cf mb2">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Number of Previous Hackathons Attended</label>
                             <FormInput
                                 className="app-num-prev-hackathons"
@@ -398,7 +406,7 @@ class Application extends Component {
                                 onChange={e => this.onFormInputChange('numPrevHackathons', e.target.value)}
                             />
                         </div>
-                        <div className="flex-auto w-50 ml3">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Ethnicity</label>
                             <FormInput
                                 className="app-ethnicity"
@@ -409,8 +417,8 @@ class Application extends Component {
                             />
                         </div>
                     </div>
-                    <div className="flex mb4">
-                        <div className="flex-auto w-50 mr3">
+                    <div className="cf mb2">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Personal Website</label>
                             <FormInput
                                 className="app-personal-website"
@@ -420,7 +428,7 @@ class Application extends Component {
                                 onChange={e => this.onFormInputChange('personalWebsite', e.target.value)}
                             />
                         </div>
-                        <div className="flex-auto w-50 ml3">
+                        <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Github Username</label>
                             <FormInput
                                 className="app-github-username"
@@ -431,14 +439,18 @@ class Application extends Component {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center pa2 mb2">
                         <label
                             className={`button-reset f5 karla link dim br2 ph4 pv2 dib wh-off-white antialias b--none pointer
-                                ${ this.state.app.resume ? ' bg-wh-navy' : ' bg-wh-pink'}
+                                ${ this.state.app.resume || this.state.app.resumeId ? ' bg-wh-navy' : ' bg-wh-pink'}
                             `}
                             htmlFor="resume"
                         >
-                            { this.state.app.resume && this.state.app.resume.name ? this.state.app.resume.name : 'Upload Resume' }
+                            { this.state.app.resumeId ? 
+                                'Resume Submitted'
+                                :
+                                (this.state.app.resume && this.state.app.resume.name ? this.state.app.resume.name : 'Upload Resume')
+                            }
                         </label>
                         <input
                             className="app-resume w-01 h-01 o-0 overflow-hidden absolute z-neg1"
@@ -448,11 +460,11 @@ class Application extends Component {
                             accept=".pdf,.docx,.doc"
                             onChange={e => this.onFormInputChange('resume', e.target.files[0])} />
                     </div>
-                    <div className={`flex justify-end
+                    <div className={`flex justify-end pa2
                         ${this.isAppReady() ? '' : ' pe-none o-50'}
                     `}>
                         <Button
-                            className="mb4"
+                            className="mb2"
                             backgroundColor="bg-wh-pink"
                             onClick={ this.onSubmitApp }
                         >

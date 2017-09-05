@@ -20,7 +20,6 @@ class ResetPasswordForm extends Component {
     }
 
     onSubmitNewPassword = () => {
-        console.log(this.props.recoveryToken, this.state.newPassword);
         if (this.state.newPassword.length >= 8) {
             this.props.resetUserPassword(this.props.recoveryToken, this.state.newPassword);
             this.setState({

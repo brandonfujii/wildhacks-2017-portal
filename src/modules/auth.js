@@ -169,7 +169,7 @@ export const login = (email, password) => {
                 token: token.value
             });
 
-            dispatch(push('/app'));
+            dispatch(push('/dashboard'));
         } else {
             dispatch({
                 type: LOGIN_FAILURE,

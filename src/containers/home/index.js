@@ -35,8 +35,8 @@ export default class Home extends Component {
                         </div>
                         { isLoggedIn ? 
                             <div className="flex items-center justify-center mb2">
-                                <Button to="/app" backgroundColor="bg-wh-navy" className="mh2">
-                                    My Application
+                                <Button to="/dashboard" backgroundColor="bg-wh-navy" className="mh2">
+                                    My Dashboard
                                 </Button>
                                 <Button to="/logout" backgroundColor="bg-wh-pink" className="mh2">
                                     Logout

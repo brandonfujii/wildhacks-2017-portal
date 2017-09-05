@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Link } from 'react-router-dom';
 
-import { Button } from 'components/utility'
-import Home from 'containers/home'
+import { Button } from 'components/utility';
+import Home from 'containers/home';
+import Dashboard from 'containers/dashboard';
 import Authentication from 'containers/authentication';
 import Verify from 'containers/verify';
 import ResetPassword from 'containers/reset-password';
@@ -28,8 +29,11 @@ class App extends Component {
                     ref={ e => this.appElement = e }
                 >
                     <div className="flex pr4-ns">
-                        { isLoggedIn && location.pathname !== '/app' &&
+                        { isLoggedIn && location.pathname === '/dashboard' &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/app">My Application</Button>
+                        }
+                        { isLoggedIn && (location.pathname === '/' || location.pathname === '/app') &&
+                            <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/dashboard">My Dashboard</Button>
                         }
                         { isLoggedIn &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-pink" to={{ pathname: "/logout" }}>Log out</Button>
@@ -44,7 +48,8 @@ class App extends Component {
                 </header>
                 <main>
                     <Route exact path="/" render={() => <Home isLoggedIn={ isLoggedIn }/>} />
-                    <Route exact path="/app" render={() => <Application isLoggedIn={ isLoggedIn }/>} />
+                    <Route exact path="/dashboard" render={() => isLoggedIn ? <Dashboard/> : <Home/>} />
+                    <Route exact path="/app" render={() => isLoggedIn ? <Application/> : <Home/>} />
                     <Route exact path="/register" component={ Authentication } />
                     <Route exact path="/login" component={ Authentication } />
                     <Route exact path="/verify/:token" component={Verify} />
@@ -57,9 +62,11 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    isLoggedIn: state.auth.isLoggedIn,
-});
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn,
+    }
+};
 
 export default withRouter(connect(
     mapStateToProps,

@@ -2,12 +2,12 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ApplicationPage from 'components/application';
+import DashboardPage from 'components/dashboard';
 import { updateApp, getApp } from 'modules/application';
 
-const Application = props => {
-    return <div className="app-view--application pt4">
-        <ApplicationPage {...props} />
+const Dashboard = props => {
+    return <div className="app-view--dashboard pt4">
+        <DashboardPage {...props} />
     </div>;
 };
 
@@ -25,4 +25,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Application);
+)(Dashboard);
