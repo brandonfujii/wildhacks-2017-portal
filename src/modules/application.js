@@ -70,7 +70,6 @@ export const getApp = () => {
                 type: FETCH_APP_FAILURE
             });
         }
-
     }
 };
 
@@ -87,7 +86,6 @@ export const updateApp = (fields = {}) => {
                 type: UPDATE_SUCCESS,
                 app: response.result.application,
             });
-
         } else {
             if (response.statusCode === 401) dispatch(push('/logout'));
 

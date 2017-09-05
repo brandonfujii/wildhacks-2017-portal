@@ -12,6 +12,7 @@ import {
 } from 'api';
  
 // Constants
+export const RESET_ERRORS = 'auth/RESET_ERRORS';
 export const REGISTRATION_REQUESTED = 'auth/REGISTRATION_REQUESTED';
 export const REGISTRATION_SUCCESS = 'auth/REGISTRATION_SUCCESS';
 export const REGISTRATION_FAILURE = 'auth/REGISTRATION_FAILURE';
@@ -44,6 +45,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case RESET_ERRORS:
+            return {
+                ...state,
+                error: null,
+            }
         case REGISTRATION_REQUESTED:
             return {
                 ...state,
@@ -121,6 +127,12 @@ export default (state = initialState, action) => {
 }
 
 // Actions
+export const resetErrors = () => {
+    return async dispatch => {
+        dispatch({ type: RESET_ERRORS });
+    }
+}
+
 export const register = (email, password) => {
     return async dispatch => {
         dispatch({ type: REGISTRATION_REQUESTED });
@@ -157,7 +169,7 @@ export const login = (email, password) => {
                 token: token.value
             });
 
-            dispatch(push('/'));
+            dispatch(push('/dashboard'));
         } else {
             dispatch({
                 type: LOGIN_FAILURE,

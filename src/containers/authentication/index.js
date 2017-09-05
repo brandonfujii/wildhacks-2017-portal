@@ -7,6 +7,7 @@ import Login from 'components/authentication/login';
 import { 
     register,
     login,
+    resetErrors,
 } from 'modules/auth';
 
 const Authentication = props => {
@@ -15,10 +16,12 @@ const Authentication = props => {
     return <div className="app-view--authentication">
         { pathname === '/register' && <Registration
             register={props.register}
-            error={props.error} /> }
+            error={props.error} 
+            resetErrors={props.resetErrors}/> }
         { pathname === '/login' && <Login
             login={props.login}
-            error={props.error} /> }
+            error={props.error}
+            resetErrors={props.resetErrors} /> }
     </div>
 };
 
@@ -32,6 +35,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     register,
     login,
+    resetErrors,
 }, dispatch);
 
 export default connect(

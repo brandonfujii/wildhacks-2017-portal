@@ -8,6 +8,7 @@ import { isValidEmail, isValidPassword } from '../utils';
 class RegistrationPage extends Component {
     constructor(props) {
         super(props);
+        this.props.resetErrors();
 
         this.REQUIRED_FORM_FIELDS = ['email', 'password', 'confirmPassword'];
         this.DEFAULT_ERRORS = {
@@ -36,6 +37,7 @@ class RegistrationPage extends Component {
     }
 
     onFormInputChange(key, value) {
+        this.props.resetErrors();
         if (this.state.form.hasOwnProperty(key)) {
             let updatedState = {
                 form: { ...this.state.form },
@@ -47,6 +49,7 @@ class RegistrationPage extends Component {
     }
 
     resetForm() {
+        this.props.resetErrors();
         this.setState({
             form: {
                 email: '',
@@ -119,15 +122,17 @@ class RegistrationPage extends Component {
 
         return(
             <div className={`authentication-box measure center ph4 pt6`}>
-                <h1 className="karla white f2 mb4">
+                <h1 className="karla white f2 mb2">
                     Sign up
                 </h1>
-                <FlashError message={this.props.error} />
+                <div>
+                    &nbsp;<FlashError message={this.props.error} />
+                </div>
                 <form
                     onSubmit={ this.onSubmitForm }
                 >
                     <FormInput
-                        className="form-email mt4"
+                        className="form-email mt2"
                         placeholder="your@email.edu"
                         highlight={emailError.highlight}
                         value={ email }

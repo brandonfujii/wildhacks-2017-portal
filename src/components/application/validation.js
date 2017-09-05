@@ -5,12 +5,13 @@ const isString = value => {
 };
 
 const isNumber = value => {
-  return !isNaN(parseInt(value, 10));
+    const re = new RegExp(/^(\d)*$/);
+    return re.test(value);
 };
 
 const isWebsite = value => {
     const re = new RegExp(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/);
-    return re.test(value);
+    return re.test(value) || !value;
 };
 
 export default {
