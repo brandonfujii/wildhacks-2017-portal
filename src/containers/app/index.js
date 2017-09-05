@@ -17,29 +17,28 @@ class App extends Component {
     }
 
     render() {
-        const { isLoggedIn } = this.props;
+        const { isLoggedIn, location } = this.props;
 
         return (
             <div>
                 <header
-                    className="mw9 center right-0 left-0 fixed flex items-center justify-between animated o-0 z-0"
+                    className={`mw9 pt4 center right-0 fixed animated o-0
+                        ${ location.pathname === '/' ? ' z-max' : ''}
+                    `}
                     ref={ e => this.appElement = e }
                 >
-                    <Link to="/">
-                        <img className="mw3 mw4-ns mh2 mh3-ns z-max" src="assets/logo.png"></img>
-                    </Link>
                     <div className="flex pr4-ns">
                         { isLoggedIn &&
-                            <Button className="mh2 f7 z-max" backgroundColor="bg-wh-pink" to="/app">My Application</Button>
+                            <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/app">My Application</Button>
                         }
                         { isLoggedIn &&
-                            <Button className="mh2 f7 z-max" backgroundColor="bg-wh-pink" to={{ pathname: "/logout" }}>Log out</Button>
+                            <Button className="mh2 f7" backgroundColor="bg-wh-pink" to={{ pathname: "/logout" }}>Log out</Button>
                         }
                         { !isLoggedIn &&
-                            <Button className="mh2 f7 z-max" backgroundColor="bg-wh-navy" to={{ pathname: "/login" }}>Log in</Button>
+                            <Button className="mh2 f7" backgroundColor="bg-wh-navy" to={{ pathname: "/login" }}>Log in</Button>
                         }
                         { !isLoggedIn &&
-                            <Button className="mh2 f7 z-max" backgroundColor="bg-wh-pink" to={{ pathname: "/register" }}>Register</Button>
+                            <Button className="mh2 f7" backgroundColor="bg-wh-pink" to={{ pathname: "/register" }}>Register</Button>
                         }
                     </div>
                 </header>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, CONSTANTS } from 'components/utility';
-import { Wordmark, Star } from 'components/assets';
+import { Wordmark } from 'components/assets';
 
 import drawBackground from './background';
 
