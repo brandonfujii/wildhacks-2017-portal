@@ -43,8 +43,8 @@ class App extends Component {
                     </div>
                 </header>
                 <main>
-                    <Route exact path="/" component={ Home } />
-                    <Route exact path="/app" component={ Application } />
+                    <Route exact path="/" render={() => <Home isLoggedIn={ isLoggedIn }/>} />
+                    <Route exact path="/app" render={() => <Application isLoggedIn={ isLoggedIn }/>} />
                     <Route exact path="/register" component={ Authentication } />
                     <Route exact path="/login" component={ Authentication } />
                     <Route exact path="/verify/:token" component={Verify} />

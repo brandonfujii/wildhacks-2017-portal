@@ -12,6 +12,8 @@ export default class Home extends Component {
     }
 
     render() {
+        const { isLoggedIn } = this.props;
+
         return (
             <div className="home relative w-100 overflow-hidden">
                 <div className="absolute absolute--overfill z-1" ref={ e => this.homeElement = e }>
@@ -31,14 +33,25 @@ export default class Home extends Component {
                             <p className="karla wh-off-white antialias tc f4 f3-ns lh-solid mv2">November 3-5, 2017</p>
                             <p className="karla wh-off-white antialias tc f4 f3-ns lh-solid mv2">Evanston, IL</p>
                         </div>
-                        <div className="flex items-center justify-center mb2">
-                            <Button to="/login" backgroundColor="bg-wh-navy" className="mh2">
-                                Log in
-                            </Button>
-                            <Button to="/register" backgroundColor="bg-wh-pink" className="mh2">
-                                Register
-                            </Button>
-                        </div>
+                        { isLoggedIn ? 
+                            <div className="flex items-center justify-center mb2">
+                                <Button to="/app" backgroundColor="bg-wh-navy" className="mh2">
+                                    My Application
+                                </Button>
+                                <Button to="/logout" backgroundColor="bg-wh-pink" className="mh2">
+                                    Logout
+                                </Button>
+                            </div>
+                            :
+                            <div className="flex items-center justify-center mb2">
+                                <Button to="/login" backgroundColor="bg-wh-navy" className="mh2">
+                                    Log in
+                                </Button>
+                                <Button to="/register" backgroundColor="bg-wh-pink" className="mh2">
+                                    Register
+                                </Button>
+                            </div>
+                        }
                         <div className="flex items-center justify-center">
                             <p className="f6 karla white antialias">Interested in sponsoring? <a className="link wh-sand underline antialias" href="mailto:sponsor@wildhacks.org?Subject=Sponsorship%20Opportunities">Email us.</a></p>
                         </div>
