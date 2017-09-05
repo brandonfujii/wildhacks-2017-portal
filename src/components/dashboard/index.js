@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class DashboardPage extends Component {
     constructor(props) {
@@ -18,10 +19,13 @@ export default class DashboardPage extends Component {
                     <p className="karla antialias white f2">{`Welcome back, ${app.firstName}.`}</p>
                 }
                 { app && app.decision && app.decision === 'undecided' &&
-                    <p className="karla antialias white f2">We haven't made a decision on your application yet. Come back later or after you receive an email from us to check your application.</p>
+                    <p className="karla antialias white f3 lh-copy">We haven't made a decision on your application yet. Come back later or after you receive an email from us to check your application, and be sure to follow us on <a className="karla white" href="https://www.facebook.com/nuwildhacks/">Facebook</a> for up to date information on application deadlines and announcements.</p>
                 }
                 { !app &&
-                    <p className="karla antialias white f2">Howdy, stranger! Glad you're here. Why not fill out this application so we know a little more about you?</p>
+                    <div>
+                        <p className="karla antialias white f2">Howdy, stranger! Glad you're here. Why not fill out <Link className="karla white" to="/app">this application</Link> so we know a little more about you?</p>
+                        <p className="karla antialias white f3 lh-copy">The earlier you fill out the application, the earlier you'll know if you got in.</p>
+                    </div>
                 }
             </div>
         );
