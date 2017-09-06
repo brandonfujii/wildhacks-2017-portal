@@ -14,8 +14,15 @@ import resendVerification from './endpoints/verify/resend-verification';
 import { getUserById, getUserByEmail, getUser } from './endpoints/users/get-single-user';
 import getUsers from './endpoints/users/get-users';
 
+// Applications
 import updateApplication from './endpoints/applications/update-application';
 import getApplication from './endpoints/applications/get-application';
+
+// Teams
+import getTeamById from './endpoints/teams/get-team-by-id';
+import getTeamByName from './endpoints/teams/get-team-by-name';
+import createOrJoinTeam from './endpoints/teams/create-or-join-team';
+import leaveTeam from './endpoints/teams/leave-team';
 
 // Ping
 import getPing from './endpoints/get-ping';
@@ -34,5 +41,9 @@ export {
     getUserByEmail,
     getUser,
     getUsers,
+    getTeamById,
+    getTeamByName,
+    createOrJoinTeam,
+    leaveTeam,
     getPing,
 };

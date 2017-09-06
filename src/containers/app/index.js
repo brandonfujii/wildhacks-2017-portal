@@ -9,6 +9,7 @@ import Authentication from 'containers/authentication';
 import Verify from 'containers/verify';
 import ResetPassword from 'containers/reset-password';
 import Application from 'containers/application';
+import Team from 'containers/team';
 import Logout from 'containers/logout';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
 
@@ -50,6 +51,7 @@ class App extends Component {
                     <Route exact path="/" render={() => <Home isLoggedIn={ isLoggedIn }/>} />
                     <Route exact path="/dashboard" render={() => isLoggedIn ? <Dashboard/> : <Home/>} />
                     <Route exact path="/app" render={() => isLoggedIn ? <Application/> : <Home/>} />
+                    <Route exact path="/team" render={() => isLoggedIn ? <Team/> : <Home/> } />
                     <Route exact path="/register" component={ Authentication } />
                     <Route exact path="/login" component={ Authentication } />
                     <Route exact path="/verify/:token" component={Verify} />
