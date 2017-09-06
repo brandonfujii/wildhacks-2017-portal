@@ -4,7 +4,7 @@ import ResetPasswordForm from './reset-password-form';
 import SendRecoveryEmailForm from "./send-recovery-email-form";
 
 const ResetPassword = props => (
-    <div>
+    <div className="mw6 center pt6">
         { props.recoveryToken && <ResetPasswordForm {...props} /> }
         { !props.recoveryToken && <SendRecoveryEmailForm {...props} />}
     </div>

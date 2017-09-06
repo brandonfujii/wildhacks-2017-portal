@@ -7,6 +7,7 @@ const FormComponent = ({ className="", onSubmit, onInputChange, inputValue, butt
         <FlashError message={error}/>
         <form onSubmit={ onSubmit }>
             <FormInput
+                className="mb3"
                 type={ password ? "password" : ""}
                 onChange={e => onInputChange(e.target.value)}
                 value={inputValue}

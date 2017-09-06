@@ -122,7 +122,7 @@ class RegistrationPage extends Component {
 
         return(
             <div className={`authentication-box measure center ph4 pt6`}>
-                <h1 className="karla white f2 mb2">
+                <h1 className="karla white f2 mb2 antialias">
                     Sign up
                 </h1>
                 <div>
