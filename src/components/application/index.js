@@ -152,7 +152,13 @@ class Application extends Component {
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return !nextProps.isRequestingUpdate;
+    }
+
     componentWillReceiveProps(nextProps) {
+        console.log("nextProps", nextProps)
+
         if (!nextProps.app) {
             return;
         }

@@ -6,7 +6,11 @@ export default class DashboardPage extends Component {
         super(props);
 
         const { getApp } = props;
-        getApp()
+        getApp();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return !nextProps.isRequestingUpdate;
     }
 
     render() {

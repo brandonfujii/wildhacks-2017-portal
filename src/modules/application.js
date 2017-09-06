@@ -66,6 +66,8 @@ export const getApp = () => {
                 app: response.application,
             });
         } else {
+            if (response.statusCode === 401) dispatch(push('/logout'));
+
             dispatch({
                 type: FETCH_APP_FAILURE
             });
