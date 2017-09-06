@@ -34,16 +34,21 @@ class ResetPasswordForm extends Component {
 
     render() {
         return (
-            <FormComponent
-                className="reset-password-form"
-                onInputChange={this.updatePassword}
-                onSubmit={this.onSubmitNewPassword}
-                inputValue={this.state.newPassword}
-                password={true}
-                placeholder="New password"
-                buttonText="Reset password"
-                error={this.state.error || this.props.error}
-            />
+            <div>
+                <h1 className="karla white f2 mb2 antialias">
+                    Reset Password
+                </h1>
+                <FormComponent
+                    className="reset-password-form"
+                    onInputChange={this.updatePassword}
+                    onSubmit={this.onSubmitNewPassword}
+                    inputValue={this.state.newPassword}
+                    password={true}
+                    placeholder="New password"
+                    buttonText="Reset password"
+                    error={this.state.error || this.props.error}
+                />
+            </div>
         );
     }
 }

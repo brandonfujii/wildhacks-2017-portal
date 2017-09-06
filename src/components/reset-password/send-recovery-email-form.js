@@ -36,6 +36,9 @@ class SendRecoveryEmailForm extends Component {
     render() {
         return (
             <div>
+                <h1 className="karla white f2 mb2 antialias">
+                    Send Recovery Email
+                </h1>
                 <FormComponent
                     className="recovery-email-form"
                     onInputChange={this.updateEmail}
