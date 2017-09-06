@@ -17,7 +17,11 @@ class Application extends Component {
         super(props);
 
         const { getApp } = props;
-        getApp();
+        getApp().then(() => {
+            this.setState({
+                ready: true
+            });
+        });
 
         this.VALIDATIONS = {
             firstName: {
@@ -148,7 +152,8 @@ class Application extends Component {
             },
             errors: this.DEFAULT_ERRORS,
             message: null,
-            submitted: false
+            submitted: false,
+            ready: false
         };
     }
 
@@ -328,8 +333,13 @@ class Application extends Component {
         } = this.state.errors;
 
         const {
-            submitted
+            submitted,
+            ready
         } = this.state;
+
+        if (!ready) {
+            return null;
+        }
 
         return (
             <div className="app-form pa4 mw7 center">
