@@ -169,6 +169,7 @@ class Application extends Component {
             personalWebsite,
             githubUsername,
             resumeId,
+            resume
         } = nextProps.app;
 
         const app = Object.assign({}, {
@@ -183,6 +184,7 @@ class Application extends Component {
             personalWebsite,
             githubUsername,
             resumeId,
+            resume
         });
 
         if (app && app !== this.state.app) {
@@ -324,6 +326,10 @@ class Application extends Component {
             submitted
         } = this.state;
 
+        if (this.state.app) {
+            console.log(this.state.app.resume)
+        }
+
         return (
             <div className="app-form pa4 mw7 center">
                 <p className="karla wh-off-white antialias f1 b">Application</p>
@@ -455,7 +461,7 @@ class Application extends Component {
                             `}
                             htmlFor="resume"
                         >
-                            { this.state.app.resumeId ? 
+                            { this.state.app.resumeId && !this.state.app.resume ?
                                 'Resume Submitted'
                                 :
                                 (this.state.app.resume && this.state.app.resume.name ? this.state.app.resume.name : 'Upload Resume')
