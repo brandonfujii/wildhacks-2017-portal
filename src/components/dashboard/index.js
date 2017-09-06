@@ -5,12 +5,27 @@ export default class DashboardPage extends Component {
     constructor(props) {
         super(props);
 
+        this.state = { ready: false };
+
         const { getApp } = props;
-        getApp()
+        getApp().then(() => {
+            this.setState({
+                ready: true
+            });
+        });
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return !nextProps.isRequestingUpdate;
     }
 
     render() {
         const { app } = this.props;
+        const { ready } = this.state;
+
+        if (!ready) {
+            return null;
+        }
 
         return (
             <div className="pa4 mw7 center">

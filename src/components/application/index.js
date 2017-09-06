@@ -17,7 +17,11 @@ class Application extends Component {
         super(props);
 
         const { getApp } = props;
-        getApp();
+        getApp().then(() => {
+            this.setState({
+                ready: true
+            });
+        });
 
         this.VALIDATIONS = {
             firstName: {
@@ -82,7 +86,7 @@ class Application extends Component {
             },
             resume: {
                 type: 'file',
-            }
+            },
         };
 
         this.DEFAULT_ERRORS = {
@@ -148,10 +152,18 @@ class Application extends Component {
             },
             errors: this.DEFAULT_ERRORS,
             message: null,
+            submitted: false,
+            ready: false
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return !nextProps.isRequestingUpdate;
+    }
+
     componentWillReceiveProps(nextProps) {
+        console.log("nextProps", nextProps)
+
         if (!nextProps.app) {
             return;
         }
@@ -182,6 +194,7 @@ class Application extends Component {
             personalWebsite,
             githubUsername,
             resumeId,
+            resume: null,
         });
 
         if (app && app !== this.state.app) {
@@ -248,6 +261,7 @@ class Application extends Component {
 
             let updatedState = {
                 app: { ...this.state.app },
+                submitted: false,
             };
 
             updatedState['app'][key] = value;
@@ -261,7 +275,7 @@ class Application extends Component {
 
     isAppCompleted() {
         for (let field in this.state.app) {
-            if (!this.state.app[field] && this.VALIDATIONS[field].required) {
+            if (!this.state.app[field] && field in this.VALIDATIONS && this.VALIDATIONS[field].required) {
                 return false;
             }
         }
@@ -279,8 +293,8 @@ class Application extends Component {
         Object.keys(app).forEach(key => {
             const formKey = snakeCase(key);
             app[key] = parseInt(app[key], 10) || app[key];
-
-            if (app[key]) {
+            
+            if (app[key] || app[key] === '') {
                 if (key === formKey) return;
                 Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
             }
@@ -296,7 +310,11 @@ class Application extends Component {
 
         if (this.isAppValid()) {
             const options = this.getCompletedAppFields();
-            this.props.updateApp(options);
+            this.props.updateApp(options).then(() => {
+                this.setState({
+                    submitted: true
+                });
+            });
         }
     }
 
@@ -313,6 +331,15 @@ class Application extends Component {
             personalWebsite: personalWebsiteError,
             githubUsername: githubUsernameError,
         } = this.state.errors;
+
+        const {
+            submitted,
+            ready
+        } = this.state;
+
+        if (!ready) {
+            return null;
+        }
 
         return (
             <div className="app-form pa4 mw7 center">
@@ -445,7 +472,7 @@ class Application extends Component {
                             `}
                             htmlFor="resume"
                         >
-                            { this.state.app.resumeId ? 
+                            { this.state.app.resumeId && !this.state.app.resume ?
                                 'Resume Submitted'
                                 :
                                 (this.state.app.resume && this.state.app.resume.name ? this.state.app.resume.name : 'Upload Resume')
@@ -463,11 +490,15 @@ class Application extends Component {
                         ${this.isAppReady() ? '' : ' pe-none o-50'}
                     `}>
                         <Button
-                            className="mb2"
-                            backgroundColor="bg-wh-pink"
+                            className={`mb2 ${ submitted ? 'pe-none' : ''}`}
+                            backgroundColor={ submitted ? 'bg-wh-black' : 'bg-wh-pink' }
                             onClick={ this.onSubmitApp }
                         >
-                            Submit
+                            { submitted ?
+                                'Submitted!'
+                                :
+                                'Submit'
+                            }
                         </Button>
                     </div>
                 </form>
