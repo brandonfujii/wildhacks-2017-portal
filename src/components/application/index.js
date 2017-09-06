@@ -148,6 +148,7 @@ class Application extends Component {
             },
             errors: this.DEFAULT_ERRORS,
             message: null,
+            submitted: false
         };
     }
 
@@ -248,6 +249,7 @@ class Application extends Component {
 
             let updatedState = {
                 app: { ...this.state.app },
+                submitted: false,
             };
 
             updatedState['app'][key] = value;
@@ -296,7 +298,11 @@ class Application extends Component {
 
         if (this.isAppValid()) {
             const options = this.getCompletedAppFields();
-            this.props.updateApp(options);
+            this.props.updateApp(options).then(() => {
+                this.setState({
+                    submitted: true
+                });
+            });
         }
     }
 
@@ -313,6 +319,10 @@ class Application extends Component {
             personalWebsite: personalWebsiteError,
             githubUsername: githubUsernameError,
         } = this.state.errors;
+
+        const {
+            submitted
+        } = this.state;
 
         return (
             <div className="app-form pa4 mw7 center">
@@ -463,11 +473,15 @@ class Application extends Component {
                         ${this.isAppReady() ? '' : ' pe-none o-50'}
                     `}>
                         <Button
-                            className="mb2"
-                            backgroundColor="bg-wh-pink"
+                            className={`mb2 ${ submitted ? 'pe-none' : ''}`}
+                            backgroundColor={ submitted ? 'bg-wh-black' : 'bg-wh-pink' }
                             onClick={ this.onSubmitApp }
                         >
-                            Submit
+                            { submitted ?
+                                'Submitted!'
+                                :
+                                'Submit'
+                            }
                         </Button>
                     </div>
                 </form>
