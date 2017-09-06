@@ -256,6 +256,8 @@ class Application extends Component {
 
             updatedState['app'][key] = value;
             this.setState(updatedState);
+
+            console.log(this.state['app'][key])
         }
     }
 
@@ -284,7 +286,7 @@ class Application extends Component {
             const formKey = snakeCase(key);
             app[key] = parseInt(app[key], 10) || app[key];
 
-            if (app[key]) {
+            if (app[key] || app[key] === '') {
                 if (key === formKey) return;
                 Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
             }
@@ -325,10 +327,6 @@ class Application extends Component {
         const {
             submitted
         } = this.state;
-
-        if (this.state.app) {
-            console.log(this.state.app.resume)
-        }
 
         return (
             <div className="app-form pa4 mw7 center">
