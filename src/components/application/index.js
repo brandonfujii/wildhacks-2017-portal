@@ -281,16 +281,14 @@ class Application extends Component {
 
         Object.keys(app).forEach(key => {
             const formKey = snakeCase(key);
-            if (formKey in this.VALIDATIONS) {
-                app[key] = parseInt(app[key], 10) || app[key];
-                
-                if (app[key] || app[key] === '') {
-                    if (key === formKey) return;
-                    Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
-                }
-    
-                delete app[key];
+            app[key] = parseInt(app[key], 10) || app[key];
+            
+            if (app[key] || app[key] === '') {
+                if (key === formKey) return;
+                Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
             }
+
+            delete app[key];
         });
 
         return app;
