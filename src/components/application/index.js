@@ -162,8 +162,6 @@ class Application extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("nextProps", nextProps)
-
         if (!nextProps.app) {
             return;
         }

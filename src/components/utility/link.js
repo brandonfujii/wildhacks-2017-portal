@@ -10,7 +10,7 @@ const CustomLink = ({
     antialias=true,
     onClick
 }) => {
-    const classes = `f5 karla link underline 
+    const classes = `karla link underline 
         ${ antialias ? 'antialias ' : ''}
         ${ className }
     `;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'components/utility';
 
 export default class DashboardPage extends Component {
     constructor(props) {
@@ -34,7 +34,11 @@ export default class DashboardPage extends Component {
                     <p className="karla antialias white f2">{`Welcome back, ${app.firstName}.`}</p>
                 }
                 { app && app.decision && app.decision === 'undecided' &&
-                    <p className="karla antialias white f3 lh-copy">We haven't made a decision on your application yet. Come back later or after you receive an email from us to check your application, and be sure to follow us on <a className="karla white" href="https://www.facebook.com/nuwildhacks/">Facebook</a> for up to date information on application deadlines and announcements.</p>
+                    <div>
+                        <p className="karla antialias white f3 lh-copy">Your application is complete!</p>
+                        <p className="karla antialias white f3 lh-copy">Join or manage your team membership <Link className="karla antialias white f3 lh-copy" to="/team">here.</Link></p>
+                        <p className="karla antialias white f3 lh-copy">Come back later or after you receive an email from us to check your application, and be sure to follow us on <a className="karla white" href="https://www.facebook.com/nuwildhacks/">Facebook</a> for up to date information on application deadlines and announcements.</p>
+                    </div>
                 }
                 { !app &&
                     <div>
