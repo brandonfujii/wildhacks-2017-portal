@@ -82,7 +82,7 @@ class Application extends Component {
             },
             resume: {
                 type: 'file',
-            }
+            },
         };
 
         this.DEFAULT_ERRORS = {
@@ -169,7 +169,6 @@ class Application extends Component {
             personalWebsite,
             githubUsername,
             resumeId,
-            resume
         } = nextProps.app;
 
         const app = Object.assign({}, {
@@ -184,7 +183,7 @@ class Application extends Component {
             personalWebsite,
             githubUsername,
             resumeId,
-            resume
+            resume: null,
         });
 
         if (app && app !== this.state.app) {
@@ -256,8 +255,6 @@ class Application extends Component {
 
             updatedState['app'][key] = value;
             this.setState(updatedState);
-
-            console.log(this.state['app'][key])
         }
     }
 
@@ -267,7 +264,7 @@ class Application extends Component {
 
     isAppCompleted() {
         for (let field in this.state.app) {
-            if (!this.state.app[field] && this.VALIDATIONS[field].required) {
+            if (!this.state.app[field] && field in this.VALIDATIONS && this.VALIDATIONS[field].required) {
                 return false;
             }
         }
@@ -284,14 +281,16 @@ class Application extends Component {
 
         Object.keys(app).forEach(key => {
             const formKey = snakeCase(key);
-            app[key] = parseInt(app[key], 10) || app[key];
-
-            if (app[key] || app[key] === '') {
-                if (key === formKey) return;
-                Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
+            if (formKey in this.VALIDATIONS) {
+                app[key] = parseInt(app[key], 10) || app[key];
+                
+                if (app[key] || app[key] === '') {
+                    if (key === formKey) return;
+                    Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
+                }
+    
+                delete app[key];
             }
-
-            delete app[key];
         });
 
         return app;
