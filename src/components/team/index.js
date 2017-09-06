@@ -47,7 +47,7 @@ class Team extends Component {
         }
 
         return (
-            <div className="mw6 center pt6">
+            <div className="mw6 center pv6">
                 <h1 className="karla white f2 mb2 antialias">
                     Team
                 </h1>
