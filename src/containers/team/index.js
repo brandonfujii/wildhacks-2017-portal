@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import TeamPage from 'components/team';
+import { rehydrateUserById } from 'modules/auth';
 import { fetchTeamById, fetchTeamByName, joinTeamByName, leaveTeamByName } from 'modules/team';
 
 const Team = props => {
@@ -17,7 +18,8 @@ const mapStateToProps = state => ({
     team: state.team.team,
     error: state.team.error,
     isFetchingTeam: state.team.isFetchingTeam,
-    user: state.auth.user
+    user: state.auth.user,
+    token: state.auth.token,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -25,6 +27,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     fetchTeamByName,
     joinTeamByName,
     leaveTeamByName,
+    rehydrateUserById
 }, dispatch);
 
 export default connect(

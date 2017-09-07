@@ -6,9 +6,14 @@ class Team extends Component {
     constructor(props) {
         super(props);
         const { team, user, fetchTeamById } = props
-        
+
         if (user.teamId) {
-            fetchTeamById(user.teamId);
+            fetchTeamById(user.teamId).then(() => {
+                this.setState({
+                    newTeam: this.props.team.name,
+                    ready: true
+                })  
+            });
         }
 
         this.state = {
@@ -24,17 +29,21 @@ class Team extends Component {
     }
 
     onLeaveTeam = () => {
-        const { leaveTeamByName, team } = this.props;
-        leaveTeamByName(team.name);
+        const { leaveTeamByName, team, token, user, rehydrateUserById } = this.props;
+        leaveTeamByName(team.name).then(() => {
+            rehydrateUserById(token, user.id);
+        });
     }
 
     onSubmitForm = (e) => {
         e.preventDefault();
-        const { joinTeamByName } = this.props;
+        const { joinTeamByName, rehydrateUserById, token, user } = this.props;
         const { newTeam } = this.state;
 
         if (newTeam) {
-            joinTeamByName(newTeam);
+            joinTeamByName(newTeam).then(() => {
+                rehydrateUserById(token, user.id);
+            });
         }
     }
 
@@ -47,7 +56,7 @@ class Team extends Component {
         }
 
         return (
-            <div className="mw6 center pv6">
+            <div className="mw6 center pv6 ph4">
                 <h1 className="karla white f2 mb2 antialias">
                     Team
                 </h1>
