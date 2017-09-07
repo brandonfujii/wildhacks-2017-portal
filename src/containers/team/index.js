@@ -6,15 +6,18 @@ import TeamPage from 'components/team';
 import { fetchTeamById, fetchTeamByName, joinTeamByName, leaveTeamByName } from 'modules/team';
 
 const Team = props => {
-    return <div className="app-view--dashboard pt4">
-        <TeamPage {...props} />
-    </div>;
+    return (
+        <div className="app-view--dashboard pt4">
+            <TeamPage {...props} />
+        </div>
+    );
 };
 
 const mapStateToProps = state => ({
     team: state.team.team,
     error: state.team.error,
     isFetchingTeam: state.team.isFetchingTeam,
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

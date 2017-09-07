@@ -33,7 +33,7 @@ class App extends Component {
                         { isLoggedIn && location.pathname === '/dashboard' &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/app">My Application</Button>
                         }
-                        { isLoggedIn && (location.pathname === '/' || location.pathname === '/app') &&
+                        { isLoggedIn && (location.pathname === '/' || location.pathname === '/app' || location.pathname === '/team') &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/dashboard">My Dashboard</Button>
                         }
                         { isLoggedIn &&

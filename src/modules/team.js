@@ -1,3 +1,4 @@
+import { push } from 'react-router-redux';
 import isOk from './helpers/response-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { getTeamById, getTeamByName, createOrJoinTeam, leaveTeam } from 'api';
@@ -80,6 +81,8 @@ export const fetchTeamById = (teamId) => {
                 team: response.team,
             });
         } else {
+            if (response.statusCode === 401) dispatch(push('/logout'));
+
             dispatch({
                 type: FETCH_TEAM_FAILURE,
                 fetchingError: 'Unable to find the requested team',
