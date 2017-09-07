@@ -188,7 +188,7 @@ class Application extends Component {
             school,
             major,
             gradYear,
-            numPrevHackathons,
+            numPrevHackathons: numPrevHackathons.toString(),
             personalWebsite,
             githubUsername,
             resumeId,

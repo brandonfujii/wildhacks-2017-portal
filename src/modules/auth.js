@@ -9,6 +9,7 @@ import {
     resendVerification,
     resetPassword,
     sendRecoveryEmail,
+    getUserById
 } from 'api';
  
 // Constants
@@ -32,11 +33,15 @@ export const RECOVERY_EMAIL_FAILED = 'auth/RECOVERY_EMAIL_FAILED';
 export const RESETTING_PASSWORD = 'auth/RESETTING_PASSWORD';
 export const RESET_PASSWORD_SUCCESS = 'auth/RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_FAILURE = 'auth/RESET_PASSWORD_FAILURE';
+export const REHYDRATE_USER = 'auth/REHYDRATE_USER';
+export const REHYDRATE_USER_SUCCESS = 'auth/REHYDRATE_USER_SUCCESS';
+export const REHYDRATE_USER_FAILURE = 'auth/REHYDRATE_USER_FAILURE';
 
 // State & Reducers
 const initialState = {
     isLoggedIn: false,
     isRequestingAuth: false,
+    isRehydratingUser: false,
     user: null,
     token: null,
     success: null,
@@ -75,7 +80,7 @@ export default (state = initialState, action) => {
             };
         case LOGIN_SUCCESS:
             const user = pick(action.user, [
-                'id', 'email', 'privilege', 'type', 'isVerified', 'createdAt', 'updatedAt',
+                'id', 'email', 'privilege', 'type', 'isVerified', 'createdAt', 'updatedAt', 'teamId',
             ]);
 
             return {
@@ -120,6 +125,23 @@ export default (state = initialState, action) => {
                 token: null,
                 success: null,
                 error: null,
+            };
+        case REHYDRATE_USER:
+            return {
+                ...state,
+                isRehydratingUser: true,
+            };
+        case REHYDRATE_USER_SUCCESS:
+            return {
+                ...state,
+                user: action.user,
+                isRehydratingUser: false,
+            };
+        case REHYDRATE_USER_FAILURE:
+            return {
+                ...state,
+                error: action.error,
+                isRehydratingUser: false,
             };
         default:
             return state;
@@ -191,6 +213,26 @@ export const verifyUser = (verificationToken = "") => {
             dispatch({ type: VERIFICATION_SUCCESS });
         } else {
             dispatch({ type: VERIFICATION_FAILURE });
+        }
+    }
+};
+
+export const rehydrateUserById = (verificationToken, id) => {
+    return async dispatch => {
+        dispatch({ type: REHYDRATE_USER });
+
+        const response = await getUserById(verificationToken, id);
+
+        if (isOk(response)) {
+            dispatch({
+                type: REHYDRATE_USER_SUCCESS,
+                user: response.user
+            });
+        } else {
+            dispatch({
+                type: REHYDRATE_USER_FAILURE,
+                error: response.error
+            });
         }
     }
 };
