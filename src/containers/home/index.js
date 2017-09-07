@@ -31,24 +31,24 @@ export default class Home extends Component {
                             stroke={ COLORS.BROWN }
                         />
                         <div className="mb4">
-                            <p className="karla wh-off-white antialias tc f4 f3-ns lh-solid mv2">November 3-5, 2017</p>
-                            <p className="karla wh-off-white antialias tc f4 f3-ns lh-solid mv2">Evanston, IL</p>
+                            <p className="karla wh-off-white antialias tc f5 f3-ns lh-solid mv2">November 3-5, 2017</p>
+                            <p className="karla wh-off-white antialias tc f5 f3-ns lh-solid mv2">Evanston, IL</p>
                         </div>
                         { isLoggedIn ? 
                             <div className="flex items-center justify-center mb2">
-                                <Button to="/dashboard" backgroundColor="bg-wh-navy" className="mh2">
+                                <Button to="/dashboard" backgroundColor="bg-wh-navy" className="f6 f5-ns mh2">
                                     My Dashboard
                                 </Button>
-                                <Button to="/logout" backgroundColor="bg-wh-pink" className="mh2">
+                                <Button to="/logout" backgroundColor="bg-wh-pink" className="f6 f5-ns mh2">
                                     Logout
                                 </Button>
                             </div>
                             :
                             <div className="flex items-center justify-center mb2">
-                                <Button to="/login" backgroundColor="bg-wh-navy" className="mh2">
+                                <Button to="/login" backgroundColor="bg-wh-navy" className="f6 f5-ns mh2">
                                     Log in
                                 </Button>
-                                <Button to="/register" backgroundColor="bg-wh-pink" className="mh2">
+                                <Button to="/register" backgroundColor="bg-wh-pink" className="f6 f5-ns mh2">
                                     Register
                                 </Button>
                             </div>
@@ -173,7 +173,7 @@ export default class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <footer className="pv6 relative z-9999">
+                <footer className="pv6 ph4 relative z-9999">
                     <p className="karla white f5 tc antialias">MLH Code of Conduct</p>
                     <p className="karla white f5 tc antialias">As an MLH sanctioned event, WildHacks adheres to and enforces the <a className="link wh-sand underline antialias" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct.</a></p>
                 </footer>

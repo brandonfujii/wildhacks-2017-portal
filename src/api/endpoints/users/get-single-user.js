@@ -1,26 +1,29 @@
 import Pupper from 'api/pupper';
 
-export const getUserById = (id) => {
-    return Pupper.get('/user', {
-        queryParams: {
-            id,
-        },
-    });
+export const getUserById = (token, id) => {
+    return Pupper.get('/user', 
+        Pupper.sign({
+            queryParams: {
+                id,
+            },
+        }, token));
 };
 
-export const getUserByEmail = (email) => {
-    return Pupper.get('/user', {
-        queryParams: {
-            email,
-        },
-    });
+export const getUserByEmail = (token, email) => {
+    return Pupper.get('/user', 
+        Pupper.sign({
+            queryParams: {
+                email,
+            },
+        }, token));
 };
 
-export const getUser = (id, email) => {
-    return Pupper.get('/user', {
-        queryParams: {
-            id,
-            email,
-        },
-    });
+export const getUser = (token, id, email) => {
+    return Pupper.get('/user', 
+        Pupper.sign({
+            queryParams: {
+                id,
+                email,
+            },
+        }, token));
 };
