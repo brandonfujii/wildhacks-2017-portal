@@ -9,8 +9,15 @@ import { FormInput, FormSelect, Button } from 'components/utility';
 
 import colleges from './data/colleges.json';
 import gradYears from './data/grad-years.json'
+import ethnicities from './data/ethnicities.json';
+import genders from './data/genders.json';
+import tshirtSizes from './data/tshirt-sizes.json';
 import collegeOptions from './data/college-options.json';
 import gradYearOptions from './data/grad-year-options.json';
+import { ethnicityOptions, ethnicityMapping } from './data/ethnicity-options';
+import { genderOptions, genderMapping } from './data/gender-options';
+import { tshirtSizeOptions, tshirtSizeMapping } from './data/tshirt-size-options';
+
 
 class Application extends Component {
     constructor(props) {
@@ -46,10 +53,10 @@ class Application extends Component {
                 }
             },
             ethnicity: {
-                validate: {
-                    fn: validation.isString,
-                    message: 'Must be a valid string',
-                }
+                enum: ethnicities,
+            },
+            gender: {
+                enum: genders,
             },
             school: {
                 required: true,
@@ -71,6 +78,9 @@ class Application extends Component {
                     fn: validation.isNumber,
                     message: 'Must be a number',
                 },
+            },
+            tshirtSize: {
+                enum: tshirtSizes,
             },
             personalWebsite: {
                 validate: {
@@ -106,6 +116,10 @@ class Application extends Component {
                 highlight: false,
                 message: null,
             },
+            gender: {
+                highlight: false,
+                message: null,
+            },
             school: {
                 highlight: false,
                 message: null,
@@ -119,6 +133,10 @@ class Application extends Component {
                 message: null,
             },
             numPrevHackathons: {
+                highlight: false,
+                message: null,
+            },
+            tshirtSize: {
                 highlight: false,
                 message: null,
             },
@@ -142,10 +160,12 @@ class Application extends Component {
                 lastName: '',
                 age: '',
                 ethnicity: '',
+                gender: '',
                 school: '',
                 major: '',
                 gradYear: '',
                 numPrevHackathons: '',
+                tshirtSize: '',
                 personalWebsite: '',
                 githubUsername: '',
                 resume: null,
@@ -170,11 +190,13 @@ class Application extends Component {
             firstName,
             lastName,
             age,
+            gender,
             ethnicity,
             school,
             major,
             gradYear,
             numPrevHackathons,
+            tshirtSize,
             personalWebsite,
             githubUsername,
             resumeId,
@@ -184,11 +206,13 @@ class Application extends Component {
             firstName,
             lastName,
             age: age.toString(),
+            gender,
             ethnicity,
             school,
             major,
             gradYear,
             numPrevHackathons: numPrevHackathons.toString(),
+            tshirtSize,
             personalWebsite,
             githubUsername,
             resumeId,
@@ -322,10 +346,12 @@ class Application extends Component {
             lastName: lastNameError,
             age: ageError,
             ethnicity: ethnicityError,
+            gender: genderError,
             school: schoolError,
             major: majorError,
             gradYear: gradYearError,
             numPrevHackathons: numPrevHackathonsError,
+            tshirtSize: tshirtSizeError,
             personalWebsite: personalWebsiteError,
             githubUsername: githubUsernameError,
         } = this.state.errors;
@@ -338,7 +364,7 @@ class Application extends Component {
         if (!ready) {
             return null;
         }
-
+        
         return (
             <div className="app-form pa4 mw7 center">
                 <p className="karla wh-off-white antialias f1 b">Application</p>
@@ -432,12 +458,49 @@ class Application extends Component {
                         </div>
                         <div className="fl w-50-ns w-100 pa2">
                             <label className="karla wh-off-white antialias f5 mb2 db">Ethnicity</label>
-                            <FormInput
+                            <FormSelect
                                 className="app-ethnicity"
-                                value={ this.state.app.ethnicity }
+                                value={
+                                    this.state.app.ethnicity
+                                        ? { label: ethnicityMapping[this.state.app.ethnicity], value: this.state.app.ethnicity }
+                                        : null
+                                }
                                 highlight={ethnicityError.highlight}
                                 memo={ethnicityError.message ? ethnicityError.message : null}
-                                onChange={e => this.onFormInputChange('ethnicity', e.target.value)}
+                                onChange={option => this.onFormInputChange('ethnicity', option.value)}
+                                options={ethnicityOptions}
+                            />
+                        </div>
+                    </div>
+                    <div className="cf mb2">
+                        <div className="fl w-50-ns w-100 pa2">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Gender</label>
+                            <FormSelect
+                                className="app-gender"
+                                value={
+                                    this.state.app.gender
+                                        ? { label: genderMapping[this.state.app.gender], value: this.state.app.gender }
+                                        : null
+                                }
+                                highlight={genderError.highlight}
+                                memo={genderError.message ? genderError.message : null}
+                                onChange={option => this.onFormInputChange('gender', option.value)}
+                                options={genderOptions}
+                            />
+                        </div>
+                        <div className="fl w-50-ns w-100 pa2">
+                            <label className="karla wh-off-white antialias f5 mb2 db">T-Shirt Size</label>
+                            <FormSelect
+                                className="app-t-shirt-size"
+                                value={
+                                    this.state.app.tshirtSize
+                                        ? { label: tshirtSizeMapping[this.state.app.tshirtSize], value: this.state.app.tshirtSize }
+                                        : null
+                                }
+                                highlight={tshirtSizeError.highlight}
+                                memo={tshirtSizeError.message ? tshirtSizeError.message : null}
+                                onChange={option => this.onFormInputChange('tshirtSize', option.value)}
+                                options={tshirtSizeOptions}
                             />
                         </div>
                     </div>
