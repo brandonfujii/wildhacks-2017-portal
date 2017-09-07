@@ -160,8 +160,8 @@ class Application extends Component {
                 firstName: '',
                 lastName: '',
                 age: '',
-                ethnicity: '',
-                gender: '',
+                ethnicity: null,
+                gender: null,
                 school: '',
                 major: '',
                 gradYear: '',
@@ -206,13 +206,13 @@ class Application extends Component {
         const app = Object.assign({}, {
             firstName,
             lastName,
-            age: age.toString(),
+            age: age ? age.toString() : '',
             gender,
             ethnicity,
             school,
             major,
             gradYear,
-            numPrevHackathons: numPrevHackathons.toString(),
+            numPrevHackathons: numPrevHackathons ? numPrevHackathons.toString() : '',
             tshirtSize,
             personalWebsite,
             githubUsername,
@@ -317,7 +317,7 @@ class Application extends Component {
             const formKey = snakeCase(key);
             app[key] = parseInt(app[key], 10) || app[key];
             
-            if (app[key] || app[key] === '') {
+            if (app[key]) {
                 if (key === formKey) return;
                 Object.defineProperty(app, formKey, Object.getOwnPropertyDescriptor(app, key));
             }
@@ -439,7 +439,7 @@ class Application extends Component {
                             <label className="karla wh-off-white antialias f5 mb2 db">Age*</label>
                             <FormInput
                                 className="app-age"
-                                value={ this.state.app.age }
+                                value={ this.state.app.age.toString() }
                                 highlight={ageError.highlight}
                                 memo={ageError.message ? ageError.message : null}
                                 onChange={e => this.onFormInputChange('age', e.target.value)}
