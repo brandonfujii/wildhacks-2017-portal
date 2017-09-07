@@ -3,6 +3,7 @@ import isOk from './helpers/response-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { getTeamById, getTeamByName, createOrJoinTeam, leaveTeam } from 'api';
 
+import { LOGOUT } from './auth';
 export const FETCHING_TEAM = 'team/FETCHING_TEAM';
 export const FETCH_TEAM_SUCCESS = 'team/FETCH_TEAM_SUCCESS';
 export const FETCH_TEAM_FAILURE = 'team/FETCH_TEAM_FAILURE';
@@ -61,6 +62,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error,
+            };
+        case LOGOUT:
+            return {
+                ...state,
+                team: null,
+                error: null,
             };
         default:
             return state;
