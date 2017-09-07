@@ -81,6 +81,7 @@ class Application extends Component {
             },
             tshirtSize: {
                 enum: tshirtSizes,
+                required: true,
             },
             personalWebsite: {
                 validate: {
@@ -489,7 +490,7 @@ class Application extends Component {
                             />
                         </div>
                         <div className="fl w-50-ns w-100 pa2">
-                            <label className="karla wh-off-white antialias f5 mb2 db">T-Shirt Size</label>
+                            <label className="karla wh-off-white antialias f5 mb2 db">T-Shirt Size*</label>
                             <FormSelect
                                 className="app-t-shirt-size"
                                 value={
