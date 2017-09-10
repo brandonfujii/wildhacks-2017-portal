@@ -121,7 +121,7 @@ class RegistrationPage extends Component {
         const { email, password, confirmPassword } = this.state.form;
 
         return(
-            <div className={`authentication-box measure center ph4 pt6`}>
+            <div className="authentication-box measure center ph4 pt6">
                 <h1 className="karla white f2 mb2 antialias">
                     Sign up
                 </h1>
