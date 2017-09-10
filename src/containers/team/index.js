@@ -19,7 +19,6 @@ const mapStateToProps = state => ({
     error: state.team.error,
     isFetchingTeam: state.team.isFetchingTeam,
     user: state.auth.user,
-    token: state.auth.token,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
