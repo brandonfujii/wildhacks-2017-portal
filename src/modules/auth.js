@@ -44,7 +44,6 @@ const initialState = {
     isRehydratingUser: false,
     user: null,
     token: null,
-    success: null,
     error: null,
 };
 
@@ -107,13 +106,11 @@ export default (state = initialState, action) => {
                     ...state.user,
                     isVerified: true,
                 } : null,
-                success: 'Nice! You\'ve successfully verified your account.',
                 error: null,
             };
         case VERIFICATION_FAILURE:
             return {
                 ...state,
-                success: null,
                 error: 'Yikes...Looks like we couldn\'t verify your account.'
             };
         case LOGOUT:
@@ -123,7 +120,6 @@ export default (state = initialState, action) => {
                 isLoggedIn: false,
                 user: null,
                 token: null,
-                success: null,
                 error: null,
             };
         case REHYDRATE_USER:
