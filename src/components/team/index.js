@@ -28,22 +28,23 @@ class Team extends Component {
         });
     }
 
-    onLeaveTeam = () => {
+    onLeaveTeam = async () => {
         const { leaveTeamByName, team, user, rehydrateUserById } = this.props;
-        leaveTeamByName(team.name).then(() => {
-            rehydrateUserById(user.id);
-        });
+        await leaveTeamByName(team.name);
+        rehydrateUserById(user.id);
     }
 
-    onSubmitForm = (e) => {
+    onSubmitForm = async (e) => {
         e.preventDefault();
-        const { joinTeamByName, rehydrateUserById, user } = this.props;
+        const { joinTeamByName, fetchTeamById, rehydrateUserById, user } = this.props;
         const { newTeam } = this.state;
 
         if (newTeam) {
-            joinTeamByName(newTeam).then(() => {
-                rehydrateUserById(user.id);
-            });
+            await joinTeamByName(newTeam)
+            await rehydrateUserById(user.id);
+            if (this.props.user.teamId && this.props.user.teamId !== this.props.team.id) {
+                fetchTeamById(this.props.user.teamId);
+            }
         }
     }
 
