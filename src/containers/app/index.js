@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 
 import { Button } from 'components/utility';
 import Home from 'containers/home';
@@ -49,17 +49,19 @@ class App extends Component {
                     </div>
                 </header>
                 <main>
-                    <Route exact path="/" render={() => <Home isLoggedIn={ isLoggedIn }/>} />
-                    <Route exact path="/dashboard" render={() => isLoggedIn ? <Dashboard/> : <Home/>} />
-                    <Route exact path="/app" render={() => isLoggedIn ? <Application/> : <Home/>} />
-                    <Route exact path="/team" render={() => isLoggedIn ? <Team/> : <Home/> } />
-                    <Route exact path="/register" component={ Authentication } />
-                    <Route exact path="/login" component={ Authentication } />
-                    <Route exact path="/verify/:token" component={props => isLoggedIn ? <Verify verificationToken={props.match.params.token} /> : <Home/>} />
-                    <Route exact path="/forgot" component={ResetPassword} />
-                    <Route exact path="/forgot/:token" component={ResetPassword} />
-                    <Route exact path="/logout" component={ Logout }/>
-                    <Route component={NotFound}/>
+                    <Switch>
+                        <Route exact path="/" render={() => <Home isLoggedIn={ isLoggedIn }/>} />
+                        <Route exact path="/dashboard" render={() => isLoggedIn ? <Dashboard/> : <Home/>} />
+                        <Route exact path="/app" render={() => isLoggedIn ? <Application/> : <Home/>} />
+                        <Route exact path="/team" render={() => isLoggedIn ? <Team/> : <Home/> } />
+                        <Route exact path="/register" component={ Authentication } />
+                        <Route exact path="/login" component={ Authentication } />
+                        <Route exact path="/verify/:token" component={props => isLoggedIn ? <Verify verificationToken={props.match.params.token} /> : <Home/>} />
+                        <Route exact path="/forgot" component={ResetPassword} />
+                        <Route exact path="/forgot/:token" component={ResetPassword} />
+                        <Route exact path="/logout" component={ Logout }/>
+                        <Route component={NotFound}/>
+                    </Switch>
                 </main>
             </div>
         )
