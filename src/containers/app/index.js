@@ -11,6 +11,7 @@ import ResetPassword from 'containers/reset-password';
 import Application from 'containers/application';
 import Team from 'containers/team';
 import Logout from 'containers/logout';
+import NotFound from 'components/not-found';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
 
 class App extends Component {
@@ -58,6 +59,7 @@ class App extends Component {
                     <Route exact path="/forgot" component={ResetPassword} />
                     <Route exact path="/forgot/:token" component={ResetPassword} />
                     <Route exact path="/logout" component={ Logout }/>
+                    <Route component={NotFound}/>
                 </main>
             </div>
         )
