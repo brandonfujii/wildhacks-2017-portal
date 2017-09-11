@@ -29,20 +29,20 @@ class Team extends Component {
     }
 
     onLeaveTeam = () => {
-        const { leaveTeamByName, team, token, user, rehydrateUserById } = this.props;
+        const { leaveTeamByName, team, user, rehydrateUserById } = this.props;
         leaveTeamByName(team.name).then(() => {
-            rehydrateUserById(token, user.id);
+            rehydrateUserById(user.id);
         });
     }
 
     onSubmitForm = (e) => {
         e.preventDefault();
-        const { joinTeamByName, rehydrateUserById, token, user } = this.props;
+        const { joinTeamByName, rehydrateUserById, user } = this.props;
         const { newTeam } = this.state;
 
         if (newTeam) {
             joinTeamByName(newTeam).then(() => {
-                rehydrateUserById(token, user.id);
+                rehydrateUserById(user.id);
             });
         }
     }
@@ -86,8 +86,8 @@ class Team extends Component {
                 { team && 
                     <div>
                         <p className="karla white antialias f4">{`Members of ${team.name}`}</p>
-                        { team.users.map((user) => (
-                            <p className="karla white antialias f6" key={user.id} >{ user.email }</p>
+                        { team.users.map((user, index) => (
+                            <p className="karla white antialias f6" key={index} >{ user.email }</p>
                         ))}
                         <Link
                             className="karla white antialias"

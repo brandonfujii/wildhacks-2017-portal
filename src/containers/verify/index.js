@@ -1,15 +1,13 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { verifyUser, resendVerificationEmail } from 'modules/auth';
-import VerificationPage from "components/verify";
+import { verifyUser, resendVerificationEmail, rehydrateUserById } from 'modules/auth';
+import VerificationPage from 'components/verify';
 
 const Verify = props => {
-    const { token } = props.match.params;
-
     return <div className="app-view--verify">
         <VerificationPage
-            verificationToken={token || ""}
+            verificationToken={props.verificationToken || ""}
             {...props} />
     </div>
 };
@@ -23,6 +21,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     verifyUser,
     resendVerificationEmail,
+    rehydrateUserById,
 }, dispatch);
 
 export default connect(

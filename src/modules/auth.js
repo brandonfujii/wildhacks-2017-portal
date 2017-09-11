@@ -44,7 +44,6 @@ const initialState = {
     isRehydratingUser: false,
     user: null,
     token: null,
-    success: null,
     error: null,
 };
 
@@ -80,7 +79,7 @@ export default (state = initialState, action) => {
             };
         case LOGIN_SUCCESS:
             const user = pick(action.user, [
-                'id', 'email', 'privilege', 'type', 'isVerified', 'createdAt', 'updatedAt', 'teamId',
+                'id', 'email', 'privilege', 'type', 'isVerified', 'createdAt', 'updatedAt', 'teamId', 'verificationTokenId'
             ]);
 
             return {
@@ -104,16 +103,14 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 user: state.user ? {
-                    ...user,
+                    ...state.user,
                     isVerified: true,
                 } : null,
-                success: 'Nice! You\'ve successfully verified your account.',
                 error: null,
             };
         case VERIFICATION_FAILURE:
             return {
                 ...state,
-                success: null,
                 error: 'Yikes...Looks like we couldn\'t verify your account.'
             };
         case LOGOUT:
@@ -123,7 +120,6 @@ export default (state = initialState, action) => {
                 isLoggedIn: false,
                 user: null,
                 token: null,
-                success: null,
                 error: null,
             };
         case REHYDRATE_USER:
@@ -217,12 +213,14 @@ export const verifyUser = (verificationToken = "") => {
     }
 };
 
-export const rehydrateUserById = (verificationToken, id) => {
+export const rehydrateUserById = (id) => {
     return async dispatch => {
         dispatch({ type: REHYDRATE_USER });
 
-        const response = await getUserById(verificationToken, id);
-
+        const response = await dispatch(
+            checkTokenAsync(getUserById, id)
+        );
+        
         if (isOk(response)) {
             dispatch({
                 type: REHYDRATE_USER_SUCCESS,

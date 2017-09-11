@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Link } from 'react-router-dom';
+import { withRouter, Route } from 'react-router-dom';
 
 import { Button } from 'components/utility';
 import Home from 'containers/home';
@@ -54,7 +54,7 @@ class App extends Component {
                     <Route exact path="/team" render={() => isLoggedIn ? <Team/> : <Home/> } />
                     <Route exact path="/register" component={ Authentication } />
                     <Route exact path="/login" component={ Authentication } />
-                    <Route exact path="/verify/:token" component={Verify} />
+                    <Route exact path="/verify/:token" component={props => isLoggedIn ? <Verify verificationToken={props.match.params.token} /> : <Home/>} />
                     <Route exact path="/forgot" component={ResetPassword} />
                     <Route exact path="/forgot/:token" component={ResetPassword} />
                     <Route exact path="/logout" component={ Logout }/>
