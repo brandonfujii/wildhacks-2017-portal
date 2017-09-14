@@ -12,6 +12,8 @@ const Talk = ({ id, name, description, speaker }) => (
     </div> 
 );
 
+const TalkLoader = () => (<div className="loader karla white f6 antialias">Loading ...</div>);
+
 class Talks extends Component {
     constructor(props) {
         super(props);
@@ -19,15 +21,13 @@ class Talks extends Component {
         this.state = {
             talks: [],
             hasMore: true,
+            error: null,
         };
     }
 
     renderTalks(talks) {
         if (!talks) return null;
-
-        return talks.map((talk, index) => {
-            return <Talk key={index} {...talk}/>;
-        }); 
+        return talks.map((talk, index) => <Talk key={index} {...talk}/>);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,9 +44,10 @@ class Talks extends Component {
         try {
             await this.props.fetchTalks(page, this.props.pageSize);
         } catch(err) {
-            console.log(err);
+            this.setState({
+                error: err.message,
+            });
         }
-
     }
 
     render() {
@@ -56,7 +57,7 @@ class Talks extends Component {
                     pageStart={1}
                     hasMore={this.state.hasMore}
                     loadMore={this.loadMoreTalks}
-                    loader={<div className="loader">Loading ...</div>}
+                    loader={<TalkLoader/>}
                 >
                     { this.renderTalks(this.state.talks) }
                 </InfiniteScroll>
@@ -64,6 +65,13 @@ class Talks extends Component {
         )
     }
 }
+
+Talk.propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    speaker: PropTypes.object.isRequired,
+};
 
 Talks.propTypes = {
     pageSize: PropTypes.number.isRequired,

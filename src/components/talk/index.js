@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormInput, Button } from 'components/utility';
+import { FormInput, FormTextArea, Button } from 'components/utility';
 import Talks from './talks';
 
 const pageSize = 5;
@@ -19,7 +19,29 @@ class Talk extends Component {
 
         this.state = {
             ready: false,
+            name: "",
+            description: "",
         };
+    }
+
+    onNameChange = (name = "") => {
+        if (typeof name !== "string" || name.trim().length > 50) return;
+
+        this.setState({ name });
+    }
+
+    onDescriptionChange = (description = "") => {
+        if (typeof description !== "string" || description.length > 500) return;
+
+        this.setState({ description });
+    }
+
+    onSubmitTalk = e => {
+        e.preventDefault();
+        const name = this.state.name.trim();
+        const description = this.state.description.trim();
+        
+        this.props.submitTalk({ name, description });
     }
 
     render() {
@@ -42,17 +64,23 @@ class Talk extends Component {
                     <p className="karla antialias wh-pink mv2">{ error }</p>
                 }
                 <form
-                    onSubmit={() => {}}
+                    onSubmit={ this.onSubmitTalk }
                 >
                     <FormInput
                         className="mb2"
-                        value={''}
+                        value={ this.state.name }
                         placeholder="Talk name"
-                        onChange={() => {}}
+                        onChange={ e => this.onNameChange(e.target.value) }
+                    />
+                    <FormTextArea 
+                        className="mb2"
+                        value={ this.state.description }
+                        placeholder="What is your talk about?"
+                        onChange={ e => this.onDescriptionChange(e.target.value) }
                     />
                     <Button
                         backgroundColor="bg-wh-pink"
-                        onClick={() => {}}
+                        onClick={ this.onSubmitTalk }
                         className="mb4"
                         type="submit"
                     >
@@ -71,6 +99,7 @@ class Talk extends Component {
 }
 
 Talk.propTypes = {
+    submitTalk: PropTypes.func.isRequired,
     fetchTalkById: PropTypes.func.isRequired,
     fetchTalks: PropTypes.func.isRequired,
     talk: PropTypes.object,

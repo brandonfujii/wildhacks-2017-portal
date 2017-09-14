@@ -27,6 +27,7 @@ import leaveTeam from './endpoints/teams/leave-team';
 // Talks
 import getTalkById from './endpoints/talks/get-talk-by-id';
 import getTalks from './endpoints/talks/get-talks';
+import createTalk from './endpoints/talks/create-talk';
 
 // Ping
 import getPing from './endpoints/get-ping';
@@ -51,5 +52,6 @@ export {
     leaveTeam,
     getTalkById,
     getTalks,
+    createTalk,
     getPing,
 };
