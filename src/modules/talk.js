@@ -12,6 +12,7 @@ export const FETCH_TALK_FAILURE = 'talk/FETCH_TALKS_FAILURE';
 // State & Reducers
 const initialState = {
     isFetchingTalks: false,
+    count: 0,
     talks: [],
     talk: null,
     error: null,
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetchingTalks: false,
+                count: action.count,
                 talks: action.talks,
                 talk: null,
                 error: null,
@@ -72,6 +74,7 @@ export const fetchTalks = (pageNumber, limit) => {
         if (isOk(response)) {
             dispatch({
                 type: FETCH_TALKS_SUCCESS,
+                count: response.count,
                 talks: response.talks,
             });
         } else {

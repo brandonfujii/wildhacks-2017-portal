@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import InfiniteScroll from 'react-infinite-scroller'
 import { FormInput, Button } from 'components/utility';
 import Talks from './talks';
+
+const pageSize = 5;
 
 class Talk extends Component {
     constructor(props) {
@@ -10,46 +11,16 @@ class Talk extends Component {
 
         const { fetchTalks } = props;
         
-        fetchTalks(1, 5)
-            .then(() => {
-                this.setState({
-                    ready: true
-                }); 
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        fetchTalks(1, pageSize).then(() => {
+            this.setState({
+                ready: true
+            }); 
+        });
 
         this.state = {
             ready: false,
         };
     }
-
-    // onNewTeamChange = (val) => {
-    //     this.setState({
-    //         newTeam: val
-    //     });
-    // }
-
-    // onLeaveTeam = async () => {
-    //     const { leaveTeamByName, team, user, rehydrateUserById } = this.props;
-    //     await leaveTeamByName(team.name);
-    //     rehydrateUserById(user.id);
-    // }
-
-    // onSubmitForm = async (e) => {
-    //     e.preventDefault();
-    //     const { joinTeamByName, fetchTeamById, rehydrateUserById, user } = this.props;
-    //     const { newTeam } = this.state;
-
-    //     if (newTeam) {
-    //         await joinTeamByName(newTeam)
-    //         await rehydrateUserById(user.id);
-    //         if (this.props.user.teamId && this.props.user.teamId !== this.props.team.id) {
-    //             fetchTeamById(this.props.user.teamId);
-    //         }
-    //     }
-    // }
 
     render() {
         const { talk, error } = this.props;
@@ -88,7 +59,12 @@ class Talk extends Component {
                         Submit Talk
                     </Button>
                 </form>
-                <Talks talks={this.props.talks} />
+                <Talks 
+                    pageSize={pageSize}
+                    fetchTalks={this.props.fetchTalks}
+                    talks={this.props.talks}
+                    count={this.props.count}
+                />
             </div>
         );
     }

@@ -12,7 +12,7 @@ const Talk = props => {
 
 const mapStateToProps = state => ({
     talks: state.talk.talks,
-    talk: state.talk.talk,
+    count: state.talk.count,
     error: state.talk.error,
     isFetchingTalks: state.talk.isFetchingTalks,
 });
