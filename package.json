@@ -19,6 +19,7 @@
     "react-router-redux": "next",
     "react-scripts": "1.0.10",
     "react-select": "1.0.0-rc.5",
+    "react-tag-input": "4.7.2",
     "redux": "^3.7.2",
     "redux-persist": "4.8.3",
     "redux-persist-transform-filter": "0.0.15",

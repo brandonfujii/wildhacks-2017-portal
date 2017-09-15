@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 
-const Talk = ({ id, name, description, speaker }) => (
+const Talk = ({ id, name, description, speaker, upvotes }) => (
     <div className="lightning-talk">
+        <span className="upvotes karla white f5 antialias">{ upvotes } upvotes</span>
         <p className="karla white f4 antialias">{ name }</p>
+        <p className="karla white f5 antialias">{ description }</p>
         { speaker && speaker.application ? 
             <p className="karla white f5 antialias">
                 by {speaker.application.firstName} from {speaker.application.school}
@@ -19,8 +21,6 @@ class Talks extends Component {
         super(props);
 
         this.state = {
-            talks: [],
-            hasMore: true,
             error: null,
         };
     }
@@ -30,19 +30,9 @@ class Talks extends Component {
         return talks.map((talk, index) => <Talk key={index} {...talk}/>);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.talks) {
-            const talks = this.state.talks.concat(nextProps.talks);
-            this.setState({
-                talks,
-                hasMore: nextProps.count > talks.length,
-            });
-        }
-    }
-
     loadMoreTalks = async (page) => {
         try {
-            await this.props.fetchTalks(page, this.props.pageSize);
+            await this.props.fetchTalks(page, this.props.pageSize, this.props.orderBy);
         } catch(err) {
             this.setState({
                 error: err.message,
@@ -51,15 +41,19 @@ class Talks extends Component {
     }
 
     render() {
+        if (!this.props.ready) {
+            return null;
+        }
+
         return (
             <div className="lightning-talks">
                 <InfiniteScroll
                     pageStart={1}
-                    hasMore={this.state.hasMore}
+                    hasMore={this.props.hasMore}
                     loadMore={this.loadMoreTalks}
                     loader={<TalkLoader/>}
                 >
-                    { this.renderTalks(this.state.talks) }
+                    { this.renderTalks(this.props.talks) }
                 </InfiniteScroll>
             </div>
         )
@@ -71,9 +65,12 @@ Talk.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     speaker: PropTypes.object.isRequired,
+    upvotes: PropTypes.number.isRequired,
 };
 
 Talks.propTypes = {
+    ready: PropTypes.bool.isRequired,
+    orderBy: PropTypes.string.isRequired,
     pageSize: PropTypes.number.isRequired,
     talks: PropTypes.array.isRequired,
     count: PropTypes.number.isRequired,

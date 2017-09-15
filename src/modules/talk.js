@@ -66,12 +66,12 @@ export default (state = initialState, action) => {
     }
 }
 
-export const fetchTalks = (pageNumber, limit) => {
+export const fetchTalks = (pageNumber, limit, order) => {
     return async dispatch => {
         dispatch({ type: FETCHING_TALKS });
 
         const response = await dispatch(
-            checkTokenAsync(getTalks, pageNumber, limit)
+            checkTokenAsync(getTalks, pageNumber, limit, order)
         );
 
         if (isOk(response)) {
@@ -118,7 +118,7 @@ export const submitTalk = options => {
         const response = await dispatch(
             checkTokenAsync(createTalk, options)
         );
-        
+
         if (isOk(response)) {
             dispatch({
                 type: SUBMIT_TALK_SUCCESS,

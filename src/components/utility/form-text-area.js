@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormTextArea = ({ className, value="", type="text", placeholder="", onChange, highlight, memo="" }) => (
+const FormTextArea = ({ className, value="", type="text", placeholder="", onChange, highlight, memo="", height }) => (
     <div className={`text-input ${className || ''}`}>
         <textarea
             className={`karla pa2 input-reset br2 ba w-100
                 ${highlight ? 'highlighted' : ''}
             `}
+            style={{ height }}
             type={ type }
             placeholder={ placeholder }
             value={ value || '' }
