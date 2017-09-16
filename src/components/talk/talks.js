@@ -4,23 +4,28 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'components/utility';
 
 const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, voteOnTalk }) => (
-    <div className="lightning-talk">
-        <Link 
-            className="white"
-            onClick={ e => {
-                e.preventDefault();
-                voteOnTalk();
-            }}
-        >
-            { !hasUpvoted ? "Upvote talk" : "Remove upvote" }
-        </Link>
-        <span className="upvotes karla white f5 antialias">{ upvotes } upvotes</span>
-        <p className="karla white f4 antialias">{ name }</p>
-        <p className="karla white f5 antialias">{ description }</p>
-        { speaker && speaker.application ? 
-            <p className="karla white f5 antialias">
-                by {speaker.application.firstName} from {speaker.application.school}
-            </p> : null }
+    <div className="lightning-talk flex items-center pv3">
+        <div className="pr2 w3 w4-ns dib flex-none">
+            <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
+            <p className="karla white f6 antialias tc mt1">{ upvotes === 1 ? 'upvote' : 'upvotes'}</p>
+        </div>
+        <div className="">
+            <p className="karla white f3 antialias mv1">{ name }</p>
+            <p className="karla white f5 antialias">{ description }</p>
+            { speaker && speaker.application ? 
+                <p className="karla wh-off-white f6 antialias mb1">
+                    by {speaker.application.firstName} from {speaker.application.school}
+                </p> : null }
+            <Link 
+                className="white f6"
+                onClick={ e => {
+                    e.preventDefault();
+                    voteOnTalk();
+                }}
+            >
+                { !hasUpvoted ? "Upvote talk" : "Remove upvote" }
+            </Link>
+        </div>
     </div> 
 );
 
@@ -60,7 +65,7 @@ class Talks extends Component {
         }
 
         return (
-            <div className="lightning-talks">
+            <div className={`lightning-talks ${this.props.className}`}>
                 <InfiniteScroll
                     pageStart={1}
                     hasMore={this.props.hasMore}
