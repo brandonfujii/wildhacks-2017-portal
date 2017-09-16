@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
+import { Link } from 'components/utility';
 
-const Talk = ({ id, name, description, speaker, upvotes }) => (
+const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, voteOnTalk }) => (
     <div className="lightning-talk">
+        <Link 
+            className="white"
+            onClick={ e => {
+                e.preventDefault();
+                voteOnTalk();
+            }}
+        >
+            { !hasUpvoted ? "Upvote talk" : "Remove upvote" }
+        </Link>
         <span className="upvotes karla white f5 antialias">{ upvotes } upvotes</span>
         <p className="karla white f4 antialias">{ name }</p>
         <p className="karla white f5 antialias">{ description }</p>
@@ -27,7 +37,11 @@ class Talks extends Component {
 
     renderTalks(talks) {
         if (!talks) return null;
-        return talks.map((talk, index) => <Talk key={index} {...talk}/>);
+        return talks.map((talk, index) => (
+            <Talk key={index}
+                voteOnTalk={ () => this.props.voteOnTalk(index, talk) }
+                {...talk} />
+        ));
     }
 
     loadMoreTalks = async (page) => {
@@ -66,6 +80,8 @@ Talk.propTypes = {
     description: PropTypes.string.isRequired,
     speaker: PropTypes.object.isRequired,
     upvotes: PropTypes.number.isRequired,
+    hasUpvoted: PropTypes.number.isRequired,
+    voteOnTalk: PropTypes.func.isRequired,
 };
 
 Talks.propTypes = {
@@ -73,8 +89,10 @@ Talks.propTypes = {
     orderBy: PropTypes.string.isRequired,
     pageSize: PropTypes.number.isRequired,
     talks: PropTypes.array.isRequired,
+    hasMore: PropTypes.bool.isRequired,
     count: PropTypes.number.isRequired,
     fetchTalks: PropTypes.func.isRequired,
+    voteOnTalk: PropTypes.func.isRequired,
 };
 
 export default Talks;

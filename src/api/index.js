@@ -28,6 +28,8 @@ import leaveTeam from './endpoints/teams/leave-team';
 import getTalkById from './endpoints/talks/get-talk-by-id';
 import getTalks from './endpoints/talks/get-talks';
 import createTalk from './endpoints/talks/create-talk';
+import upvoteTalkById from './endpoints/talks/upvote-talk-by-id';
+import downvoteTalkById from './endpoints/talks/downvote-talk-by-id';
 
 // Ping
 import getPing from './endpoints/get-ping';
@@ -53,5 +55,7 @@ export {
     getTalkById,
     getTalks,
     createTalk,
+    upvoteTalkById,
+    downvoteTalkById,
     getPing,
 };

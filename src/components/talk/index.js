@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { WithContext as ReactTags } from 'react-tag-input';
-import { FormInput, FormTextArea, Button, Link } from 'components/utility';
+import { WithContext as Tags } from 'react-tag-input';
+import { FormInput, FormTextArea, Button } from 'components/utility';
 import Talks from './talks';
-
 const pageSize = 5;
 
-class Talk extends Component {
+class LightningTalksPage extends Component {
     constructor(props) {
         super(props);
-
         const { fetchTalks } = props;
         
         fetchTalks(1, pageSize).then(() => {
@@ -23,7 +21,6 @@ class Talk extends Component {
             name: "",
             description: "",
             tags: [],
-            suggestions: [],
             talks: [],
             hasMore: true,
             orderBy: "date",
@@ -73,11 +70,32 @@ class Talk extends Component {
 
     handleDrag = (tag, currPos, newPos) => {
         let tags = this.state.tags;
-
         tags.splice(currPos, 1);
         tags.splice(newPos, 0, tag);
-
         this.setState({ tags });
+    }
+
+    voteOnTalk = (index, talk) => {
+        let talks = this.state.talks;
+        let updatedTalk = Object.assign({}, talk);
+
+        if (updatedTalk.hasUpvoted) {
+            updatedTalk.upvotes = updatedTalk.upvotes - 1;
+            updatedTalk.hasUpvoted = 0;
+            this.props.downvoteTalk(talk.id);
+        } else {
+            updatedTalk.upvotes = updatedTalk.upvotes + 1;
+            updatedTalk.hasUpvoted = 1;
+            this.props.upvoteTalk(talk.id);
+        }
+
+        this.setState({ 
+            talks: [
+                ...talks.slice(0, index),
+                updatedTalk,
+                ...talks.splice(index + 1)
+            ],
+        });
     }
 
     rehydrateTalks = async () => {
@@ -103,7 +121,7 @@ class Talk extends Component {
     }
 
     render() {
-        const { talk, error } = this.props;
+        const { error } = this.props;
 
         return (
             <div className="mw6 center pv6 ph4">
@@ -133,8 +151,8 @@ class Talk extends Component {
                         onChange={ e => this.onDescriptionChange(e.target.value) }
                     />
                     <div className="lightning-talk-tags">
-                        <ReactTags
-                        classNames={{
+                        <Tags
+                            classNames={{
                                 tags: "tags",
                                 tagInput: "tag-input",
                                 tagInputField: "tags-input-field karla pa2 input-reset br2 ba w-100 mb2",
@@ -143,11 +161,11 @@ class Talk extends Component {
                                 remove: "remove",
                             }}
                             tags={ this.state.tags }
-                            suggestions={ this.state.suggestions }
                             handleDelete={ this.deleteTag }
                             handleAddition={ this.addTag }
                             handleDrag={ this.handleDrag }
-                            maxLength={25} />
+                            maxLength={25}
+                        />
                     </div>
                     <Button
                         backgroundColor="bg-wh-pink"
@@ -161,9 +179,11 @@ class Talk extends Component {
                 <Talks 
                     ready={this.state.ready}
                     orderBy={this.state.orderBy}
+                    talks={this.state.talks}
+                    hasMore={this.state.hasMore}
                     pageSize={pageSize}
                     fetchTalks={this.props.fetchTalks}
-                    talks={this.props.talks}
+                    voteOnTalk={this.voteOnTalk}
                     count={this.props.count}
                 />
             </div>
@@ -171,7 +191,7 @@ class Talk extends Component {
     }
 }
 
-Talk.propTypes = {
+LightningTalksPage.propTypes = {
     submitTalk: PropTypes.func.isRequired,
     fetchTalkById: PropTypes.func.isRequired,
     fetchTalks: PropTypes.func.isRequired,
@@ -180,4 +200,4 @@ Talk.propTypes = {
     error: PropTypes.string,
 };
 
-export default Talk;
+export default LightningTalksPage;

@@ -1,6 +1,6 @@
 import isOk from './helpers/response-helper';
 import checkTokenAsync from './helpers/token-helper';
-import { getTalks, getTalkById, createTalk } from 'api';
+import { getTalks, getTalkById, createTalk, upvoteTalkById, downvoteTalkById } from 'api';
 
 export const FETCHING_TALKS = 'talk/FETCHING_TALKS';
 export const FETCH_TALKS_SUCCESS = 'talk/FETCH_TALKS_SUCCESS';
@@ -11,6 +11,12 @@ export const FETCH_TALK_FAILURE = 'talk/FETCH_TALKS_FAILURE';
 export const SUBMITTING_TALK = 'talk/SUBMITTING_TALK';
 export const SUBMIT_TALK_SUCCESS = 'talk/SUBMIT_TALK_SUCCESS';
 export const SUBMIT_TALK_FAILURE = 'talk/SUBMIT_TALK_FAILURE';
+export const UPVOTING_TALK = 'talk/UPVOTING_TALK';
+export const UPVOTE_SUCCESS = 'talk/UPVOTE_SUCCESS';
+export const UPVOTE_FAILURE = 'talk/UPVOTE_FAILURE';
+export const DOWNVOTING_TALK = 'talk/DOWNVOTING_TALK';
+export const DOWNVOTE_SUCCESS = 'talk/DOWNVOTE_SUCCESS';
+export const DOWNVOTE_FAILURE = 'talk/DOWNVOTE_FAILURE';
 
 // State & Reducers
 const initialState = {
@@ -127,6 +133,44 @@ export const submitTalk = options => {
         } else {
             dispatch({
                 type: SUBMIT_TALK_FAILURE,
+                error: response.message,
+            });
+        }
+    };
+};
+
+export const upvoteTalk = id => {
+    return async dispatch => {
+        dispatch({ type: UPVOTING_TALK });
+
+        const response = await dispatch(
+            checkTokenAsync(upvoteTalkById, id)
+        );
+        
+        if (isOk(response)) {
+            dispatch({ type: UPVOTE_SUCCESS });
+        } else {
+            dispatch({
+                type: UPVOTE_FAILURE,
+                error: response.message,
+            });
+        }
+    };
+};
+
+export const downvoteTalk = id => {
+    return async dispatch => {
+        dispatch({ type: DOWNVOTING_TALK });
+
+        const response = await dispatch(
+            checkTokenAsync(downvoteTalkById, id)
+        );
+
+        if (isOk(response)) {
+            dispatch({ type: DOWNVOTE_SUCCESS });
+        } else {
+            dispatch({
+                type: DOWNVOTE_FAILURE,
                 error: response.message,
             });
         }
