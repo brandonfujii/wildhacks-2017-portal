@@ -40,7 +40,7 @@ class LightningTalksPage extends Component {
     }
 
     onNameChange = (name = "") => {
-        if (typeof name !== "string" || name.trim().length > 50) return;
+        if (typeof name !== "string" || name.length > 50) return;
 
         this.setState({ name });
     }
