@@ -24,7 +24,7 @@ class LightningTalksPage extends Component {
             tags: [],
             talks: [],
             hasMore: true,
-            orderBy: "date",
+            orderBy: "recent",
             isFormVisible: false
         };
     }
@@ -100,9 +100,15 @@ class LightningTalksPage extends Component {
         });
     }
 
+    sortTalks = (orderBy = "recent") => {
+        this.setState({
+            orderBy, 
+        }, () => this.rehydrateTalks());
+    }
+
     rehydrateTalks = async () => {
-        this.setState({ ready: false, talks: [] });
-        await this.props.fetchTalks(1, pageSize, this.state.orderBy);
+        await this.setState({ ready: false, talks: [] });
+        await this.props.rehydrateTalks(1, pageSize, this.state.orderBy);
         this.setState({ ready: true, isFormVisible: false });
     }
 
@@ -235,6 +241,7 @@ LightningTalksPage.propTypes = {
     submitTalk: PropTypes.func.isRequired,
     fetchTalkById: PropTypes.func.isRequired,
     fetchTalks: PropTypes.func.isRequired,
+    rehydrateTalks: PropTypes.func.isRequired,
     talk: PropTypes.object,
     talks: PropTypes.array,
     error: PropTypes.string,

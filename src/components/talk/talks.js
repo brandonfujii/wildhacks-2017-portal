@@ -9,7 +9,7 @@ const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, voteOnTalk 
             <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
             <p className="karla white f6 antialias tc mt1">{ upvotes === 1 ? 'upvote' : 'upvotes'}</p>
         </div>
-        <div className="">
+        <div>
             <p className="karla white f3 antialias mv1">{ name }</p>
             <p className="karla white f5 antialias">{ description }</p>
             { speaker && speaker.application ? 
