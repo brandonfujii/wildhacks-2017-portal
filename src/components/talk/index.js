@@ -222,6 +222,29 @@ class LightningTalksPage extends Component {
                         >Close form</Link>
                     </form>
                 </div>
+                <div className="filters">
+                    { this.state.orderBy === 'popular' ?
+                        <Link
+                            className="white mr2"
+                            onClick={ e => {
+                                e.preventDefault();
+                                this.sortTalks();
+                            }}
+                        >
+                            Sort by recent
+                        </Link>
+                        :
+                        <Link
+                            className="white"
+                            onClick={ e => {
+                                e.preventDefault();
+                                this.sortTalks("popular");
+                            }}
+                        >
+                            Sort by popular
+                        </Link>
+                    }
+                </div>
                 <Talks 
                     ready={this.state.ready}
                     orderBy={this.state.orderBy}
