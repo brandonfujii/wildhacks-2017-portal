@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { WithContext as Tags } from 'react-tag-input';
 import { FormInput, FormTextArea, Button } from 'components/utility';
 import Talks from './talks';
+import { Link } from 'components/utility';
 const pageSize = 5;
 
 class LightningTalksPage extends Component {
@@ -24,6 +25,7 @@ class LightningTalksPage extends Component {
             talks: [],
             hasMore: true,
             orderBy: "date",
+            isFormVisible: false
         };
     }
 
@@ -101,7 +103,7 @@ class LightningTalksPage extends Component {
     rehydrateTalks = async () => {
         this.setState({ ready: false, talks: [] });
         await this.props.fetchTalks(1, pageSize, this.state.orderBy);
-        this.setState({ ready: true });
+        this.setState({ ready: true, isFormVisible: false });
     }
 
     onSubmitTalk = async (e) => {
@@ -120,62 +122,87 @@ class LightningTalksPage extends Component {
         await this.rehydrateTalks();
     }
 
+    toggleForm = () => {
+        this.setState({
+            isFormVisible: !this.state.isFormVisible
+        });
+    }
+
     render() {
         const { error } = this.props;
 
         return (
-            <div className="mw6 center pv6 ph4">
-                <h1 className="karla white f2 mb2 antialias">
-                    Lightning Talks
-                </h1>
-                <p className="karla white f4 antialias">
-                    Present a lightning talk at WildHacks
-                </p>
-                { error &&
-                    <p className="karla antialias wh-pink mv2">{ this.state.error || error }</p>
-                }
-                <form
-                    onSubmit={ this.onSubmitTalk }
-                >
-                    <FormInput
-                        className="mb2"
-                        value={ this.state.name }
-                        placeholder="Talk name"
-                        onChange={ e => this.onNameChange(e.target.value) }
-                    />
-                    <FormTextArea 
-                        className="mb2"
-                        value={ this.state.description }
-                        placeholder="What is your talk about?"
-                        height={100}
-                        onChange={ e => this.onDescriptionChange(e.target.value) }
-                    />
-                    <div className="lightning-talk-tags">
-                        <Tags
-                            classNames={{
-                                tags: "tags",
-                                tagInput: "tag-input",
-                                tagInputField: "tags-input-field karla pa2 input-reset br2 ba w-100 mb2",
-                                tag: "tag karla white",
-                                selected: "selected",
-                                remove: "remove",
-                            }}
-                            tags={ this.state.tags }
-                            handleDelete={ this.deleteTag }
-                            handleAddition={ this.addTag }
-                            handleDrag={ this.handleDrag }
-                            maxLength={25}
-                        />
-                    </div>
-                    <Button
-                        backgroundColor="bg-wh-pink"
-                        onClick={ this.onSubmitTalk }
-                        className="mb4"
-                        type="submit"
+            <div className="mw8 center pv6 ph4">
+                <h1 className="karla white antialias f2">Lightning Talks</h1>
+                <p className="karla white antialias lh-copy mw7 f5">Lightning talks are five-minute presentations that can be on anything, technical or non-technical. Talks are proposed and voted on by students. Students whose talks are accepted are guaranteed admittance to WildHacks. Vote on talks below or&nbsp;
+                    <Link 
+                        className="white"
+                        onClick={ e => {
+                            e.preventDefault();
+                            this.toggleForm();
+                        }}
                     >
-                        Submit Talk
-                    </Button>
-                </form>
+                        propose your own.
+                    </Link>
+                </p>
+                <div className={`mw6 ${this.state.isFormVisible ? '' : 'dn' }`}>
+                    <h1 className="karla white f3 mb2 antialias">
+                        Propose a Lightning Talk
+                    </h1>
+                    { error &&
+                        <p className="karla antialias wh-pink mv2">{ this.state.error || error }</p>
+                    }
+                    <form
+                        onSubmit={ this.onSubmitTalk }
+                    >
+                        <div>
+                            <label className="karla wh-off-white antialias f5 mb2 db">Title</label>
+                            <FormInput
+                                className="mb2"
+                                value={ this.state.name }
+                                placeholder="Talk name"
+                                onChange={ e => this.onNameChange(e.target.value) }
+                            />
+                        </div>
+                        <div>
+                            <label className="karla wh-off-white antialias f5 mb2 db">Description</label>
+                            <FormTextArea 
+                                className="mb2"
+                                value={ this.state.description }
+                                placeholder="What is your talk about?"
+                                height={100}
+                                onChange={ e => this.onDescriptionChange(e.target.value) }
+                            />
+                        </div>
+                        <div className="lightning-talk-tags">
+                            <label className="karla wh-off-white antialias f5 mb2 db">Tags (max 5)</label>
+                            <Tags
+                                classNames={{
+                                    tags: "tags",
+                                    tagInput: "tag-input",
+                                    tagInputField: "tags-input-field karla pa2 input-reset br2 ba w-100 mb2",
+                                    tag: "tag karla white antialias dib pa2 bg-wh-pink mb2 mr2 br2",
+                                    selected: "selected",
+                                    remove: "remove ml2 pointer",
+                                }}
+                                tags={ this.state.tags }
+                                handleDelete={ this.deleteTag }
+                                handleAddition={ this.addTag }
+                                handleDrag={ this.handleDrag }
+                                maxLength={25}
+                                placeholder="Press Enter or Tab to submit"
+                            />
+                        </div>
+                        <Button
+                            backgroundColor="bg-wh-pink"
+                            onClick={ this.onSubmitTalk }
+                            className="mb4"
+                            type="submit"
+                        >
+                            Submit Talk
+                        </Button>
+                    </form>
+                </div>
                 <Talks 
                     ready={this.state.ready}
                     orderBy={this.state.orderBy}
