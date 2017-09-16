@@ -4,6 +4,7 @@ import auth from './auth';
 import user from './user';
 import application from './application';
 import team from './team';
+import talk from './talk';
 import checkTokenAsync from './helpers/token-helper';
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
     user,
     application,
     team,
+    talk,
     checkTokenAsync,
 });
