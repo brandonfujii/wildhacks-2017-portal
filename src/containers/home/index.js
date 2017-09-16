@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, CONSTANTS } from 'components/utility';
 import { Wordmark } from 'components/assets';
-import { Facebook, Twitter, Instagram } from 'react-feather';
+import { Facebook, Twitter, Instagram, Mail } from 'react-feather';
 
 import drawBackground from './background';
 
@@ -72,6 +72,7 @@ export default class Home extends Component {
                             <a href="https://www.facebook.com/nuwildhacks" target="_blank" rel="noopener noreferrer"><Facebook className="mh2" size={24} color={ COLORS.OFF_WHITE } /></a>
                             <a href="https://twitter.com/NUWildHacks" target="_blank" rel="noopener noreferrer"><Twitter className="mh2" size={24} color={ COLORS.OFF_WHITE } /></a>
                             <a href="https://www.instagram.com/nuwildhacks/" target="_blank" rel="noopener noreferrer"><Instagram className="mh2" size={24} color={ COLORS.OFF_WHITE } /></a>
+                            <a href="mailto:wildhacksteam@gmail.com"><Mail className="mh2" size={24} color={ COLORS.OFF_WHITE } /></a>
                         </div>
                         <div className="flex items-center justify-center">
                             <p className="f6 karla white antialias">Interested in sponsoring? <a className="link wh-sand underline antialias" href="mailto:wildhackssponsor@gmail.com?Subject=Sponsorship%20Opportunities">Email us.</a></p>

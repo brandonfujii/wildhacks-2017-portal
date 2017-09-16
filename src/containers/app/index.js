@@ -10,6 +10,7 @@ import Verify from 'containers/verify';
 import ResetPassword from 'containers/reset-password';
 import Application from 'containers/application';
 import Team from 'containers/team';
+import Talk from 'containers/talk';
 import Logout from 'containers/logout';
 import NotFound from 'components/not-found';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
@@ -54,6 +55,7 @@ class App extends Component {
                         <Route exact path="/dashboard" render={() => isLoggedIn ? <Dashboard/> : <Home/>} />
                         <Route exact path="/app" render={() => isLoggedIn ? <Application/> : <Home/>} />
                         <Route exact path="/team" render={() => isLoggedIn ? <Team/> : <Home/> } />
+                        <Route exact path="/talks" render={() => isLoggedIn ? <Talk/> : <Home/> } />
                         <Route exact path="/register" component={ Authentication } />
                         <Route exact path="/login" component={ Authentication } />
                         <Route exact path="/verify/:token" component={props => isLoggedIn ? <Verify verificationToken={props.match.params.token} /> : <Home/>} />
