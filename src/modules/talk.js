@@ -17,6 +17,7 @@ export const UPVOTE_FAILURE = 'talk/UPVOTE_FAILURE';
 export const DOWNVOTING_TALK = 'talk/DOWNVOTING_TALK';
 export const DOWNVOTE_SUCCESS = 'talk/DOWNVOTE_SUCCESS';
 export const DOWNVOTE_FAILURE = 'talk/DOWNVOTE_FAILURE';
+export const REHYDRATING_TALKS = 'talk/REHYDRATING_TALKS';
 
 // State & Reducers
 const initialState = {
@@ -66,6 +67,11 @@ export default (state = initialState, action) => {
                 ...state,
                 isFetchingTalks: false,
                 error: action.error,
+            };
+        case REHYDRATING_TALKS:
+            return {
+                ...state,
+                talks: [],
             };
         default:
             return state;
@@ -175,4 +181,11 @@ export const downvoteTalk = id => {
             });
         }
     };
+};
+
+export const rehydrateTalks = (pageNumber, limit, order) => {
+    return async dispatch => {
+        dispatch({ type: REHYDRATING_TALKS });
+        dispatch(fetchTalks(pageNumber, limit, order));
+    }
 };
