@@ -134,6 +134,12 @@ class LightningTalksPage extends Component {
         });
     }
 
+    hideForm = () => {
+        this.setState({
+            isFormVisible: false
+        });
+    }
+
     render() {
         const { error } = this.props;
 
@@ -207,27 +213,37 @@ class LightningTalksPage extends Component {
                         >
                             Submit Talk
                         </Button>
+                        <Link
+                            className="white ml2"
+                            onClick={ e => {
+                                e.preventDefault();
+                                this.hideForm();
+                            }}
+                        >Close form</Link>
                     </form>
                 </div>
                 <div className="filters">
-                    <Link
-                        className="white"
-                        onClick={ e => {
-                            e.preventDefault();
-                            this.sortTalks();
-                        }}
-                    >
-                        Sort by recent
-                    </Link>
-                    <Link
-                        className="white"
-                        onClick={ e => {
-                            e.preventDefault();
-                            this.sortTalks("popular");
-                        }}
-                    >
-                        Sort by popular
-                    </Link>
+                    { this.state.orderBy === 'popular' ?
+                        <Link
+                            className="white mr2"
+                            onClick={ e => {
+                                e.preventDefault();
+                                this.sortTalks();
+                            }}
+                        >
+                            Sort by recent
+                        </Link>
+                        :
+                        <Link
+                            className="white"
+                            onClick={ e => {
+                                e.preventDefault();
+                                this.sortTalks("popular");
+                            }}
+                        >
+                            Sort by popular
+                        </Link>
+                    }
                 </div>
                 <Talks 
                     ready={this.state.ready}

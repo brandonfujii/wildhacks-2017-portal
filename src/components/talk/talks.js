@@ -5,7 +5,7 @@ import { Link } from 'components/utility';
 
 const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, voteOnTalk }) => (
     <div className="lightning-talk flex items-center pv3">
-        <div className="pr2 w4">
+        <div className="pr2 w3 w4-ns dib flex-none">
             <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
             <p className="karla white f6 antialias tc mt1">{ upvotes === 1 ? 'upvote' : 'upvotes'}</p>
         </div>
