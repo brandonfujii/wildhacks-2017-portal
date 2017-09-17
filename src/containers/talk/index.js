@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
     count: state.talk.count,
     error: state.talk.error,
     isFetchingTalks: state.talk.isFetchingTalks,
+    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

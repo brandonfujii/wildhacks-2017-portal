@@ -140,6 +140,11 @@ class LightningTalksPage extends Component {
         });
     }
 
+    onDeleteTalk = async (id) => {
+        await this.props.deleteTalk(id);
+        await this.rehydrateTalks();
+    }
+
     render() {
         const { error } = this.props;
 
@@ -254,6 +259,8 @@ class LightningTalksPage extends Component {
                     fetchTalks={this.props.fetchTalks}
                     voteOnTalk={this.voteOnTalk}
                     count={this.props.count}
+                    deleteTalk={this.onDeleteTalk}
+                    user={this.props.user}
                 />
             </div>
         );

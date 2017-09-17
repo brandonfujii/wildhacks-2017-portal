@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'components/utility';
 
-const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, voteOnTalk }) => (
+const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, voteOnTalk, deleteTalk }) => (
     <div className="lightning-talk flex items-center pv3">
         <div className="pr2 w3 w4-ns dib flex-none">
             <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
@@ -25,6 +25,17 @@ const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, voteOnTalk 
             >
                 { !hasUpvoted ? "Upvote talk" : "Remove upvote" }
             </Link>
+            { deleteTalk && 
+                <Link 
+                    className="white f6 ml2"
+                    onClick={ e => {
+                        e.preventDefault();
+                        deleteTalk(id);
+                    }}
+                >
+                    Delete talk
+                </Link>
+            }
         </div>
     </div> 
 );
@@ -45,6 +56,7 @@ class Talks extends Component {
         return talks.map((talk, index) => (
             <Talk key={index}
                 voteOnTalk={ () => this.props.voteOnTalk(index, talk) }
+                deleteTalk={ talk.speakerId === this.props.user.id ? this.props.deleteTalk : false }
                 {...talk} />
         ));
     }
