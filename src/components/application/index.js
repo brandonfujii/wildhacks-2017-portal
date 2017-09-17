@@ -5,7 +5,7 @@ import snakeCase from 'lodash/snakeCase';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import validation from './validation';
-import { FormInput, FormSelect, Button } from 'components/utility';
+import { FormInput, FormSelect, Button, Link } from 'components/utility';
 
 import colleges from './data/colleges.json';
 import gradYears from './data/grad-years.json'
@@ -552,7 +552,7 @@ class Application extends Component {
                         ${this.isAppReady() ? '' : ' pe-none o-50'}
                     `}>
                         <Button
-                            className={`mb2 ${ submitted ? 'pe-none' : ''}`}
+                            className={`mb2 db ${ submitted ? 'pe-none' : ''}`}
                             backgroundColor={ submitted ? 'bg-wh-black' : 'bg-wh-pink' }
                             onClick={ this.onSubmitApp }
                         >
@@ -563,6 +563,7 @@ class Application extends Component {
                             }
                         </Button>
                     </div>
+                    <p className="karla white antialias tr f6 mt0">By submitting this application you agree to abide by the <Link className="wh-off-white" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct.</Link></p>
                 </form>
             </div>
         );

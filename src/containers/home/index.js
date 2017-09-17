@@ -192,7 +192,7 @@ export default class Home extends Component {
                 </div>
                 <footer className="pv6 ph4 relative z-9999">
                     <p className="karla white f5 tc antialias">MLH Code of Conduct</p>
-                    <p className="karla white f5 tc antialias">As an MLH sanctioned event, WildHacks adheres to and enforces the <a className="link wh-sand underline antialias" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct.</a></p>
+                    <p className="karla white f5 tc antialias">As an MLH sanctioned event, WildHacks adheres to and enforces the <a className="link wh-sand underline antialias" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct.</a></p>
                 </footer>
             </div>
         );
