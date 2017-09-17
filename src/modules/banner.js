@@ -1,9 +1,11 @@
 export const DISPLAY_BANNER = 'banner/DISPLAY_BANNER';
+export const HIDE_BANNER = 'banner/HIDE_BANNER';
 export const DISMISS_BANNER = 'banner/DISMISS_BANNER';
 
 // State & Reducers
 const initialState = {
-    banner: null
+    text: null,
+    isShown: false
 };
 
 export default (state = initialState, action) => {
@@ -11,25 +13,41 @@ export default (state = initialState, action) => {
         case DISPLAY_BANNER:
             return {
                 ...state,
-                banner: action.banner
+                text: action.text,
+                isShown: true,
+            };
+        case HIDE_BANNER:
+            return {
+                ...state,
+                isShown: false,
             };
         case DISMISS_BANNER: 
             return {
                 ...state,
-                banner: null
+                text: null,
+                iShown: false,
             };
         default:
             return state;
     }
-}
+};
 
-export const displayBanner = (banner, lifespan=500) => {
+export const displayBanner = (text, lifespan=1000) => {
     return async dispatch => {
         dispatch({
             type: DISPLAY_BANNER,
-            banner
+            text
         });
-        setTimeout(() => dispatch({ type: DISMISS_BANNER, }), lifespan);
+        setTimeout(() => dispatch({ type: HIDE_BANNER }), lifespan);
+        setTimeout(() => dispatch({ type: DISMISS_BANNER }), lifespan + 2000);
+    };
+};
+
+export const hideBanner = () => {
+    return dispatch => {
+        dispatch({
+            type: HIDE_BANNER
+        });
     };
 };
 

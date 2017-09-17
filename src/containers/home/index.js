@@ -24,22 +24,22 @@ export default class Home extends Component {
                     <div className="absolute absolute--overfill z-5 transition-transform"></div>
                 </div>
                 <div className="min-vh-90 mw7 center ph3-ns pt5 relative z-9999 hide-header">
-                <a id="mlh-trust-badge" style={{
-                    display:"block",
-                    maxWidth:"100px",
-                    minWidth:"60px",
-                    position:"fixed",
-                    left:"50px",
-                    top:"0",
-                    width:"10%",
-                    zIndex:"10000"
-                }} 
-                    href="https://mlh.io/seasons/na-2018/events?utm_source=na-2018&utm_medium=TrustBadge&utm_campaign=na-2018&utm_content=black" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <img src="https://s3.amazonaws.com/logged-assets/trust-badge/2018/black.svg" alt="Major League Hacking 2017 Hackathon Season" style={{ width:"100%"}} />
-                </a>
+                    <a id="mlh-trust-badge" style={{
+                            display: "block",
+                            maxWidth: "100px",
+                            minWidth: "60px",
+                            position: "fixed",
+                            left: "50px",
+                            top: "0",
+                            width: "10%",
+                            zIndex: "10000"
+                        }} 
+                        href="https://mlh.io/seasons/na-2018/events?utm_source=na-2018&utm_medium=TrustBadge&utm_campaign=na-2018&utm_content=black" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src="https://s3.amazonaws.com/logged-assets/trust-badge/2018/black.svg" alt="Major League Hacking 2017 Hackathon Season" style={{ width:"100%"}} />
+                    </a>
                     <div className="cf">
                         <p className="karla b wh-off-white antialias tc f4 f3-ns">LET’S GET LOST</p>
                         <Wordmark 

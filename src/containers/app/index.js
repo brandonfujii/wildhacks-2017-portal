@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 
 import { Button } from 'components/utility';
 import Home from 'containers/home';
@@ -13,6 +14,7 @@ import Team from 'containers/team';
 import Talk from 'containers/talk';
 import Logout from 'containers/logout';
 import NotFound from 'components/not-found';
+import Banner from 'components/banner';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
 
 class App extends Component {
@@ -21,11 +23,15 @@ class App extends Component {
     }
 
     render() {
-        const { isLoggedIn, location, banner } = this.props;
+        const { isLoggedIn, location, bannerText, bannerIsShown } = this.props;
 
         return (
             <div>
-                { banner }
+                { bannerText ?
+                    <Banner isShown={bannerIsShown}>{ bannerText }</Banner>
+                    :
+                    null
+                }
                 <header
                     className={`mw9 pt4 center right-0 fixed
                         ${ location.pathname === '/' ? ' z-max animated o-0' : ''}
@@ -74,7 +80,8 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
-        banner: state.banner.banner,
+        bannerText: state.banner.text,
+        bannerIsShown: state.banner.isShown,
     }
 };
 
