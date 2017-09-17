@@ -1,5 +1,5 @@
-import { push } from 'react-router-redux';
 import isOk from './helpers/response-helper';
+import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { getApplication, updateApplication } from 'api';
 
@@ -66,8 +66,7 @@ export const getApp = () => {
                 app: response.application,
             });
         } else {
-            if (!response || response.statusCode === 401) dispatch(push('/logout'));
-
+            checkError(dispatch, response);
             dispatch({
                 type: FETCH_APP_FAILURE
             });
@@ -89,7 +88,7 @@ export const updateApp = (fields = {}) => {
                 app: response.result.application,
             });
         } else {
-            if (!response || response.statusCode === 401) dispatch(push('/logout'));
+            checkError(dispatch, response);
 
             dispatch({
                 type: UPDATE_FAILURE,
