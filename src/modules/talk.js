@@ -1,7 +1,7 @@
 import isOk from './helpers/response-helper';
 import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
-import { getTalks, getTalkById, createTalk, upvoteTalkById, downvoteTalkById } from 'api';
+import { getTalks, getTalkById, createTalk, upvoteTalkById, downvoteTalkById, deleteTalkById } from 'api';
 
 import { LOGOUT } from './auth';
 export const FETCHING_TALKS = 'talk/FETCHING_TALKS';
@@ -19,6 +19,9 @@ export const UPVOTE_FAILURE = 'talk/UPVOTE_FAILURE';
 export const DOWNVOTING_TALK = 'talk/DOWNVOTING_TALK';
 export const DOWNVOTE_SUCCESS = 'talk/DOWNVOTE_SUCCESS';
 export const DOWNVOTE_FAILURE = 'talk/DOWNVOTE_FAILURE';
+export const DELETING_TALK = 'talk/DELETING_TALK';
+export const DELETE_TALK_SUCCESS = 'talk/DELETE_TALK_SUCCESS';
+export const DELETE_TALK_FAILURE = 'talk/DELETE_TALK_FAILURE';
 export const REHYDRATING_TALKS = 'talk/REHYDRATING_TALKS';
 
 // State & Reducers
@@ -146,6 +149,26 @@ export const submitTalk = options => {
             checkError(dispatch, response);
             dispatch({
                 type: SUBMIT_TALK_FAILURE,
+                error: response.message,
+            });
+        }
+    };
+};
+
+export const deleteTalk = id => {
+    return async dispatch => {
+        dispatch({ type: DELETING_TALK });
+
+        const response = await dispatch(
+            checkTokenAsync(deleteTalkById, id)
+        );
+        
+        if (isOk(response)) {
+            dispatch({ type: DELETE_TALK_SUCCESS });
+        } else {
+            checkError(dispatch, response);
+            dispatch({
+                type: DELETE_TALK_FAILURE,
                 error: response.message,
             });
         }

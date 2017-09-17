@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LightningTalksPage from 'components/talk';
-import { fetchTalks, fetchTalkById, submitTalk, upvoteTalk, downvoteTalk, rehydrateTalks } from 'modules/talk';
+import { fetchTalks, fetchTalkById, submitTalk, upvoteTalk, downvoteTalk, rehydrateTalks, deleteTalk } from 'modules/talk';
 
 const Talk = props => {
     return <div className="app-view--talk pt4">
@@ -24,6 +24,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     upvoteTalk,
     downvoteTalk,
     rehydrateTalks,
+    deleteTalk,
 }, dispatch);
 
 export default connect(
