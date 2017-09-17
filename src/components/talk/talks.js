@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'components/utility';
 
-const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, voteOnTalk }) => (
+const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, deleteTalk, voteOnTalk }) => (
     <div className="lightning-talk flex items-center pv3">
         <div className="pr2 w3 w4-ns dib flex-none">
             <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
