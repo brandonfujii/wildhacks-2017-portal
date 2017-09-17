@@ -1,4 +1,5 @@
 import isOk from './helpers/response-helper';
+import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { getTalks, getTalkById, createTalk, upvoteTalkById, downvoteTalkById } from 'api';
 
@@ -93,6 +94,7 @@ export const fetchTalks = (pageNumber, limit, order) => {
                 talks: response.talks,
             });
         } else {
+            checkError(dispatch, response);
             dispatch({
                 type: FETCH_TALKS_FAILURE,
                 fetchingError: 'Unable to fetch the requested talks',
@@ -115,6 +117,7 @@ export const fetchTalkById = id => {
                 talk: response.talk,
             });
         } else {
+            checkError(dispatch, response);
             dispatch({
                 type: FETCH_TALK_FAILURE,
                 fetchingError: 'Unable to fetch the requested talk',
@@ -137,6 +140,7 @@ export const submitTalk = options => {
                 talk: response.talk,
             });
         } else {
+            checkError(dispatch, response);
             dispatch({
                 type: SUBMIT_TALK_FAILURE,
                 error: response.message,
@@ -156,6 +160,7 @@ export const upvoteTalk = id => {
         if (isOk(response)) {
             dispatch({ type: UPVOTE_SUCCESS });
         } else {
+            checkError(dispatch, response);
             dispatch({
                 type: UPVOTE_FAILURE,
                 error: response.message,
@@ -175,6 +180,7 @@ export const downvoteTalk = id => {
         if (isOk(response)) {
             dispatch({ type: DOWNVOTE_SUCCESS });
         } else {
+            checkError(dispatch, response);
             dispatch({
                 type: DOWNVOTE_FAILURE,
                 error: response.message,
