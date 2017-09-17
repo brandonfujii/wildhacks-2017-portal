@@ -16,9 +16,11 @@ const checkError = async (dispatch, error) => {
             break;
         case 429: // Too many requests error
             dispatch(displayBanner('Too many requests', 5000));
+            dispatch(push('/logout'));
             break;
         case 500: // Internal server error
             dispatch(displayBanner('Oops! Something went wrong', 5000));
+            dispatch(push('/logout'));
             break;
         default:
             break;
