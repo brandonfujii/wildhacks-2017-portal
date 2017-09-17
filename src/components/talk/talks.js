@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'components/utility';
 
-const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, voteOnTalk, deleteTalk }) => (
+const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, voteOnTalk }) => (
     <div className="lightning-talk flex items-center pv3">
         <div className="pr2 w3 w4-ns dib flex-none">
             <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
             <p className="karla white f6 antialias tc mt1">{ upvotes === 1 ? 'upvote' : 'upvotes'}</p>
         </div>
         <div>
-            <p className="karla white f3 antialias mv1">{ name }</p>
+            <p className="karla white f3 antialias mt1 mb3">{ name }</p>
+            { tags.map((tag, index) => (
+                <span className="karla br2 bg-wh-gold wh-navy f6 ph2 pv1 mr2" key={index}>{ tag.name }</span>
+            ))}
             <p className="karla white f5 antialias">{ description }</p>
             { speaker && speaker.application ? 
                 <p className="karla wh-off-white f6 antialias mb1">
