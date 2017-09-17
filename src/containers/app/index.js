@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 
 import { Button } from 'components/utility';
 import Home from 'containers/home';

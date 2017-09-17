@@ -6,7 +6,6 @@ import application from './application';
 import team from './team';
 import talk from './talk';
 import banner from './banner';
-import checkTokenAsync from './helpers/token-helper';
 
 export default combineReducers({
     router: routerReducer,
@@ -15,6 +14,5 @@ export default combineReducers({
     application,
     team,
     talk,
-    checkTokenAsync,
     banner,
 });
