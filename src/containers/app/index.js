@@ -21,10 +21,11 @@ class App extends Component {
     }
 
     render() {
-        const { isLoggedIn, location } = this.props;
+        const { isLoggedIn, location, banner } = this.props;
 
         return (
             <div>
+                { banner }
                 <header
                     className={`mw9 pt4 center right-0 fixed
                         ${ location.pathname === '/' ? ' z-max animated o-0' : ''}
@@ -73,6 +74,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.auth.isLoggedIn,
+        banner: state.banner.banner,
     }
 };
 
