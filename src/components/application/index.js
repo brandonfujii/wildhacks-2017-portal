@@ -563,7 +563,7 @@ class Application extends Component {
                             }
                         </Button>
                     </div>
-                    <p className="karla white antialias tr f6 mt0">By submitting this application you agree to abide by the <Link className="wh-off-white" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf">MLH Code of Conduct.</Link></p>
+                    <p className="karla white antialias tr f6 mt0">By submitting this application you agree to abide by the <Link className="wh-off-white" href="https://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct.</Link></p>
                 </form>
             </div>
         );

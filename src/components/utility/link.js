@@ -8,7 +8,8 @@ const CustomLink = ({
     text="",
     href="#",
     antialias=true,
-    onClick
+    onClick,
+    target
 }) => {
     const classes = `karla link underline 
         ${ antialias ? 'antialias ' : ''}
@@ -27,6 +28,7 @@ const CustomLink = ({
             className={ classes }
             href={ href }
             onClick={ onClick }
+            target={ target }
         >
             { children }
         </a>
