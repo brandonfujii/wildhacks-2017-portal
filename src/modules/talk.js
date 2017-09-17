@@ -3,6 +3,7 @@ import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { getTalks, getTalkById, createTalk, upvoteTalkById, downvoteTalkById } from 'api';
 
+import { LOGOUT } from './auth';
 export const FETCHING_TALKS = 'talk/FETCHING_TALKS';
 export const FETCH_TALKS_SUCCESS = 'talk/FETCH_TALKS_SUCCESS';
 export const FETCH_TALKS_FAILURE = 'talk/FETCH_TALKS_FAILURE';
@@ -74,6 +75,8 @@ export default (state = initialState, action) => {
                 ...state,
                 talks: [],
             };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }
