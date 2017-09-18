@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Link } from 'components/utility';
 
-const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, deleteTalk, voteOnTalk }) => (
+const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, deleteTalk, voteOnTalk, requireApp }) => (
     <div className="lightning-talk flex items-center pv3">
         <div className="pr2 w3 w4-ns dib flex-none">
             <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
@@ -23,7 +23,7 @@ const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, delet
                 className="white f6"
                 onClick={ e => {
                     e.preventDefault();
-                    voteOnTalk();
+                    requireApp(voteOnTalk);
                 }}
             >
                 { !hasUpvoted ? "Upvote talk" : "Remove upvote" }
@@ -60,6 +60,7 @@ class Talks extends Component {
             <Talk key={index}
                 voteOnTalk={ () => this.props.voteOnTalk(index, talk) }
                 deleteTalk={ talk.speakerId === this.props.user.id ? this.props.deleteTalk : false }
+                requireApp={ this.props.requireApp }
                 {...talk} />
         ));
     }
@@ -102,6 +103,7 @@ Talk.propTypes = {
     upvotes: PropTypes.number.isRequired,
     hasUpvoted: PropTypes.number.isRequired,
     voteOnTalk: PropTypes.func.isRequired,
+    requireApp: PropTypes.func.isRequired,
 };
 
 Talks.propTypes = {
@@ -113,6 +115,7 @@ Talks.propTypes = {
     count: PropTypes.number.isRequired,
     fetchTalks: PropTypes.func.isRequired,
     voteOnTalk: PropTypes.func.isRequired,
+    requireApp: PropTypes.func.isRequired,
 };
 
 export default Talks;
