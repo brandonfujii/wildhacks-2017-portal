@@ -54,10 +54,10 @@ class LightningTalksPage extends Component {
         if (talkSubset.length < 1 || talkSuperset.length < 1) return false;
 
         let hasDuplicate = false;
-        talkSubset = talkSubset.map(talk => talk.id);
+        talkSubset = new Set(talkSubset.map(talk => talk.id));
 
         for (let i = 0, len = talkSuperset.length; i < len; ++i) {
-            if (talkSubset.includes(talkSuperset[i].id)) {
+            if (talkSubset.has(talkSuperset[i].id)) {
                 hasDuplicate = true;
                 break;
             }
