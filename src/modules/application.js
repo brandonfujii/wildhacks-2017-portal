@@ -2,7 +2,6 @@ import isOk from './helpers/response-helper';
 import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { getApplication, updateApplication } from 'api';
-import { displayBanner } from 'modules/banner';
 
 export const FETCHING_APP = 'app/FETCHING_APP';
 export const FETCH_APP_SUCCESS = 'app/FETCH_APP_SUCCESS';
@@ -84,7 +83,6 @@ export const updateApp = (fields = {}) => {
         );
 
         if (isOk(response)) {
-            dispatch(displayBanner('Your application has been updated!', 5000));
             dispatch({
                 type: UPDATE_SUCCESS,
                 app: response.result.application,

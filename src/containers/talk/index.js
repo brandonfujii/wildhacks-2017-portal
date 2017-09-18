@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LightningTalksPage from 'components/talk';
 import { fetchTalks, fetchTalkById, submitTalk, upvoteTalk, downvoteTalk, rehydrateTalks, deleteTalk } from 'modules/talk';
+import { getApp } from 'modules/application';
+import { displayBanner } from 'modules/banner';
 
 const Talk = props => {
     return <div className="app-view--talk pt4">
@@ -14,8 +16,9 @@ const mapStateToProps = state => ({
     talks: state.talk.talks,
     count: state.talk.count,
     error: state.talk.error,
+    user: state.auth.user,
+    app: state.application.app,
     isFetchingTalks: state.talk.isFetchingTalks,
-    user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
@@ -26,6 +29,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     downvoteTalk,
     rehydrateTalks,
     deleteTalk,
+    getApp,
+    displayBanner,
 }, dispatch);
 
 export default connect(

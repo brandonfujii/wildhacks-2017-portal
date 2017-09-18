@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import ApplicationPage from 'components/application';
 import { updateApp, getApp } from 'modules/application';
+import { displayBanner } from 'modules/banner';
 
 const Application = props => {
     return <div className="app-view--application pt4">
@@ -20,6 +21,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     updateApp,
     getApp,
+    displayBanner,
 }, dispatch);
 
 export default connect(

@@ -25,11 +25,22 @@ class LightningTalksPage extends Component {
             talks: [],
             hasMore: true,
             orderBy: "recent",
-            isFormVisible: false
+            isFormVisible: false,
+            appSubmitted: false,
         };
     }
 
+    componentWillMount() {
+        this.props.getApp(); 
+    }
+
     componentWillReceiveProps(nextProps) {
+        if (nextProps.app) {
+            this.setState({
+                appSubmitted: true, 
+            });
+        }
+
         if (nextProps.talks) {
             const talks = this.state.talks.concat(nextProps.talks);
             this.setState({
@@ -145,6 +156,14 @@ class LightningTalksPage extends Component {
         await this.rehydrateTalks();
     }
 
+    requireApp = async (fn, ...args) => {
+        if (this.state.appSubmitted) {
+            fn(args);
+        } else {
+            this.props.displayBanner('You must submit an application before performing this action', 5000);
+        }
+    }
+
     render() {
         const { error } = this.props;
 
@@ -156,7 +175,7 @@ class LightningTalksPage extends Component {
                         className="white"
                         onClick={ e => {
                             e.preventDefault();
-                            this.toggleForm();
+                            this.requireApp(this.toggleForm);
                         }}
                     >
                         propose your own.
@@ -206,6 +225,7 @@ class LightningTalksPage extends Component {
                                 handleDelete={ this.deleteTag }
                                 handleAddition={ this.addTag }
                                 handleDrag={ this.handleDrag }
+                                requireApp={ this.requireApp }
                                 maxLength={25}
                                 placeholder="Press Enter or Tab to submit"
                             />
@@ -256,11 +276,12 @@ class LightningTalksPage extends Component {
                     talks={this.state.talks}
                     hasMore={this.state.hasMore}
                     pageSize={pageSize}
+                    count={this.props.count}
+                    user={this.props.user}
+                    requireApp={this.requireApp}
+                    deleteTalk={this.onDeleteTalk}
                     fetchTalks={this.props.fetchTalks}
                     voteOnTalk={this.voteOnTalk}
-                    count={this.props.count}
-                    deleteTalk={this.onDeleteTalk}
-                    user={this.props.user}
                 />
             </div>
         );
@@ -272,8 +293,13 @@ LightningTalksPage.propTypes = {
     fetchTalkById: PropTypes.func.isRequired,
     fetchTalks: PropTypes.func.isRequired,
     rehydrateTalks: PropTypes.func.isRequired,
+    upvoteTalk: PropTypes.func.isRequired,
+    downvoteTalk: PropTypes.func.isRequired,
+    displayBanner: PropTypes.func.isRequired,
+    getApp: PropTypes.func.isRequired,
     talk: PropTypes.object,
     talks: PropTypes.array,
+    app: PropTypes.object,
     error: PropTypes.string,
 };
 

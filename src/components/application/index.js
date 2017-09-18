@@ -174,7 +174,8 @@ class Application extends Component {
             errors: this.DEFAULT_ERRORS,
             message: null,
             submitted: false,
-            ready: false
+            ready: false,
+            hasApp: false,
         };
     }
 
@@ -222,6 +223,7 @@ class Application extends Component {
 
         if (app && app !== this.state.app) {
             this.setState({
+                hasApp: true,
                 app,
             });
         }
@@ -332,11 +334,17 @@ class Application extends Component {
         e.preventDefault();
 
         if (this.isAppValid()) {
+            const hasExistingApp = this.state.hasApp;
             const options = this.getCompletedAppFields();
             this.props.updateApp(options).then(() => {
                 this.setState({
                     submitted: true
                 });
+
+                this.props.displayBanner(
+                    `Thanks! Your application has been ${hasExistingApp ? "updated" : "submitted"}!`,
+                    5000,
+                );
             });
         }
     }
@@ -572,6 +580,7 @@ class Application extends Component {
 
 Application.propTypes = {
     updateApp: PropTypes.func.isRequired,
+    displayBanner: PropTypes.func.isRequired,    
     getApp: PropTypes.func.isRequired,
     app: PropTypes.object,
 };
