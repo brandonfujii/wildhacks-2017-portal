@@ -41,13 +41,29 @@ class LightningTalksPage extends Component {
             });
         }
 
-        if (nextProps.talks) {
+        if (nextProps.talks && !this.hasDuplicates(nextProps.talks, this.state.talks.slice())) {
             const talks = this.state.talks.concat(nextProps.talks);
             this.setState({
                 talks,
                 hasMore: nextProps.count > talks.length,
             });
         }
+    }
+
+    hasDuplicates = (talkSubset = [], talkSuperset = []) => {
+        if (talkSubset.length < 1 || talkSuperset.length < 1) return false;
+
+        let hasDuplicate = false;
+        talkSubset = new Set(talkSubset.map(talk => talk.id));
+
+        for (let i = 0, len = talkSuperset.length; i < len; ++i) {
+            if (talkSubset.has(talkSuperset[i].id)) {
+                hasDuplicate = true;
+                break;
+            }
+        }
+
+        return hasDuplicate;
     }
 
     onNameChange = (name = "") => {
