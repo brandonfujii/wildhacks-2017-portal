@@ -5,7 +5,10 @@ import { Button, FlashError, FormInput } from 'components/utility';
 const FormComponent = ({ className="", onSubmit, onInputChange, inputValue, buttonText="Submit", error, placeholder="", password=false }) => (
     <div className={ className }>
         <FlashError message={error}/>
-        <form onSubmit={ onSubmit }>
+        <form onSubmit={ e => {
+            e.preventDefault();
+            onSubmit();
+        }}>
             <FormInput
                 className="mb3"
                 type={ password ? "password" : ""}
