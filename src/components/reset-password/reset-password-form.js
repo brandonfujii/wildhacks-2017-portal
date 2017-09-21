@@ -46,7 +46,7 @@ class ResetPasswordForm extends Component {
                     password={true}
                     placeholder="New password"
                     buttonText="Reset password"
-                    error={this.state.error || this.props.error}
+                    error={this.state.error}
                 />
             </div>
         );
