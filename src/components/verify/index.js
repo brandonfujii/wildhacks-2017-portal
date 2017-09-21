@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, FlashError, Link } from 'components/utility';
+import { Button, Link } from 'components/utility';
 
 class VerificationPage extends Component {
     constructor(props) {
@@ -25,12 +25,17 @@ const VerifiedMessage = props => (
         <h1 className="karla white f2 mb2 antialias">
             Your account has been verified!
         </h1>
+        <Link
+            className="white antialias"
+            to="/dashboard"
+        >
+            Go back to my dashboard
+        </Link>
     </div>
 );
 
 const SendVerification = props => (
     <div className="mw6 pt6 center">
-        <FlashError message={props.error} />
         <h1 className="karla white f2 mb2 antialias">
             Verify Account
         </h1>

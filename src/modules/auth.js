@@ -2,6 +2,7 @@ import pick from 'lodash/pick';
 import { push } from 'react-router-redux';
 import isOk from './helpers/response-helper';
 import checkTokenAsync from './helpers/token-helper';
+import { displayBanner } from 'modules/banner';
 import {
     registerUser,
     loginUser,
@@ -206,8 +207,10 @@ export const verifyUser = (verificationToken = "") => {
         );
 
         if (isOk(response)) {
+            dispatch(displayBanner('Nice, you\'ve successfully verified your account!', 5000));                                                            
             dispatch({ type: VERIFICATION_SUCCESS });
         } else {
+            dispatch(displayBanner('We could not verify your account', 5000));   
             dispatch({ type: VERIFICATION_FAILURE });
         }
     }
@@ -244,8 +247,10 @@ export const resendVerificationEmail = () => {
         );
 
         if (isOk(response)) {
+            dispatch(displayBanner('Verification email sent!', 5000));                                                
             dispatch({ type: VERIFICATION_EMAIL_SENT });
         } else {
+            dispatch(displayBanner('Yikes, Something went wrong! We could not send a verification email to your address', 5000));            
             dispatch({ type: VERIFICATION_EMAIL_FAILED });
         }
     }
@@ -258,8 +263,10 @@ export const sendResetPasswordEmail = (email) => {
         const response = await sendRecoveryEmail(email);
 
         if (isOk(response)) {
+            dispatch(displayBanner('Recovery email sent!', 5000));                                    
             dispatch({ type: RECOVERY_EMAIL_SENT });
         } else {
+            dispatch(displayBanner('Yikes, Something went wrong! We could not send a recovery email to your address', 5000));                        
             dispatch({ type: RECOVERY_EMAIL_FAILED });
         }
     };
@@ -271,16 +278,25 @@ export const resetUserPassword = (recoveryToken = "", password = "") => {
         const response = await resetPassword(recoveryToken, password);
 
         if (isOk(response)) {
+            dispatch(displayBanner('Password successfully reset! Please log in with your new password', 5000));            
             dispatch({ type: RESET_PASSWORD_SUCCESS });
-            dispatch(logout());
+            dispatch(logoutWithoutMessage());
             dispatch(push('/login'));
         } else {
+            dispatch(displayBanner('Sorry, we could not reset the password for this account', 5000));
             dispatch({ type: RESET_PASSWORD_FAILURE });
         }
     };
 };
 
 export const logout = () => {
+    return dispatch => {
+        dispatch(displayBanner('You have been logged out of your account', 5000));        
+        dispatch({ type: LOGOUT });
+    }
+};
+
+export const logoutWithoutMessage = () => {
     return dispatch => {
         dispatch({ type: LOGOUT });
     }
