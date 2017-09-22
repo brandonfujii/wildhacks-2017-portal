@@ -1,7 +1,7 @@
 import { getPing } from 'api';
 
 export const THE_SHERIFF = `
-           🤠
+           😩
          💯💯💯
        💯  💯  💯
      👇   💯💯  👇

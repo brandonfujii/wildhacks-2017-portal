@@ -43,7 +43,7 @@ const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, delet
     </div> 
 );
 
-const TalkLoader = () => (<div className="loader karla white f6 antialias">Loading ...</div>);
+const TalkLoader = () => (<div className="loader karla white f4 antialias pv4 pl6">Loading...</div>);
 
 class Talks extends Component {
     constructor(props) {

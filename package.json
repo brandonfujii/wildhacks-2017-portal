@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "enzyme": "2.9.1",
     "form-data": "2.3.1",
     "isomorphic-fetch": "2.2.1",
     "lodash": "4.17.4",
@@ -20,6 +21,7 @@
     "react-scripts": "1.0.10",
     "react-select": "1.0.0-rc.5",
     "react-tag-input": "4.7.2",
+    "react-test-renderer": "15.6.1",
     "redux": "^3.7.2",
     "redux-persist": "4.8.3",
     "redux-persist-transform-filter": "0.0.15",
@@ -29,7 +31,7 @@
   "scripts": {
     "start": "NODE_PATH='src/' parallelshell \"watch 'npm run build:minify' ./src/css/\" \"react-scripts start\"",
     "build": "npm run build:css && npm run build:minify && react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "NODE_PATH='src/' react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "mutations": "immutable-css src/tachyons.css --strict",
     "build:css": "tachyons src/css/tachyons.css > public/tachyons.css",
