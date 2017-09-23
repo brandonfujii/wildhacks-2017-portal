@@ -13,6 +13,7 @@ import resendVerification from './endpoints/verify/resend-verification';
 // Users
 import { getUserById, getUserByEmail, getUser } from './endpoints/users/get-single-user';
 import getUsers from './endpoints/users/get-users';
+import deleteUserById from './endpoints/users/delete-user-by-id';
 
 // Applications
 import updateApplication from './endpoints/applications/update-application';
@@ -49,6 +50,7 @@ export {
     getUserByEmail,
     getUser,
     getUsers,
+    deleteUserById,
     getTeamById,
     getTeamByName,
     createOrJoinTeam,

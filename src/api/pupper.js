@@ -1,5 +1,4 @@
 import FormData from 'form-data';
-
 import { CONFIG } from 'config';
 
 const appendQueryParams = (path, queryParams) => {
@@ -34,7 +33,7 @@ const handleError = err => {
 /**
  * Pupper is a wrapper for the isomorphic-fetch function
  */
-class Pupper {
+export class Pupper {
     constructor(hostname) {
         this.hostname = hostname || CONFIG.REACT_APP_BACKEND_HOST_NAME;
         this.defaultHeaders = {
@@ -43,11 +42,12 @@ class Pupper {
         };
     }
 
-    sign(options = {}, token) {
+    sign(options = {}, token, adminToken) {
         if (!token) return options;
 
         const headers = Object.assign(options.headers || {} , {
             'X-Access-Token': `Bearer ${token}`,
+            'X-Access-Gatekey': adminToken || null,
         });
 
         options.headers = headers;
@@ -64,10 +64,11 @@ class Pupper {
         const opts = Object.assign(options, {
             method,
             headers: new Headers(headers),
-            body: method !== 'GET' ? JSON.stringify(options.body) : null,
+            body: method !== 'GET' ? JSON.stringify(options.body) : null,   
         });
 
-        return fetch(getUrl(path, opts.queryParams), opts);
+        const url = getUrl(path, opts.queryParams);
+        return fetch(url, opts);
     }
 
     get(route, options = {}) {
