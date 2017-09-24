@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Link } from 'components/utility';
+import { ThumbsUp } from 'react-feather';
+import { Link, CONSTANTS } from 'components/utility';
+
+const { COLORS } = CONSTANTS;
 
 const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, deleteTalk, voteOnTalk, requireApp }) => (
     <div className="lightning-talk flex items-center pv3">
         <div className="pr2 w3 w4-ns dib flex-none">
-            <p className="upvotes karla white f4 antialias tc lh-solid mb1">{ upvotes || '0' }</p>
-            <p className="karla white f6 antialias tc mt1">{ upvotes === 1 ? 'upvote' : 'upvotes'}</p>
+            <p className="upvotes karla white f4 antialias tc lh-solid mb1 center">{ upvotes || '0' }</p>
+            <p className="karla white f6 antialias tc mt1 center">{ upvotes === 1 ? 'upvote' : 'upvotes'}</p>
+            <ThumbsUp
+                className={`db center pointer ${ hasUpvoted ? 'o-50' : ''}`}
+                size={24} 
+                color={ COLORS.OFF_WHITE } 
+                onClick={ e => {
+                    e.preventDefault();
+                    requireApp(voteOnTalk);
+                }}
+            />
         </div>
         <div>
             <p className="karla white f3 antialias mt1 mb3">{ name }</p>
@@ -19,18 +31,9 @@ const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, delet
                 <p className="karla wh-off-white f6 antialias mb1">
                     by {speaker.application.firstName} from {speaker.application.school}
                 </p> : null }
-            <Link 
-                className="white f6"
-                onClick={ e => {
-                    e.preventDefault();
-                    requireApp(voteOnTalk);
-                }}
-            >
-                { !hasUpvoted ? "Upvote talk" : "Remove upvote" }
-            </Link>
             { deleteTalk && 
                 <Link 
-                    className="white f6 ml2"
+                    className="white f6"
                     onClick={ e => {
                         e.preventDefault();
                         deleteTalk(id);
