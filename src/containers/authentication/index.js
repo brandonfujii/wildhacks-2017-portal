@@ -9,6 +9,7 @@ import {
     login,
     resetErrors,
 } from 'modules/auth';
+import { displayBanner } from 'modules/banner';
 
 const Authentication = props => {
     const { pathname } = props.location;
@@ -17,11 +18,13 @@ const Authentication = props => {
         { pathname === '/register' && <Registration
             register={props.register}
             error={props.error} 
-            resetErrors={props.resetErrors}/> }
+            resetErrors={props.resetErrors}
+            displayBanner={props.displayBanner}/> }
         { pathname === '/login' && <Login
             login={props.login}
             error={props.error}
-            resetErrors={props.resetErrors} /> }
+            resetErrors={props.resetErrors} 
+            displayBanner={props.displayBanner}/> }
     </div>
 };
 
@@ -36,6 +39,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     register,
     login,
     resetErrors,
+    displayBanner,
 }, dispatch);
 
 export default connect(

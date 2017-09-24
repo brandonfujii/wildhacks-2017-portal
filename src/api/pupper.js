@@ -1,6 +1,8 @@
 import FormData from 'form-data';
-
 import { CONFIG } from 'config';
+
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 const appendQueryParams = (path, queryParams) => {
     const e = encodeURIComponent;
