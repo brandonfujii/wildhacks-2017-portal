@@ -31,6 +31,12 @@ class LoginPage extends Component {
         };
     }
 
+    componentDidMount() {
+        if (window.navigator.userAgent.indexOf("Edge") > -1) {
+            this.props.displayBanner("You're using Edge, which doesn't support certain browser APIs used by this website. Please use a different browser like Chrome or Firefox.", 10000);
+        }
+    }
+
     onFormInputChange(key, value) {
         this.props.resetErrors();
         if (this.state.form.hasOwnProperty(key)) {
