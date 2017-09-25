@@ -85,14 +85,18 @@ class Talks extends Component {
 
         return (
             <div className={`lightning-talks ${this.props.className}`}>
-                <InfiniteScroll
-                    pageStart={1}
-                    hasMore={this.props.hasMore}
-                    loadMore={this.loadMoreTalks}
-                    loader={<TalkLoader/>}
-                >
-                    { this.renderTalks(this.props.talks) }
-                </InfiniteScroll>
+                { this.props.talks && this.props.talks.length > 0 ?
+                    <InfiniteScroll
+                        pageStart={1}
+                        hasMore={this.props.hasMore}
+                        loadMore={this.loadMoreTalks}
+                        loader={<TalkLoader/>}
+                    >
+                        { this.renderTalks(this.props.talks) }
+                    </InfiniteScroll>
+                    :
+                    <div className="karla white f5 mt4">No one has submitted a lightning talk proposal yet. Quick, now's your chance to be the first!</div>   
+                }
             </div>
         )
     }
