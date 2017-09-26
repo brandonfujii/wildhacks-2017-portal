@@ -298,6 +298,7 @@ class LightningTalksPage extends Component {
                     deleteTalk={this.onDeleteTalk}
                     fetchTalks={this.props.fetchTalks}
                     voteOnTalk={this.voteOnTalk}
+                    isFetching={this.props.isFetchingTalks}
                 />
             </div>
         );
@@ -317,6 +318,7 @@ LightningTalksPage.propTypes = {
     talks: PropTypes.array,
     app: PropTypes.object,
     error: PropTypes.string,
+    isFetchingTalks: PropTypes.bool.isRequired,
 };
 
 export default LightningTalksPage;

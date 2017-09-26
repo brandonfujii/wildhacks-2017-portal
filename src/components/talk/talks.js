@@ -46,7 +46,7 @@ const Talk = ({ id, name, description, speaker, upvotes, hasUpvoted, tags, delet
     </div> 
 );
 
-const TalkLoader = () => (<div className="loader karla white f6 antialias">Loading ...</div>);
+const TalkLoader = () => (<div className="loader karla white f5 mt4 ml6">Loading talks...</div>);
 
 class Talks extends Component {
     constructor(props) {
@@ -79,8 +79,8 @@ class Talks extends Component {
     }
 
     render() {
-        if (!this.props.ready) {
-            return null;
+        if (!this.props.ready || (this.props.isFetching && this.props.talks.length <= 0)) {
+            return <TalkLoader />;
         }
 
         return (
@@ -123,6 +123,7 @@ Talks.propTypes = {
     fetchTalks: PropTypes.func.isRequired,
     voteOnTalk: PropTypes.func.isRequired,
     requireApp: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
 };
 
 export default Talks;
