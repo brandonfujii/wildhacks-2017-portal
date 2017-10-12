@@ -7,6 +7,7 @@ import { Link } from 'components/utility';
 const pageSize = 5;
 
 class LightningTalksPage extends Component {
+    private 
     constructor(props) {
         super(props);
         const { fetchTalks } = props;
@@ -16,6 +17,9 @@ class LightningTalksPage extends Component {
                 ready: true
             }); 
         });
+
+        this.MAX_NAME_LEN = 50;
+        this.MAX_DESCRIPTION_LEN = 500;
 
         this.state = {
             ready: false,
@@ -27,6 +31,7 @@ class LightningTalksPage extends Component {
             orderBy: "recent",
             isFormVisible: false,
             appSubmitted: false,
+            error: null,
         };
     }
 
@@ -67,13 +72,13 @@ class LightningTalksPage extends Component {
     }
 
     onNameChange = (name = "") => {
-        if (typeof name !== "string" || name.length > 50) return;
+        if (typeof name !== "string" || name.length > this.MAX_NAME_LEN) return;
 
         this.setState({ name });
     }
 
     onDescriptionChange = (description = "") => {
-        if (typeof description !== "string" || description.length > 500) return;
+        if (typeof description !== "string" || description.length > this.MAX_DESCRIPTION_LEN) return;
 
         this.setState({ description });
     }
@@ -145,6 +150,14 @@ class LightningTalksPage extends Component {
         const description = this.state.description.trim();
         const tags = this.state.tags.map(tag => tag.text);
 
+        if (name.length > this.MAX_NAME_LEN || description.length > this.MAX_DESCRIPTION_LEN) {
+            this.setState({
+                error: 'Name or description exceeds the character length limit',
+            });
+
+            return;
+        }
+
         this.setState({
             name: "",
             description: "",
@@ -181,8 +194,6 @@ class LightningTalksPage extends Component {
     }
 
     render() {
-        const { error } = this.props;
-
         return (
             <div className="mw8 center pv6 ph4">
                 <h1 className="karla white antialias f2">Lightning Talks</h1>
@@ -201,30 +212,38 @@ class LightningTalksPage extends Component {
                     <h1 className="karla white f3 mb2 antialias">
                         Propose a Lightning Talk
                     </h1>
-                    { error &&
-                        <p className="karla antialias wh-pink mv2">{ this.state.error || error }</p>
+                    { this.state.error &&
+                        <p className="karla antialias wh-pink mv2">{ this.state.error }</p>
                     }
                     <form
                         onSubmit={ this.onSubmitTalk }
                     >
-                        <div>
+                        <div className="relative">
                             <label className="karla wh-off-white antialias f5 mb2 db">Title</label>
                             <FormInput
                                 className="mb2"
                                 value={ this.state.name }
                                 placeholder="Talk name"
+                                maxLength={this.MAX_NAME_LEN}
                                 onChange={ e => this.onNameChange(e.target.value) }
                             />
+                            <span className="absolute bottom-0 right-0">
+                                <p className="karla gray antialias ma1">{ this.MAX_NAME_LEN - this.state.name.length }</p>
+                            </span> 
                         </div>
-                        <div>
+                        <div className="relative">
                             <label className="karla wh-off-white antialias f5 mb2 db">Description</label>
                             <FormTextArea 
                                 className="mb2"
                                 value={ this.state.description }
                                 placeholder="What is your talk about?"
                                 height={100}
+                                maxLength={this.MAX_DESCRIPTION_LEN}
                                 onChange={ e => this.onDescriptionChange(e.target.value) }
                             />
+                            <span className="absolute bottom-0 right-0">
+                                <p className="karla gray antialias ma1 mb2">{ this.MAX_DESCRIPTION_LEN - this.state.description.length }</p>
+                            </span> 
                         </div>
                         <div className="lightning-talk-tags">
                             <label className="karla wh-off-white antialias f5 mb2 db">Tags (max 5)</label>
@@ -317,7 +336,6 @@ LightningTalksPage.propTypes = {
     talk: PropTypes.object,
     talks: PropTypes.array,
     app: PropTypes.object,
-    error: PropTypes.string,
     isFetchingTalks: PropTypes.bool.isRequired,
 };
 

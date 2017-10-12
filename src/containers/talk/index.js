@@ -15,7 +15,6 @@ const Talk = props => {
 const mapStateToProps = state => ({
     talks: state.talk.talks,
     count: state.talk.count,
-    error: state.talk.error,
     user: state.auth.user,
     app: state.application.app,
     isFetchingTalks: state.talk.isFetchingTalks,
