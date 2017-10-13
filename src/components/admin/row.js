@@ -13,9 +13,26 @@ class Row extends Component {
         });
     }
 
+    handleSelectRow = (applicationId, isChecked) => {
+        if (isChecked) {
+            this.props.selectRow(applicationId);
+        } else {
+            this.props.deselectRow(applicationId);
+        }
+    }
+
     render() {
+        const { application } = this.props.datum;
+
         return (
             <tr className="table-row">
+                <th>
+                    <input 
+                        type="checkbox" 
+                        checked={this.props.selected.has(application.id)}
+                        onChange={e => this.handleSelectRow(application.id, e.target.checked)} 
+                    />
+                </th>
                 { this.renderData() }
             </tr>
         );
@@ -25,6 +42,9 @@ class Row extends Component {
 Row.propTypes = {
     columns: PropTypes.array.isRequired,
     datum: PropTypes.object.isRequired,
+    selected: PropTypes.object.isRequired,
+    selectRow: PropTypes.func.isRequired,
+    deselectRow: PropTypes.func.isRequired,
 };
 
 export default Row;

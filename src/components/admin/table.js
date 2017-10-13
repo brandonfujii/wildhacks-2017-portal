@@ -18,19 +18,30 @@ class DataTable extends Component {
     renderRows() {
         let rows = this.props.data || [];
         return rows.map((row, i) => {
+            const {
+                columns,
+                selected,
+                selectRow,
+                deselectRow
+            } = this.props;
+
             return <Row key={i}
                         id={`row-${i}`}
-                        columns={this.props.columns || []}
-                        datum={row} />
+                        columns={columns || []}
+                        datum={row}
+                        selected={selected} 
+                        selectRow={selectRow}
+                        deselectRow={deselectRow} />
         });
     }
 
     render() {
         return (
-            <div className="data-table">
-                <table>
+            <div className="data-table nowrap overflow-auto">
+                <table className="overflow-x-scroll">
                     <thead>
                         <tr>
+                            <th></th>
                             { this.renderColumns() }
                         </tr>
                     </thead>
@@ -44,8 +55,11 @@ class DataTable extends Component {
 }
 
 DataTable.propTypes = {
-    columns: PropTypes.array,
-    data: PropTypes.array,
+    columns: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
+    selected: PropTypes.object.isRequired,
+    selectRow: PropTypes.func.isRequired,
+    deselectRow: PropTypes.func.isRequired,
 };
 
 export default DataTable;

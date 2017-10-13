@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DataTable from './table';
+import SelectOptions from './select-options';
 import { CONFIG } from 'config';
 
 class AdminDashboard extends Component {
@@ -12,7 +13,30 @@ class AdminDashboard extends Component {
 
         this.state = {
             ready: false,
+            selected: new Set(),
         };
+    }
+
+    selectRow = applicationId => {
+        let selected = this.state.selected;
+
+        if (!selected.has(applicationId)) {
+            selected.add(applicationId);
+            this.setState({
+                selected,
+            });
+        }
+    }
+
+    deselectRow = applicationId => {
+        let selected = this.state.selected;
+        
+        if (selected.has(applicationId)) {
+            selected.delete(applicationId);
+            this.setState({
+                selected,
+            });
+        }
     }
 
     render() {
@@ -70,6 +94,11 @@ class AdminDashboard extends Component {
                     : null,
             },
             {
+                id: 'github',
+                Header: 'Github',
+                accessor: d => d.application.githubUsername,
+            },
+            {
                 id: 't-shirt-size',
                 Header: 'Shirt Size',
                 accessor: d => d.application.tshirtSize,
@@ -92,10 +121,16 @@ class AdminDashboard extends Component {
         ];
 
         return ( 
-            <div className="data-table-wrapper pt5 wh-off-white">
+            <div className="data-table-wrapper pt6 wh-off-white">
+                <SelectOptions 
+                    selected={this.state.selected}
+                />
                 <DataTable 
                     columns={columns || []} 
                     data={this.props.users || []} 
+                    selected={this.state.selected}
+                    selectRow={this.selectRow}
+                    deselectRow={this.deselectRow}
                 />
             </div>
         );
