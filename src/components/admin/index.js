@@ -20,8 +20,6 @@ class AdminDashboard extends Component {
     judgeApps = (decision, applicationIds = []) => {
         if (["accepted", "waitlisted", "rejected"].indexOf(decision) > -1) {
             this.props.judgeApplications(decision, applicationIds);
-        } else {
-            console.log("not in ");
         }
     }
 
