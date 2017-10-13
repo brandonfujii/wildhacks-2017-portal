@@ -7,7 +7,7 @@ class Row extends Component {
             const value = column.accessor(this.props.datum);
             return (
                 <td key={i} className={`table-column ${column.id}`}>
-                    <p className="karla wh-off-white antialias">{value}</p>
+                    <p className="karla wh-off-white antialias">{value || 'N/A'}</p>
                 </td>
             )
         });

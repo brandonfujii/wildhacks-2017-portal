@@ -6,7 +6,8 @@ class DataTable extends Component {
     renderColumns() {
         return this.props.columns.map((column, i) => {
             return (
-                <th id={`${column.id}`}>
+                <th key={i}
+                    id={`${column.id}`}>
                     { column.Header }
                 </th>
             );
@@ -17,7 +18,8 @@ class DataTable extends Component {
     renderRows() {
         let rows = this.props.data || [];
         return rows.map((row, i) => {
-            return <Row id={`row-${i}`}
+            return <Row key={i}
+                        id={`row-${i}`}
                         columns={this.props.columns || []}
                         datum={row} />
         });
@@ -28,7 +30,9 @@ class DataTable extends Component {
             <div className="data-table">
                 <table>
                     <thead>
-                        { this.renderColumns() }
+                        <tr>
+                            { this.renderColumns() }
+                        </tr>
                     </thead>
                     <tbody>
                         { this.renderRows() }
