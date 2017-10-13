@@ -2,26 +2,26 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { getUserPage } from 'modules/user';
+import { getUserDataPage } from 'modules/user';
+import AdminDashboard from 'components/admin';
 
 const Admin = props => (
     <div className="app-view--admin-dashboard">
-       <h1>Admin</h1>
+       <AdminDashboard {...props} />
     </div>
 );
 
 const mapStateToProps = state => ({
     fetchingUsers: state.user.fetchingUsers,
-    users: state.user.instances,
+    users: state.user.users,
     page: state.user.page,
     pageSize: state.user.pageSize,
     totalPages: state.user.totalPages,
-    totalUsers: state.user.totalUsers,
-    auth: state.auth,
+    totalUsers: state.user.totalUsers
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getUserPage,
+    getUserDataPage,
 }, dispatch);
 
 export default connect(

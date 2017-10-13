@@ -41,6 +41,7 @@ export const REHYDRATE_USER_FAILURE = 'auth/REHYDRATE_USER_FAILURE';
 // State & Reducers
 const initialState = {
     isLoggedIn: false,
+    isAdmin: false,
     isRequestingAuth: false,
     isRehydratingUser: false,
     user: null,
@@ -87,6 +88,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isRequestingAuth: false,
                 isLoggedIn: true,
+                isAdmin: user.privilege && user.privilege === 'admin' ? true : false,
                 user,
                 token: action.token,
                 error: null,
@@ -96,6 +98,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isRequestingAuth: false,
                 isLoggedIn: false,
+                isAdmin: false,
                 user: null,
                 token: null,
                 error: action.error

@@ -12,6 +12,7 @@ import Application from 'containers/application';
 import Team from 'containers/team';
 import Talk from 'containers/talk';
 import Logout from 'containers/logout';
+import Admin from 'containers/admin';
 import NotFound from 'components/not-found';
 import Banner from 'components/banner';
 import hideHeaderOnCollision from './hideHeaderOnCollision';
@@ -22,7 +23,7 @@ class App extends Component {
     }
 
     render() {
-        const { isLoggedIn, location, bannerText, bannerIsShown } = this.props;
+        const { isLoggedIn, isAdmin, location, bannerText, bannerIsShown } = this.props;
 
         return (
             <div>
@@ -65,8 +66,9 @@ class App extends Component {
                         <Route exact path="/register" component={ Authentication } />
                         <Route exact path="/login" component={ Authentication } />
                         <Route exact path="/verify/:token" component={props => isLoggedIn ? <Verify verificationToken={props.match.params.token} /> : <Home/>} />
-                        <Route exact path="/forgot" component={ResetPassword} />
-                        <Route exact path="/forgot/:token" component={ResetPassword} />
+                        <Route exact path="/forgot" component={ ResetPassword } />
+                        <Route exact path="/forgot/:token" component={ ResetPassword } />
+                        <Route exact path="/admin" component={props => isAdmin ? <Admin {...props} /> : <Home /> } />
                         <Route exact path="/logout" component={ Logout }/>
                         <Route component={NotFound}/>
                     </Switch>
@@ -78,6 +80,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
+        isAdmin: state.auth.isAdmin,
         isLoggedIn: state.auth.isLoggedIn,
         bannerText: state.banner.text,
         bannerIsShown: state.banner.isShown,
