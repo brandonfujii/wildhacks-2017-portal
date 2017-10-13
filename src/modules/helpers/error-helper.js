@@ -2,7 +2,8 @@ import { push } from 'react-router-redux';
 import { displayBanner } from 'modules/banner';
 
 const checkError = async (dispatch, error) => {
-    console.log(error);
+    console.error(error);
+
     if (!error) {
         dispatch(displayBanner('Oops! Something went wrong', 5000));
         dispatch(push('/logout'));

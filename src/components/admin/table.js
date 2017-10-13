@@ -22,7 +22,7 @@ class DataTable extends Component {
                 columns,
                 selected,
                 selectRow,
-                deselectRow
+                deselectRow,
             } = this.props;
 
             return <Row key={i}

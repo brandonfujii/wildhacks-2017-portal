@@ -17,6 +17,14 @@ class AdminDashboard extends Component {
         };
     }
 
+    judgeApps = (decision, applicationIds = []) => {
+        if (["accepted", "waitlisted", "rejected"].indexOf(decision) > -1) {
+            this.props.judgeApplications(decision, applicationIds);
+        } else {
+            console.log("not in ");
+        }
+    }
+
     selectRow = applicationId => {
         let selected = this.state.selected;
 
@@ -124,6 +132,7 @@ class AdminDashboard extends Component {
             <div className="data-table-wrapper pt6 wh-off-white">
                 <SelectOptions 
                     selected={this.state.selected}
+                    judgeApps={this.judgeApps}
                 />
                 <DataTable 
                     columns={columns || []} 
@@ -145,6 +154,7 @@ AdminDashboard.propTypes = {
     totalPages: PropTypes.number,
     totalUsers: PropTypes.number,
     getUserDataPage: PropTypes.func.isRequired,
+    judgeApplications: PropTypes.func.isRequired,
 };
 
 export default AdminDashboard;

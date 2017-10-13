@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { getUserDataPage } from 'modules/user';
+import { judgeApplications } from 'modules/application';
 import AdminDashboard from 'components/admin';
 
 const Admin = props => (
@@ -22,6 +23,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     getUserDataPage,
+    judgeApplications,
 }, dispatch);
 
 export default connect(
