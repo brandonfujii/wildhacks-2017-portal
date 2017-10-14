@@ -13,12 +13,9 @@ const Admin = props => (
 );
 
 const mapStateToProps = state => ({
-    fetchingUsers: state.user.fetchingUsers,
-    users: state.user.users,
-    page: state.user.page,
-    pageSize: state.user.pageSize,
-    totalPages: state.user.totalPages,
-    totalUsers: state.user.totalUsers
+    fetchingUsers: state.user.fetchingUsersAdmin,
+    users: state.user.rows,
+    count: state.user.rowCount
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

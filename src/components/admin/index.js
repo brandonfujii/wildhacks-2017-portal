@@ -4,17 +4,48 @@ import DataTable from './table';
 import SelectOptions from './select-options';
 import { CONFIG } from 'config';
 
+const pageSize = 5;
+
 class AdminDashboard extends Component {
     constructor(props) {
         super(props);
-        this.props.getUserDataPage().then(() => {
+        this.props.getUserDataPage(1, pageSize).then(() => {
             this.setState({ ready: true });
         })
 
         this.state = {
             ready: false,
             selected: new Set(),
+            users: [],
+            hasMore: true,
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.users && !this.hasDuplicates(nextProps.users, this.state.users.slice())) {
+            const users = this.state.users.concat(nextProps.users);
+            this.setState({
+                users,
+                hasMore: nextProps.count > users.length,
+            });
+        }
+    }
+    
+
+    hasDuplicates = (subset = [], superset = []) => {
+        if (subset.length < 1 || superset.length < 1) return false;
+
+        let hasDuplicate = false;
+        subset = new Set(subset.map(user => user.id));
+
+        for (let i = 0, len = superset.length; i < len; ++i) {
+            if (subset.has(superset[i].id)) {
+                hasDuplicate = true;
+                break;
+            }
+        }
+
+        return hasDuplicate;
     }
 
     judgeApps = (decision, applicationIds = []) => {
@@ -132,9 +163,10 @@ class AdminDashboard extends Component {
                     selected={this.state.selected}
                     judgeApps={this.judgeApps}
                 />
-                <DataTable 
+                <DataTable
+                    ready={this.state.ready}
                     columns={columns || []} 
-                    data={this.props.users || []} 
+                    data={this.state.users} 
                     selected={this.state.selected}
                     selectRow={this.selectRow}
                     deselectRow={this.deselectRow}
@@ -147,10 +179,7 @@ class AdminDashboard extends Component {
 AdminDashboard.propTypes = {
     fetchingUsers: PropTypes.bool,
     users: PropTypes.array,
-    page: PropTypes.number,
-    pageSize: PropTypes.number,
-    totalPages: PropTypes.number,
-    totalUsers: PropTypes.number,
+    count: PropTypes.number,
     getUserDataPage: PropTypes.func.isRequired,
     judgeApplications: PropTypes.func.isRequired,
 };

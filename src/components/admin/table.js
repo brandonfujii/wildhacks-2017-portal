@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Row from './row';
 
+const DashboardLoader = () => (<div className="loader karla white f5 mt4 ml6">Loading users...</div>);
+
 class DataTable extends Component {
     renderColumns() {
         return this.props.columns.map((column, i) => {
@@ -36,6 +38,9 @@ class DataTable extends Component {
     }
 
     render() {
+        const { ready } = this.props;
+        if (!ready) return <DashboardLoader /> 
+        
         return (
             <div className="data-table nowrap overflow-auto">
                 <table className="overflow-x-scroll">
@@ -55,6 +60,7 @@ class DataTable extends Component {
 }
 
 DataTable.propTypes = {
+    ready: PropTypes.bool.isRequired,
     columns: PropTypes.array.isRequired,
     data: PropTypes.array.isRequired,
     selected: PropTypes.object.isRequired,
