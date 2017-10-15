@@ -136,7 +136,7 @@ class AdminDashboard extends Component {
                 id: 'resume',
                 Header: 'Resume',
                 accessor: d => d.application.resume
-                    ? <a href={`${CONFIG.DROPBOX_URL}&preview=${d.application.resume.filename}`} target="_blank">Dropbox Link</a>
+                    ? <a href={`${CONFIG.REACT_APP_DROPBOX_URL}&preview=${d.application.resume.filename}`} target="_blank">Dropbox Link</a>
                     : null,
             },
             {
