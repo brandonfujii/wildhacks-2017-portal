@@ -23,22 +23,20 @@ class SelectOptions extends Component {
         const { selected } = this.props;
         const numSelected = selected.size;
         
-        if (numSelected > 0) {
-            return (
-                <div className="select-options">
-                    <p>{ `${numSelected} selected` }</p>
-                    <Button onClick={ this.acceptApps } backgroundColor="bg-green" className="f6 f5-ns mh2">
-                        Accept
-                    </Button>
-                    <Button onClick={ this.waitlistApps } backgroundColor="bg-orange" className="f6 f5-ns mh2">
-                        Waitlsit
-                    </Button>
-                    <Button onClick={ this.rejectApps } backgroundColor="bg-red" className="f6 f5-ns mh2">
-                        Reject
-                    </Button>
-                </div>
-            );
-        }
+        return (
+            <div className={`select-options flex justify-end items-center mb2 ${ numSelected > 0 ? '' : 'o-50 pointer-events-none' }`}>
+                <span className="karla antialias">{ `${numSelected} selected` }</span>
+                <Button onClick={ this.acceptApps } backgroundColor="bg-green" className="f6 f5-ns mh2">
+                    Accept
+                </Button>
+                <Button onClick={ this.waitlistApps } backgroundColor="bg-orange" className="f6 f5-ns mh2">
+                    Waitlist
+                </Button>
+                <Button onClick={ this.rejectApps } backgroundColor="bg-red" className="f6 f5-ns mh2">
+                    Reject
+                </Button>
+            </div>
+        );
 
         return null;
     }

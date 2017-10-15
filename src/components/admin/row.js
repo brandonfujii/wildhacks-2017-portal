@@ -6,7 +6,7 @@ class Row extends Component {
         return this.props.columns.map((column, i) => {
             const value = column.accessor(this.props.datum);
             return (
-                <td key={i} className={`table-column ${column.id}`}>
+                <td key={i} className={`table-column row-${column.id}`}>
                     <p className="karla wh-off-white antialias">{value || 'N/A'}</p>
                 </td>
             )
@@ -25,7 +25,7 @@ class Row extends Component {
         const { application } = this.props.datum;
 
         return (
-            <tr className="table-row">
+            <tr className={`table-row ${ this.props.id % 2 === 0 ? 'bg-wh-navy' : '' } `}>
                 <th>
                     <input 
                         type="checkbox" 

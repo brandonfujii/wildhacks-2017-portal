@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Row from './row';
+import InfiniteList from 'react-infinite-scroller';
 
 const DashboardLoader = () => (<div className="loader karla white f5 mt4 ml6">Loading users...</div>);
 
@@ -18,7 +19,6 @@ class DataTable extends Component {
         });
     }
 
-
     renderRows() {
         let rows = this.props.data || [];
         return rows.map((row, i) => {
@@ -30,7 +30,7 @@ class DataTable extends Component {
             } = this.props;
 
             return <Row key={i}
-                        id={`row-${i}`}
+                        id={i}
                         columns={columns || []}
                         datum={row}
                         selected={selected} 
@@ -45,16 +45,29 @@ class DataTable extends Component {
         
         return (
             <div className="data-table nowrap overflow-auto">
-                <table className="overflow-x-scroll karla w-100">
-                    <thead className="ba b--moon-gray">
-                        <tr>
-                            { this.renderColumns() }
-                        </tr>
-                    </thead>
-                    <tbody className="ba b--moon-gray">
-                        { this.renderRows() }
-                    </tbody>
-                </table>
+                <InfiniteList
+                    pageStart={1}
+                    hasMore={this.props.hasMore}
+                    loadMore={this.props.loadMoreUsers}
+                    loader={<DashboardLoader/>}
+                >
+                    <table className="overflow-x-scroll karla w-100">
+                        <thead className="ba b--moon-gray">
+                            <tr>
+                                <th
+                                    id="select"
+                                    className="ba b--moon-gray"
+                                >
+                                    Select
+                                </th>
+                                { this.renderColumns() }
+                            </tr>
+                        </thead>
+                        <tbody className="ba b--moon-gray">
+                            { this.renderRows() }
+                        </tbody>
+                    </table>
+                </InfiniteList>
             </div>
         );
     }
