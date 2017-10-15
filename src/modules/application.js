@@ -2,7 +2,12 @@ import isOk from './helpers/response-helper';
 import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { displayBanner } from 'modules/banner';
-import { getApplication, updateApplication, bulkJudgeApplications } from 'api';
+import { 
+    getApplication, 
+    updateApplication, 
+    bulkJudgeApplications, 
+    getAcceptedCount 
+} from 'api';
 
 export const FETCHING_APP = 'app/FETCHING_APP';
 export const FETCH_APP_SUCCESS = 'app/FETCH_APP_SUCCESS';
@@ -12,6 +17,8 @@ export const UPDATE_SUCCESS = 'app/UPDATE_SUCCESS';
 export const UPDATE_FAILURE = 'app/UPDATE_FAILURE';
 export const JUDGE_APP_SUCCESS = 'app/JUDGE_APP_SUCCESS';
 export const JUDGE_APP_FAILURE = 'app/JUDGE_APP_FAILURE';
+export const FETCH_ACCEPTED_COUNT_SUCCESS = 'app/FETCH_ACCEPTED_COUNT_SUCCESS';
+export const FETCH_ACCEPTED_COUNT_FAILURE = 'app/FETCH_ACCEPTED_COUNT_FAILURE';
 
 // State & Reducers
 const initialState = {
@@ -50,6 +57,11 @@ export default (state = initialState, action) => {
                 isRequestingUpdate: false,
                 error: action.error,
             };
+        case FETCH_ACCEPTED_COUNT_SUCCESS:
+            return {
+                ...state,
+                acceptCount: action.count
+            }
         default:
             return state;
     }
@@ -107,7 +119,6 @@ export const judgeApplications = (decision, applicationIds) => {
             checkTokenAsync(bulkJudgeApplications, decision, applicationIds)
         );
 
-        console.log(response);
         if (isOk(response)) {
             dispatch({ type: JUDGE_APP_SUCCESS });
             dispatch(displayBanner('Successfully judged selected applications', 5000));
@@ -120,3 +131,21 @@ export const judgeApplications = (decision, applicationIds) => {
         }
     }
 };
+
+export const getAcceptCount = () => {
+    return async dispatch => {
+        const response = await dispatch(
+            checkTokenAsync(getAcceptedCount)
+        );
+
+        if (isOk(response)) {
+            dispatch({ type: FETCH_ACCEPTED_COUNT_SUCCESS, count: response.count });
+        } else {
+            checkError(dispatch, response);
+
+            dispatch({
+                type: FETCH_ACCEPTED_COUNT_FAILURE,
+            });
+        }
+    }
+}
