@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { getUserDataPage } from 'modules/user';
-import { judgeApplications } from 'modules/application';
+import { judgeApplications, getAcceptCount } from 'modules/application';
 import AdminDashboard from 'components/admin';
 
 const Admin = props => (
@@ -15,12 +15,14 @@ const Admin = props => (
 const mapStateToProps = state => ({
     fetchingUsers: state.user.fetchingUsersAdmin,
     users: state.user.rows,
-    count: state.user.rowCount
+    count: state.user.rowCount,
+    acceptCount: state.application.acceptCount
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     getUserDataPage,
     judgeApplications,
+    getAcceptCount
 }, dispatch);
 
 export default connect(

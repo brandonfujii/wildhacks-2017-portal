@@ -20,11 +20,12 @@ class SelectOptions extends Component {
     }
 
     render() {
-        const { selected } = this.props;
+        const { selected, acceptCount } = this.props;
         const numSelected = selected.size;
         
         return (
             <div className={`select-options flex justify-end items-center mb2 ${ numSelected > 0 ? '' : 'o-50 pointer-events-none' }`}>
+                <span className="karla antialias mr4">{ acceptCount } accepted</span>
                 <span className="karla antialias">{ `${numSelected} selected` }</span>
                 <Button onClick={ this.acceptApps } backgroundColor="bg-green" className="f6 f5-ns mh2">
                     Accept

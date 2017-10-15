@@ -11,13 +11,15 @@ class AdminDashboard extends Component {
         super(props);
         this.props.getUserDataPage(1, pageSize).then(() => {
             this.setState({ ready: true });
-        })
+        });
+
+        this.props.getAcceptCount();
 
         this.state = {
             ready: false,
             selected: new Set(),
             users: [],
-            hasMore: true,
+            hasMore: true
         };
     }
 
@@ -60,6 +62,7 @@ class AdminDashboard extends Component {
     judgeApps = (decision, applicationIds = []) => {
         if (["accepted", "waitlisted", "rejected"].indexOf(decision) > -1) {
             this.props.judgeApplications(decision, applicationIds);
+            this.props.getAcceptCount();
         }
     }
 
@@ -86,6 +89,7 @@ class AdminDashboard extends Component {
     }
 
     render() {
+        const { acceptCount } = this.props;
         const columns = [
             {
                 id: 'user-id',
@@ -168,9 +172,10 @@ class AdminDashboard extends Component {
 
         return ( 
             <div className="data-table-wrapper pt6 wh-off-white">
-                <SelectOptions 
+                <SelectOptions
                     selected={this.state.selected}
                     judgeApps={this.judgeApps}
+                    acceptCount={ acceptCount }
                 />
                 <DataTable
                     ready={this.state.ready}
