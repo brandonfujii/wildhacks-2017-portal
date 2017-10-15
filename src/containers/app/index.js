@@ -45,7 +45,7 @@ class App extends Component {
                         { isLoggedIn && location.pathname !== '/dashboard' &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/dashboard">My Dashboard</Button>
                         }
-                        { isAdmin && location.pathname !== '/admin' &&
+                        { isLoggedIn && isAdmin && location.pathname === '/dashboard' &&
                             <Button className="mh2 f7" backgroundColor="bg-wh-navy" to="/admin">Admin</Button>
                         }
                         { isLoggedIn &&
