@@ -9,7 +9,9 @@ class DataTable extends Component {
         return this.props.columns.map((column, i) => {
             return (
                 <th key={i}
-                    id={`${column.id}`}>
+                    id={`${column.id}`}
+                    className="ba b--moon-gray"
+                >
                     { column.Header }
                 </th>
             );
@@ -43,14 +45,13 @@ class DataTable extends Component {
         
         return (
             <div className="data-table nowrap overflow-auto">
-                <table className="overflow-x-scroll">
-                    <thead>
+                <table className="overflow-x-scroll karla w-100">
+                    <thead className="ba b--moon-gray">
                         <tr>
-                            <th></th>
                             { this.renderColumns() }
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="ba b--moon-gray">
                         { this.renderRows() }
                     </tbody>
                 </table>
