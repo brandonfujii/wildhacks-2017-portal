@@ -158,3 +158,6 @@
   transition: background-color .15s ease-in-out; 
 }
 
+.pointer-events-none {
+  pointer-events: none;
+}

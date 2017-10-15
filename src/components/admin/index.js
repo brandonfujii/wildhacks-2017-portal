@@ -30,7 +30,16 @@ class AdminDashboard extends Component {
             });
         }
     }
-    
+
+    loadMoreUsers = async (page) => {
+        try {
+            await this.props.getUserDataPage(page, pageSize);
+        } catch (err) {
+            this.setState({
+                error: err.message,
+            });
+        }
+    }
 
     hasDuplicates = (subset = [], superset = []) => {
         if (subset.length < 1 || superset.length < 1) return false;
@@ -170,6 +179,8 @@ class AdminDashboard extends Component {
                     selected={this.state.selected}
                     selectRow={this.selectRow}
                     deselectRow={this.deselectRow}
+                    loadMoreUsers={ this.loadMoreUsers }
+                    hasMore={ this.state.hasMore }
                 />
             </div>
         );
