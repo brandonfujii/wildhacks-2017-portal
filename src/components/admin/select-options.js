@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'components/utility';
 
 class SelectOptions extends Component {
     waitlistApps = () => {
@@ -26,9 +27,15 @@ class SelectOptions extends Component {
             return (
                 <div className="select-options">
                     <p>{ `${numSelected} selected` }</p>
-                    <button onClick={this.acceptApps}>Accept</button>
-                    <button onClick={this.waitlistApps}>Waitlist</button>
-                    <button onClick={this.rejectApps}>Reject</button>
+                    <Button onClick={ this.acceptApps } backgroundColor="bg-green" className="f6 f5-ns mh2">
+                        Accept
+                    </Button>
+                    <Button onClick={ this.waitlistApps } backgroundColor="bg-orange" className="f6 f5-ns mh2">
+                        Waitlsit
+                    </Button>
+                    <Button onClick={ this.rejectApps } backgroundColor="bg-red" className="f6 f5-ns mh2">
+                        Reject
+                    </Button>
                 </div>
             );
         }
