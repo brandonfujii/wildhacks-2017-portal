@@ -20,6 +20,7 @@ import updateApplication from './endpoints/applications/update-application';
 import getApplication from './endpoints/applications/get-application';
 import bulkJudgeApplications from './endpoints/applications/bulk-judge-applications';
 import updateRsvp from './endpoints/applications/update-rsvp';
+import getAcceptedCount from './endpoints/applications/get-accepted-count';
 
 // Teams
 import getTeamById from './endpoints/teams/get-team-by-id';
@@ -50,6 +51,7 @@ export {
     updateApplication,
     bulkJudgeApplications,
     updateRsvp,
+    getAcceptedCount,
     getUserById,
     getUserByEmail,
     getUser,

@@ -2,7 +2,13 @@ import isOk from './helpers/response-helper';
 import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { displayBanner } from 'modules/banner';
-import { getApplication, updateApplication, bulkJudgeApplications, updateRsvp } from 'api';
+import { 
+    getApplication, 
+    updateApplication, 
+    bulkJudgeApplications, 
+    getAcceptedCount,
+    updateRsvp
+} from 'api';
 
 export const FETCHING_APP = 'app/FETCHING_APP';
 export const FETCH_APP_SUCCESS = 'app/FETCH_APP_SUCCESS';
@@ -14,6 +20,8 @@ export const JUDGE_APP_SUCCESS = 'app/JUDGE_APP_SUCCESS';
 export const JUDGE_APP_FAILURE = 'app/JUDGE_APP_FAILURE';
 export const RSVP_SUCCESS = 'app/RSVP_SUCCESS';
 export const RSVP_FAILURE = 'app/RSVP_FAILURE'
+export const FETCH_ACCEPTED_COUNT_SUCCESS = 'app/FETCH_ACCEPTED_COUNT_SUCCESS';
+export const FETCH_ACCEPTED_COUNT_FAILURE = 'app/FETCH_ACCEPTED_COUNT_FAILURE';
 
 // State & Reducers
 const initialState = {
@@ -52,6 +60,11 @@ export default (state = initialState, action) => {
                 isRequestingUpdate: false,
                 error: action.error,
             };
+        case FETCH_ACCEPTED_COUNT_SUCCESS:
+            return {
+                ...state,
+                acceptCount: action.count
+            }
         default:
             return state;
     }
@@ -137,3 +150,21 @@ export const rsvp = rsvpStatus => {
         }
     }
 };
+
+export const getAcceptCount = () => {
+    return async dispatch => {
+        const response = await dispatch(
+            checkTokenAsync(getAcceptedCount)
+        );
+
+        if (isOk(response)) {
+            dispatch({ type: FETCH_ACCEPTED_COUNT_SUCCESS, count: response.count });
+        } else {
+            checkError(dispatch, response);
+
+            dispatch({
+                type: FETCH_ACCEPTED_COUNT_FAILURE,
+            });
+        }
+    }
+}
