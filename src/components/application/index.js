@@ -176,6 +176,7 @@ class Application extends Component {
             submitted: false,
             ready: false,
             hasApp: false,
+            closed: true,
         };
     }
 
@@ -367,11 +368,20 @@ class Application extends Component {
 
         const {
             submitted,
-            ready
+            ready,
+            closed,
+            hasApp,
         } = this.state;
 
         if (!ready) {
             return null;
+        }
+
+        if (closed && !hasApp) {
+            return <div className="pa4 mw7 center">
+                <p className="pt2 karla wh-off-white antialias f1 b">Sorry :/</p>
+                <p className="karla wh-off-white antialias f2">Applications have been closed! Please apply next year.</p>
+            </div>;
         }
         
         return (
