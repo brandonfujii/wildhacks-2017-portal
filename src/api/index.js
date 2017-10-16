@@ -19,6 +19,7 @@ import getUserData from './endpoints/users/get-user-data';
 import updateApplication from './endpoints/applications/update-application';
 import getApplication from './endpoints/applications/get-application';
 import bulkJudgeApplications from './endpoints/applications/bulk-judge-applications';
+import updateRsvp from './endpoints/applications/update-rsvp';
 
 // Teams
 import getTeamById from './endpoints/teams/get-team-by-id';
@@ -48,6 +49,7 @@ export {
     getApplication,
     updateApplication,
     bulkJudgeApplications,
+    updateRsvp,
     getUserById,
     getUserByEmail,
     getUser,

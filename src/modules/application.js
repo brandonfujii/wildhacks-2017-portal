@@ -2,7 +2,7 @@ import isOk from './helpers/response-helper';
 import checkError from './helpers/error-helper';
 import checkTokenAsync from './helpers/token-helper';
 import { displayBanner } from 'modules/banner';
-import { getApplication, updateApplication, bulkJudgeApplications } from 'api';
+import { getApplication, updateApplication, bulkJudgeApplications, updateRsvp } from 'api';
 
 export const FETCHING_APP = 'app/FETCHING_APP';
 export const FETCH_APP_SUCCESS = 'app/FETCH_APP_SUCCESS';
@@ -12,6 +12,8 @@ export const UPDATE_SUCCESS = 'app/UPDATE_SUCCESS';
 export const UPDATE_FAILURE = 'app/UPDATE_FAILURE';
 export const JUDGE_APP_SUCCESS = 'app/JUDGE_APP_SUCCESS';
 export const JUDGE_APP_FAILURE = 'app/JUDGE_APP_FAILURE';
+export const RSVP_SUCCESS = 'app/RSVP_SUCCESS';
+export const RSVP_FAILURE = 'app/RSVP_FAILURE'
 
 // State & Reducers
 const initialState = {
@@ -107,7 +109,6 @@ export const judgeApplications = (decision, applicationIds) => {
             checkTokenAsync(bulkJudgeApplications, decision, applicationIds)
         );
 
-        console.log(response);
         if (isOk(response)) {
             dispatch({ type: JUDGE_APP_SUCCESS });
             dispatch(displayBanner('Successfully judged selected applications', 5000));
@@ -117,6 +118,22 @@ export const judgeApplications = (decision, applicationIds) => {
             dispatch({
                 type: JUDGE_APP_FAILURE,
             });
+        }
+    }
+};
+
+export const rsvp = rsvpStatus => {
+    return async dispatch => {
+        const response = await dispatch(
+            checkTokenAsync(updateRsvp, rsvpStatus)
+        );
+
+        if (isOk(response)) {
+            dispatch({ type: RSVP_SUCCESS });
+            dispatch(displayBanner('Thanks for RSVP\'ing!', 5000));
+        } else {
+            checkError(dispatch, response);
+            dispatch({ type: RSVP_FAILURE });
         }
     }
 };
