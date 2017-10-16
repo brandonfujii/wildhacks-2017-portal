@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import DashboardPage from 'components/dashboard';
-import { updateApp, getApp } from 'modules/application';
+import { updateApp, getApp, rsvp } from 'modules/application';
 
 const Dashboard = props => {
     return <div className="app-view--dashboard pt4">
@@ -20,6 +20,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     updateApp,
     getApp,
+    rsvp,
 }, dispatch);
 
 export default connect(

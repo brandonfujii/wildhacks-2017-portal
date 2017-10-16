@@ -6,7 +6,8 @@ import {
     getApplication, 
     updateApplication, 
     bulkJudgeApplications, 
-    getAcceptedCount 
+    getAcceptedCount,
+    updateRsvp
 } from 'api';
 
 export const FETCHING_APP = 'app/FETCHING_APP';
@@ -17,6 +18,8 @@ export const UPDATE_SUCCESS = 'app/UPDATE_SUCCESS';
 export const UPDATE_FAILURE = 'app/UPDATE_FAILURE';
 export const JUDGE_APP_SUCCESS = 'app/JUDGE_APP_SUCCESS';
 export const JUDGE_APP_FAILURE = 'app/JUDGE_APP_FAILURE';
+export const RSVP_SUCCESS = 'app/RSVP_SUCCESS';
+export const RSVP_FAILURE = 'app/RSVP_FAILURE'
 export const FETCH_ACCEPTED_COUNT_SUCCESS = 'app/FETCH_ACCEPTED_COUNT_SUCCESS';
 export const FETCH_ACCEPTED_COUNT_FAILURE = 'app/FETCH_ACCEPTED_COUNT_FAILURE';
 
@@ -128,6 +131,22 @@ export const judgeApplications = (decision, applicationIds) => {
             dispatch({
                 type: JUDGE_APP_FAILURE,
             });
+        }
+    }
+};
+
+export const rsvp = rsvpStatus => {
+    return async dispatch => {
+        const response = await dispatch(
+            checkTokenAsync(updateRsvp, rsvpStatus)
+        );
+
+        if (isOk(response)) {
+            dispatch({ type: RSVP_SUCCESS });
+            dispatch(displayBanner('Thanks for RSVP\'ing!', 5000));
+        } else {
+            checkError(dispatch, response);
+            dispatch({ type: RSVP_FAILURE });
         }
     }
 };
