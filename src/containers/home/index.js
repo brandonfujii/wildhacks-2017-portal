@@ -180,7 +180,7 @@ export default class Home extends Component {
                         </div>
                         <div className="fl w-100 w-third-ns pa3">
                             <p className="karla white antialias b">What if I’ve never coded before?</p>
-                            <p className="karla white antialias lh-copy">No need to worry! WikdHacks welcomes hackers of all skill levels and backgrounds. There will also be company mentors and peer mentors at WildHacks to help you out.</p>
+                            <p className="karla white antialias lh-copy">No need to worry! WildHacks welcomes hackers of all skill levels and backgrounds. There will also be company mentors and peer mentors at WildHacks to help you out.</p>
                         </div>
                     </div>
                     <div className="cf ph3 ph5-ns">
