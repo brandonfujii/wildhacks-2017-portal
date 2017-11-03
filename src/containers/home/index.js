@@ -101,49 +101,73 @@ export default class Home extends Component {
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Dinner</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">8:30-9:45pm</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">8:30-9:15pm</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Opening ceremony</div>
+                            </div>
+                            <div className="cf pb2">
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">10:00pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Hacking begins</div>
+                            </div>
+                            <div className="cf pb2">
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">11:30pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Midnight snack</div>
                             </div>
                         </div>
                         <div className="fl w-100 w-third-ns pa1 pt0 bg-white-100">
                             <p className="karla f3 tc white antialias">Saturday, November 4</p>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">8-9:30am</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">7:30pm</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Breakfast</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">9:45am-12:00pm</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">9:30-11pm</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Tech/Lightning talks</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">12-1:30pm</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">11:15am</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Lunch</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">1:30-2:30pm</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">12:45-3pm</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Tech/Lightning talks</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">3-5:00pm</div>
-                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Artica Studio activities/Therapy dogs</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">1 - 5pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Shower time</div>
+                            </div>
+                            <div className="cf pb2">
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">3-4:00pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">MLH stacking</div>
+                            </div>
+                            <div className="cf pb2">
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">4-5pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Snack break</div>
+                            </div>
+                            <div className="cf pb2">
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">7-9pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Gameroom open</div>
                             </div>
                             <div className="cf pb2">
                                 <div className="karla white antialias fl w-50 tr pr3-ns pr2">7-8:30pm</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Dinner</div>
                             </div>
+                            <div className="cf pb2">
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">11:30pm</div>
+                                <div className="karla white antialias fl w-50 tl pl3-ns pl2">Midnight snack</div>
+                            </div>
                         </div>
                         <div className="fl w-100 w-third-ns pa1 pt0 bg-white-100">
                             <p className="karla f3 tc white antialias">Sunday, November 5</p>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">10:00am</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">10am</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Hacking ends</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">10:30-11:30am</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">10-11:30am</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Brunch</div>
                             </div>
                             <div className="cf pb2">
-                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">11:30am-1:30pm</div>
+                                <div className="karla white antialias fl w-50 tr pr3-ns pr2">12pm-1:30pm</div>
                                 <div className="karla white antialias fl w-50 tl pl3-ns pl2">Judging</div>
                             </div>
                             <div className="cf pb2">
